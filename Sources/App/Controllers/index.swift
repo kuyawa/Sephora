@@ -1,7 +1,7 @@
 import Vapor
 import HTTP
 
-class IndexController : WebController {
+class IndexHandler: WebController {
 
 	var view : View {
 		let data = getData()

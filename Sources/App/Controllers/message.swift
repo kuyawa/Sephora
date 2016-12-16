@@ -1,7 +1,7 @@
 import Vapor
 import HTTP
 
-class TodoHandler: WebController {
+class MessageHandler: WebController {
 
 	var view: View {
 		let data = ["text": "Not ready"] as! Node

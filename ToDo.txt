@@ -1,16 +1,27 @@
-Agenda.txt
+TODO:
 
-Sephora - Forums in Swift
+- index:
+  - list latest 50 messages from all forums
+  - list forums on the sidebar
 
-index 
-- list latest 50 messages from all forums
-- list forums on the sidebar
+- on forum: show last messages for that forum
+- on message: show all replies, allow new reply
+- on new thread: question? message? page? wiki (markdown)?
+- on new message:
 
-on forum: show messages for that forum
+- Authentication:
+  - userid + pass + gmail?
+  - github oAuth?
+  - reddit oAuth?
 
-on message: show all replies
+- no avatar for now, just like reddit
 
-on new thread:
-on new message:
+------------------------------------------------------------
 
-userid + pass + gmail account. no avatar for now, just like reddit
+Stages:
+
+1. Main forum, posts, messages
+2. Extended user profile with avatars and stuff
+3. Configurability for external installation
+4. Moderation tools
+5. Admin tools

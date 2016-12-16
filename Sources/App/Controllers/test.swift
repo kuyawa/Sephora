@@ -1,7 +1,7 @@
 import Vapor
 import HTTP
 
-class TestController : WebController {
+class TestHandler: WebController {
 
 	var view: View {
 		//let data = DB.getUser("kuyawa")
