@@ -13,7 +13,7 @@ class IndexController : WebController {
 		let data: Node = [
 			"test":"tested",
 			"settings": [
-				"forumName" : "Swift Is Everywhere!",
+				"forumName" : "Sephora",
 				"forumTitle": "Join us in our quest to conquer the app world"
 			],
 			"stats": [

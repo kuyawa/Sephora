@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>Sephora - Forums in Swift</title>
+    <link rel="stylesheet" type="text/css" href="/styles/forum.css">
+</head>
+<body>
+
+<header>
+	<company>
+		<a href="/">
+			<img class="logo" src="/images/swiftlogo.png" width="80" height="80">
+			<h1>Sephora - Forums in Swift</h1>
+			<h3>Join Swift enthusiasts all around the world</h3>
+		</a>
+	</company>
+	<actions>
+		<a href="/register">Register</a>
+		<a href="/login">Log In</a>
+	</actions>
+</header>
+
+<main>
+	<aside>
+		<h1>Forums</h1>
+		<ul>
+		<li><a href="/forum/general">General discussion</a></li>
+		<li><a href="/forum/tutorials">Tutorials</a></li>
+		<li><a href="/forum/swift3">Swift 3</a></li>
+		<li><a href="/forum/swift2">Swift 2</a></li>
+		<li><a href="/forum/ios">iOS</a></li>
+		<li><a href="/forum/macos">macOS</a></li>
+		<li><a href="/forum/watchos">watchOS</a></li>
+		<li><a href="/forum/tvos">tvOS</a></li>
+		<li><a href="/forum/server">Server</a></li>
+		<li><a href="/forum/frameworks">Frameworks</a></li>
+		<li><a href="/forum/showcase">Apps Showcase</a></li>
+		<li><a href="/forum/request">Request apps</a></li>
+		<li><a href="/forum/hiring">Jobs - Hiring</a></li>
+		<li><a href="/forum/forhire">Jobs - For hire</a></li>
+		<li><a href="/forum/meta">Meta</a></li>
+		</ul>
+	</aside>
+
+	<section>
+		<h1>Not Ready Yet...</h1>
+	</section>
+</main>
+
+<footer>
+	<div class="info">Forums by Sephora ~ Powered by Swift</div>
+	<div class="last">&copy; Armonia Software</div>
+</footer>
+
+</body>
+</html>

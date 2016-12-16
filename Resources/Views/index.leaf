@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-	<title>Swift Is Everywhere</title>
+	<title>Sephora - Forums in Swift</title>
     <link rel="stylesheet" type="text/css" href="/styles/forum.css">
 </head>
 <body>
@@ -11,7 +11,6 @@
 	<company>
 		<a href="/">
 			<img class="logo" src="/images/swiftlogo.png" width="80" height="80">
-			<!-- <h1>Swift Is Everywhere!</h1> -->
 			<h1>Sephora - Forums in Swift</h1>
 			<h3>Join Swift enthusiasts all around the world</h3>
 		</a>
@@ -182,8 +181,8 @@
 </main>
 
 <footer>
-	<div class="info">Forums by Armonia ~ Powered by Swift</div>
-	<div class="last">&copy; Swift Is Everywhere</div>
+	<div class="info">Forums by Sephora ~ Powered by Swift</div>
+	<div class="last">&copy; Armonia Software</div>
 </footer>
 
 </body>
