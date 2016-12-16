@@ -3,14 +3,14 @@
 
 Sephora is a bulletin board made in Swift. It will allow full configuration in the near future. Stay tuned.
 
-## 💧 Community
+## Community
 
 Join the welcoming community of fellow Swift enthusiasts around the world.
 
-##  Documentation
+## Documentation
 
 Not ready...
 
-## 🔧 Setup
+## Setup
 
 Not ready...
