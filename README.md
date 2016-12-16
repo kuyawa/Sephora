@@ -1,15 +1,16 @@
-# Basic Template
+# Sephora - Forums in Swift
+###### Server app made in Swift using Vapor, Postgres and Heroku
 
-A basic vapor template for starting a new Vapor web application. If you're using vapor toolbox, you can use: `vapor new --template=basic`
-
-## 📖 Documentation
-
-Visit the Vapor web framework's [documentation](http://docs.vapor.codes) for instructions on how to use this package.
+Sephora is a bulletin board made in Swift. It will allow full configuration in the near future. Stay tuned.
 
 ## 💧 Community
 
-Join the welcoming community of fellow Vapor developers in [slack](http://vapor.team).
+Join the welcoming community of fellow Swift enthusiasts around the world.
 
-## 🔧 Compatibility
+##  Documentation
 
-This package has been tested on macOS and Ubuntu.
+Not ready...
+
+## 🔧 Setup
+
+Not ready...
