@@ -1,0 +1,67 @@
+/* SEPHORA 1.0 */
+
+html, body { margin: 0; padding: 0; }
+
+body {
+	min-width: 1000px;
+	font-family: "Helvetica Neue";
+	font-size: 1em;
+	font-weight: 300;
+	line-height: 1.4;
+	letter-spacing: .8px; 
+	color: #333;
+}
+
+h1,h2,h3,h4,h5 { font-weight: 300; }
+
+a { color: #D42; text-decoration: none; }
+a:hover { color: #B42; }
+
+li { list-style-type: none; }
+
+header { height: 80px; padding: 20px; color: #FFF; background: linear-gradient(#F55214, #F89248); border-bottom: 1px solid #F84824; }
+header .logo { float: left; margin-right: 10px; }
+header h1, header h3 { margin:0; padding: 0px; color: #FFF; padding-left: 100px;}
+header h3 { padding-left: 100px; }
+
+header actions { float: right; margin-top: -24px; }
+header actions a { padding:4px 10px; color: #FFF; border: 1px solid #EEE; border-radius: 4px; font-variant: small-caps; }
+header actions a:hover { color: #FFF; border: 1px solid #FFF; background: rgba(64,64,64,.1);}
+
+main { overflow:auto; display:block; padding-bottom: 50px; background: #F0F0F0; border-top: 1px solid #FFF; /*border-bottom:1px solid #FFF;*/ }
+
+aside { float: left; width: 220px; padding-left: 120px; padding-top: 20px; }
+aside ul { margin:0; padding: 10px 0; margin-right: 40px; border-right: 1px dotted #F60; }
+aside li { padding: 2px 0; font-size: 80%; font-weight: 400;}
+
+section { overflow: auto; padding: 20px 80px 20px 20px; }
+
+table.latest { width: 100%; font-size: 80%; }
+table.latest td{ border-bottom: 1px solid #eee; padding: 6px 6px; /*border:1px solid red;*/ }
+table.latest td:first-child{ width: 180px; padding-left: 0; }
+
+/* LATEST POSTS */
+views { display:inline-block; width: 60px; height: 40px; border-radius: 4px; border: 1px solid #CCC; text-align: center; }
+views h1 { margin: 2px 0 0 0; padding: 0; font-size: 120%; }
+views h2 { margin: 0; padding: 0; font-size: 80%; }
+replies { display:inline-block; width: 60px; height: 40px; border-radius: 4px; border: 1px solid #CCC; text-align: center; }
+replies h1 { margin: 2px 0 0 0; padding: 0; font-size: 120%; }
+replies h2 { margin: 0; padding: 0; font-size: 80%; }
+answered { display:inline-block; width: 32px; height: 32px; margin-left: 14px; text-align: center; }
+answered img { margin: -2px; padding: 0; border: none; width: 32px; height: 32px; }
+
+item { display:block; }
+post { display:block; font-size: 150%; }
+info { display:block; font-size:80%; }
+forum { font-weight: 500; }
+forum a { color: #000; }
+user { font-weight: 500; }
+user a { color: #000; }
+sep { color: #AAA; }
+
+
+footer { clear: both; height: 40px; padding: 20px; color: #333; background: #e8e8e8; border-top: 1px dotted #BBB; }
+footer .info { margin-top: 8px; text-align: center; }
+footer .last { margin-top: 0px; text-align: center; font-size: 75%; color: #D42; }
+
+/* END */

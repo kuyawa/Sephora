@@ -1,0 +1,16 @@
+Agenda.txt
+
+Sephora - Forums in Swift
+
+index 
+- list latest 50 messages from all forums
+- list forums on the sidebar
+
+on forum: show messages for that forum
+
+on message: show all replies
+
+on new thread:
+on new message:
+
+userid + pass + gmail account. no avatar for now, just like reddit
