@@ -7,7 +7,7 @@ class AppHandler: WebController {
 		return Response(redirect: url)
 	}
 
-	func fail(_ error: Error) throws {
+	func fail(_ error: Error) throws -> Response {
 		throw error
 	}
 
