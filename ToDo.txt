@@ -1,5 +1,8 @@
 TODO:
 
+- Heroku postgres
+- Design database
+
 - index:
   - list latest 50 messages from all forums
   - list forums on the sidebar
