@@ -8,8 +8,6 @@ let driver = drop.database?.driver as? PostgreSQLDriver
 let ds = DataStore(driver!)
 ds.verifyIntegrity()
 
-let dbconfig = "postgres://mini:reydeluniverso@localhost:5432/forums"
-
 /*
 if let database_connection_info = ProcessInfo.processInfo.environment["DATABASE_URL"] {
     print("DATABASE_URL: ", database_connection_info)
