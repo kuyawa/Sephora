@@ -1,10 +1,10 @@
 TODO:
 
-- add all forums to db
+- add forum info, forums list, user info to default DataNode for use in all templates
+- use DataNode with defaults in base template
+x add all forums to db
 - add some users to test
 - add some messages to every forum
-- add forum info, forums list, user info to default DataNode for use in all templates
-x base template
 
 - index:
   - list latest 50 messages from all forums
@@ -16,8 +16,9 @@ x base template
 
 - Authentication:
   - github oAuth?
-  ? userid + pass + gmail
+  - save nick, token in cookies, hidden field in forms
   ? reddit oAuth?
+  ? userid + pass + gmail
 
 - no avatar for now, just like reddit
 

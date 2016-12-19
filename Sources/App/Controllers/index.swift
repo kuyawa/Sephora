@@ -12,34 +12,6 @@ class IndexHandler: WebController {
 	func getData() -> Node {
 		// Test data
 		let data: Node = [
-			"settings": [
-				"forum.name" : "Sephora",
-				"forum.title": "Join us in our quest to conquer the app world"
-			],
-			"stats": [
-				"users"     :  320,
-				"threads"   : 1234,
-				"replies"   : 3542,
-				"questions" :  156,
-				"answered"  :   72,
-			],
-			"forums": [
-				["General discussion", "/forum/general", 123],
-				["Tutorials", "/forum/tutorials", 32],
-				["Swift 3", "/forum/swift3", 45],
-				["Swift 2", "/forum/swift2", 12],
-				["iOS", "/forum/ios", 95],
-				["macOS", "/forum/macos", 64],
-				["watchOS", "/forum/watchos", 9],
-				["tvOS", "/forum/tvos", 22],
-				["Server", "/forum/server", 45],
-				["Frameworks", "/forum/frameworks", 38],
-				["Apps Showcase", "/forum/showcase", 20],
-				["Request Apps", "/forum/request", 15],
-				["Jobs - Hiring", "/forum/hiring", 32],
-				["Jobs - For Hire", "/forum/forhire", 78],
-				["Meta", "/forum/meta", 7]
-			],
 			"messages":[
 				[123456, 321, 12, 0, "XCode ate my homework", "General discussion", "2016-11-26 08:30:55", "Albatross"],
 				[123455, 655, 15, 0, "How to create a segue programmatically?", "General discussion", "2016-11-26 07:45:22", "RosiePosie"],

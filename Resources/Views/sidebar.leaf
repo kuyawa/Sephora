@@ -1,0 +1,16 @@
+		<li><a href="/forum/welcome">Welcome</a></li>
+		<li><a href="/forum/general">General discussion</a></li>
+		<li><a href="/forum/tutorials">Tutorials</a></li>
+		<li><a href="/forum/swift">Swift</a></li>
+		<li><a href="/forum/ios">iOS</a></li>
+		<li><a href="/forum/macos">macOS</a></li>
+		<li><a href="/forum/watchos">watchOS</a></li>
+		<li><a href="/forum/tvos">tvOS</a></li>
+		<li><a href="/forum/server">Server</a></li>
+		<li><a href="/forum/linux">Linux</a></li>
+		<li><a href="/forum/frameworks">Frameworks</a></li>
+		<li><a href="/forum/showcase">Apps Showcase</a></li>
+		<li><a href="/forum/request">Request apps</a></li>
+		<li><a href="/forum/hiring">Jobs - Hiring</a></li>
+		<li><a href="/forum/forhire">Jobs - For hire</a></li>
+		<li><a href="/forum/meta">Meta</a></li>

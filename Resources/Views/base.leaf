@@ -18,30 +18,28 @@
 		</a>
 	</company>
 	<actions>
+	#if(isLogged) {
+		<a href="/profile">Profile</a>
+		<a href="/logout">Log out</a>
+	} #else() {
 		<a href="/register">Register</a>
 		<a href="/login">Log In</a>
+	}
 	</actions>
 </header>
 
 <main>
 	<aside>
 		<h1>Forums</h1>
-		<ul>
-		<li><a href="/forum/general">General discussion</a></li>
-		<li><a href="/forum/tutorials">Tutorials</a></li>
-		<li><a href="/forum/swift3">Swift 3</a></li>
-		<li><a href="/forum/swift2">Swift 2</a></li>
-		<li><a href="/forum/ios">iOS</a></li>
-		<li><a href="/forum/macos">macOS</a></li>
-		<li><a href="/forum/watchos">watchOS</a></li>
-		<li><a href="/forum/tvos">tvOS</a></li>
-		<li><a href="/forum/server">Server</a></li>
-		<li><a href="/forum/frameworks">Frameworks</a></li>
-		<li><a href="/forum/showcase">Apps Showcase</a></li>
-		<li><a href="/forum/request">Request apps</a></li>
-		<li><a href="/forum/hiring">Jobs - Hiring</a></li>
-		<li><a href="/forum/forhire">Jobs - For hire</a></li>
-		<li><a href="/forum/meta">Meta</a></li>
+		<ul class="forums">
+		#embed("sidebar")
+		</ul>
+		<ul class="stats">
+			<li><stat>Users</stat> <statnum>#(stats.users)</statnum></li>
+			<li><stat>Threads</stat> <statnum>#(stats.threads)</statnum></li>
+			<li><stat>Replies</stat> <statnum>#(stats.replies)</statnum></li>
+			<li><stat>Questions</stat> <statnum>#(stats.questions)</statnum></li>
+			<li><stat>Answered</stat> <statnum>#(stats.answered)</statnum></li>
 		</ul>
 	</aside>
 
@@ -51,8 +49,9 @@
 </main>
 
 <footer>
-	<div class="info">Forums by Sephora ~ Powered by Swift</div>
-	<div class="last">&copy; Armonia Software</div>
+	<line>Forums by Sephora ~ Powered by Swift</line>
+	<line><small><a href="https://heroku.com">Hosted on Heroku</a> ~ <a href="https://github.com/kuyawa/Sephora">Developed on Github</a></small></line>
+	<last>&copy; Armonia Software</last>
 </footer>
 
 </body>

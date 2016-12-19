@@ -24,8 +24,8 @@ header .logo { float: left; margin-right: 10px; }
 header h1, header h3 { margin:0; padding: 0px; color: #FFF; padding-left: 100px;}
 header h3 { padding-left: 100px; }
 
-header actions { float: right; margin-top: -24px; }
-header actions a { padding:4px 10px; color: #FFF; border: 1px solid #EEE; border-radius: 4px; font-variant: small-caps; }
+header actions { float: right; margin-top: -20px; font-size: 70%; }
+header actions a { padding: 2px 10px; color: #FFF; border: 1px solid #EEE; border-radius: 4px; font-variant: small-caps; }
 header actions a:hover { color: #FFF; border: 1px solid #FFF; background: rgba(64,64,64,.1);}
 
 main { overflow:auto; display:block; padding-bottom: 50px; background: #F0F0F0; border-top: 1px solid #FFF; /*border-bottom:1px solid #FFF;*/ }
@@ -33,6 +33,8 @@ main { overflow:auto; display:block; padding-bottom: 50px; background: #F0F0F0; 
 aside { float: left; width: 220px; padding-left: 120px; padding-top: 20px; }
 aside ul { margin:0; padding: 10px 0; margin-right: 40px; border-right: 1px dotted #F60; }
 aside li { padding: 2px 0; font-size: 80%; font-weight: 400;}
+aside ul.stats { font-size: 80%; color: #666; border-top: 1px dotted #F60; }
+aside statnum { display: inline-block; float: right; margin-right: 10px;}
 
 section { overflow: auto; padding: 20px 80px 20px 20px; }
 
@@ -60,8 +62,10 @@ user a { color: #000; }
 sep { color: #AAA; }
 
 
-footer { clear: both; height: 40px; padding: 20px; color: #333; background: #e8e8e8; border-top: 1px dotted #BBB; }
-footer .info { margin-top: 8px; text-align: center; }
-footer .last { margin-top: 0px; text-align: center; font-size: 75%; color: #D42; }
+footer { clear: both; padding: 10px 20px; color: #333; background: #e8e8e8; border-top: 1px dotted #BBB; }
+footer line { display: block; margin: 0; padding: 0; text-align: center; }
+footer line a, footer line a:visited { color: #333; }
+footer line a:hover, footer line a:visited:hover { color: #B42; }
+footer last { display: block; margin: 0; padding: 0; text-align: center; font-size: 75%; color: #D42; }
 
 /* END */
