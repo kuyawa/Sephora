@@ -1,14 +1,10 @@
 TODO:
 
-- Test Heroku postgres
-~ Design database
-- Create database on /admin/install
-- database.verifyIntegrity, if not exists, create db, tables, populate, save flag
-- database.runJob(sql)
-- Fail.dataStoreError, design Fail system like vapor's Abort.notFound
-
-- base template:
-  add forum info, forums list, user info to default DataNode for use in all templates
+- add all forums to db
+- add some users to test
+- add some messages to every forum
+- add forum info, forums list, user info to default DataNode for use in all templates
+x base template
 
 - index:
   - list latest 50 messages from all forums
@@ -24,6 +20,17 @@ TODO:
   ? reddit oAuth?
 
 - no avatar for now, just like reddit
+
+------------------------------------------------------------
+
+x Test Heroku postgres
+~ Design database
+? Create database on /admin/install
+? database.runJob(sql)
+x Remove /admin/install. Heroku does not allow String(contentsOfFile:...)
+x instead of running sql jobs, create DB manually
+x database.verifyIntegrity, if not exists, create db, tables, populate, save flag
+x Fail.dataStoreError, design Fail system like vapor's Abort.notFound
 
 ------------------------------------------------------------
 

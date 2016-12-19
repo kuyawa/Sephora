@@ -5,9 +5,11 @@ import Foundation
 class DataStore {
 
 	var db: PostgreSQLDriver
+	var isLive: Bool = false
 
-	init(_ driver: PostgreSQLDriver) {
+	init(_ driver: PostgreSQLDriver, production: Bool) {
 		self.db = driver
+		self.isLive = production
 	}
 
 
@@ -39,6 +41,9 @@ class DataStore {
 		return nil
 	}
 
+	// DEPRECATED
+    // Heroku doesn't like String(contentsOfFile:...)
+    /*
 	func runJob(_ name: String) -> (Bool, String) {
 		var ok   = false
 		var text = ""
@@ -57,13 +62,14 @@ class DataStore {
         
         return (ok, text)
 	}
-
+	*/
 
 	// DATABASE INTEGRITY
 
 	func verifyIntegrity() {
-		// TODO: Config.databaseName
-		let name = "forums" 
+		// TODO: get name from Config.databaseName
+		var name = "forums"
+		if isLive { name = "dedvgt6m07p4cf" } else { name = "forums" }
 		if databaseExists(name) {
 			// Everything fine
 			print("Database 'forums' is available")
@@ -84,16 +90,18 @@ class DataStore {
 		return false
 	}
 	
-	// Run once
+	// DEPRECATED
+	// Heroku doesn't allow database creation
+	/*
 	func createDatabase() -> (Bool, String) {
-		//let (ok, text) = (true,"OK")
 		let (ok, text) = runJob("schema")
 		return (ok, text)
 	}
+	*/
 
 	func getDatabases() -> [String] {
 		var databases = [String]()
-		let sql = "Select datname as database From pg_database Where datistemplate=false Order by database"
+		let sql = "Select datname as database From pg_database Where datistemplate=false Order by database Limit 10"
 
 		if let rows = try? db.raw(sql) {
 			for row in rows.array! { 

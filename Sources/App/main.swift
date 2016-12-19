@@ -2,10 +2,16 @@ import Vapor
 import VaporPostgreSQL
 import Foundation
 
+var isLive = false
+if let envDatabase = ProcessInfo.processInfo.environment["DATABASE_URL"] {
+	isLive = envDatabase.hasPrefix("postgres")
+}
+if isLive{ print("Sephora is live!") } else { print("Sephora is running in dev mode") }
+
 let drop = Droplet()
 try? drop.addProvider(VaporPostgreSQL.Provider.self)
 let driver = drop.database?.driver as? PostgreSQLDriver
-let forums = DataStore(driver!)
+let forums = DataStore(driver!, production: isLive)
 forums.verifyIntegrity()
 
 
@@ -23,7 +29,6 @@ drop.get("forum/:forum/post/:post") { ThreadHandler($0).view }
 drop.get("404")                     { response in throw Abort.notFound }
 
 // Admin
-drop.get("admin/install")           { AdminHandler($0, db: forums).install }
 drop.get("admin/dbinfo")            { AdminHandler($0, db: forums).dbinfo }
 drop.get("admin/users")             { AdminHandler($0, db: forums).users }
 

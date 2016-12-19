@@ -1,7 +1,0 @@
-#extend("base")
-
-#export("content") {
-	<h1>Installing Sephora...</h1>
-	<p>#(log)</p>
-	<h3>End install.</h3>
-}

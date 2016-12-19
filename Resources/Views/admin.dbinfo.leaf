@@ -4,11 +4,6 @@
 	<h1>PostgreSQL version:</h1>
 	<p>#(Version)</p>
 
-	<h1>Databases:</h1>
-	#loop(Databases, "name") {
-		<li>#(name)</li>
-	}
-
 	<h1>Tables:</h1>
 	#loop(Tables, "name") {
 		<li>#(name)</li>
