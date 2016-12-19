@@ -15,7 +15,7 @@ class AdminHandler: WebController {
 		let dbs = db?.getDatabases()
 		let tables = db?.getTables()
 		let data: Node = ["Version": version, "Databases": .array(dbs!.map{Node($0)}), "Tables": .array(tables!.map{Node($0)})]
-		print(data)
+		//print(data)
 		let view = getView("admin.dbinfo.leaf", with: data)
 		return view!
 	}
@@ -27,19 +27,29 @@ class AdminHandler: WebController {
 		return view!
 	}
 
+	// Run once
 	var install: View {
-		//guard let ds = self.db else { return Fail.dataDriverError }
+		var info = ""
 
-		var log = "Ok"
-		do {
-			let schema = DataSchema(self.db!)
-			log = schema.create()
-		} catch {
-			//return Fail.dataCreationError
-			log = "Fail.dataCreationError"
+		let exists = db?.databaseExists("forums") ?? false
+		if exists { 
+			info = "Sephora forums already installed" 
+		} else {
+			if let (ok, text) = db?.createDatabase() {
+				if ok {
+					info = "Database created successfully"
+				} else {
+					//return Fail.dataCreationError
+					info = "Error creating database: \n \(text)"
+				}
+			} else {
+				info = "Unknown error creating database"
+			}
 		}
-		let data: Node = ["log": Node(log)]
+
+		let data: Node = ["log": Node(info)]
 		let view = getView("admin.install.leaf", with: data)
+
 		return view!
 	}
 }

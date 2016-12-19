@@ -5,16 +5,9 @@ import Foundation
 let drop = Droplet()
 try? drop.addProvider(VaporPostgreSQL.Provider.self)
 let driver = drop.database?.driver as? PostgreSQLDriver
-let ds = DataStore(driver!)
-ds.verifyIntegrity()
+let forums = DataStore(driver!)
+forums.verifyIntegrity()
 
-/*
-if let database_connection_info = ProcessInfo.processInfo.environment["DATABASE_URL"] {
-    print("DATABASE_URL: ", database_connection_info)
-} else {
-	print("NO DATABASE_URL ENV")
-}
-*/
 
 // Public
 drop.get                            { IndexHandler($0).view }
@@ -30,8 +23,8 @@ drop.get("forum/:forum/post/:post") { ThreadHandler($0).view }
 drop.get("404")                     { response in throw Abort.notFound }
 
 // Admin
-drop.get("admin/install")           { AdminHandler($0, context: ds).install }
-drop.get("admin/dbinfo")            { AdminHandler($0, context: ds).dbinfo }
-drop.get("admin/users")             { AdminHandler($0, context: ds).users }
+drop.get("admin/install")           { AdminHandler($0, db: forums).install }
+drop.get("admin/dbinfo")            { AdminHandler($0, db: forums).dbinfo }
+drop.get("admin/users")             { AdminHandler($0, db: forums).users }
 
 drop.run()

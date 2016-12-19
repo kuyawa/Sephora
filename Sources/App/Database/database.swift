@@ -1,5 +1,6 @@
 import Vapor
 import VaporPostgreSQL
+import Foundation
 
 class DataStore {
 
@@ -8,6 +9,9 @@ class DataStore {
 	init(_ driver: PostgreSQLDriver) {
 		self.db = driver
 	}
+
+
+	// SQL EXECUTION
 
 	func execute(_ sql: String, params: Node?=nil) -> Node? {
 		// TODO: Bindings
@@ -35,21 +39,38 @@ class DataStore {
 		return nil
 	}
 
+	func runJob(_ name: String) -> (Bool, String) {
+		var ok   = false
+		var text = ""
+		let path = "public/static/\(name).sql"
+		// TODO: move jobs to private/database/ folder?
+
+        do {
+        	print(FileManager.default.currentDirectoryPath)
+            let sql = try String(contentsOfFile: path)
+            try db.raw(sql)
+            text = "Sql job run successfully"
+            ok = true
+        } catch {
+        	text = "Error running job \n \(error)"
+        }
+        
+        return (ok, text)
+	}
+
+
+	// DATABASE INTEGRITY
+
 	func verifyIntegrity() {
 		// TODO: Config.databaseName
 		let name = "forums" 
 		if databaseExists(name) {
 			// Everything fine
-			print("Database FORUMS exists")
+			print("Database 'forums' is available")
 		} else {
 			// TODO: Alert user and fail
-			print("Database FORUMS not found")
+			print("Database 'forums' not found")
 		}
-
-		//let dbs = getDatabases()
-		//let tables = getTables()
-		//print("DB: ", dbs)
-		//print("Tables: ", tables)
 	}
 
 	func databaseExists(_ name: String) -> Bool {
@@ -63,6 +84,13 @@ class DataStore {
 		return false
 	}
 	
+	// Run once
+	func createDatabase() -> (Bool, String) {
+		//let (ok, text) = (true,"OK")
+		let (ok, text) = runJob("schema")
+		return (ok, text)
+	}
+
 	func getDatabases() -> [String] {
 		var databases = [String]()
 		let sql = "Select datname as database From pg_database Where datistemplate=false Order by database"
@@ -96,7 +124,9 @@ class DataStore {
 		return tables
 	}
 
+
 	//------------------------------------------------------------
+	// DATA MODELS
 
 	func getUsers() -> Node? {
 		if let users = query("Select * From users Order by nick") {
@@ -104,4 +134,7 @@ class DataStore {
 		}
 		return []
 	}
+
 }
+
+// End

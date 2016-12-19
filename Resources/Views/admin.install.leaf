@@ -2,6 +2,6 @@
 
 #export("content") {
 	<h1>Installing Sephora...</h1>
-	<pre>#(log)</pre>
-	<pre>End install.</pre>
+	<p>#(log)</p>
+	<h3>End install.</h3>
 }

@@ -18,9 +18,9 @@ class WebController {
 	}
 
 	// Use database
-	init(_ request: Request, context: DataStore) {
+	init(_ request: Request, db: DataStore) {
 		self.request = request
-		self.db = context
+		self.db = db
 	}
 
 	func getView(_ name: String, with data: Node?) -> View? {
@@ -38,7 +38,7 @@ class WebController {
 	}
 
 	func getStaticView(_ name: String) -> View? {
-		let folder = "../../public/"
+		let folder = "../../public/static/"
 		let file = folder+name
 		let drop = Droplet()
 		do { 
