@@ -1,0 +1,11 @@
+#extend("base")
+
+#export("content") {
+	<h1>Users:</h1>
+	<table>
+		<tr><th>UserId</th><th>Nick</th><th>Avatar</th><th>LastAct</th><th>isNoob</th><th>isMod</th></tr> 
+	#loop(users, "user") { 
+		<tr><td>#(user.userid)</td><td>#(user.nick)</td><td>#(user.avatar)</td><td>#(user.lastact)</td><td>#(user.isnoob)</td><td>#(user.ismod)</td></tr> 
+	}
+	</table>
+}

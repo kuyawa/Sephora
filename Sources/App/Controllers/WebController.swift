@@ -4,9 +4,23 @@ import HTTP
 class WebController {
 
 	var request : Request
+	var drop    : Droplet?
+	var db      : DataStore?
 
 	init(_ request: Request) {
 		self.request = request
+	}
+
+	// Uses drop
+	init(_ request: Request, drop: Droplet) {
+		self.request = request
+		self.drop = drop
+	}
+
+	// Uses database
+	init(_ request: Request, context: DataStore) {
+		self.request = request
+		self.db = context
 	}
 
 	func getView(_ name: String, with data: Node?) -> View? {

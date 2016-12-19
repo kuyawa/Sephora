@@ -3,6 +3,13 @@ TODO:
 - Heroku postgres
 - Design database
 
+- database.verifyIntegrity, if not exists, create db, tables, populate, save flag
+- Fail.dataStoreError, design Fail system like vapor's Abort.notFound
+
+- base template:
+  forum info, forums list, user info in default DataNode for use in all templates
+
+
 - index:
   - list latest 50 messages from all forums
   - list forums on the sidebar

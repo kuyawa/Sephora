@@ -1,0 +1,7 @@
+#extend("base")
+
+#export("content") {
+	<h1>System failure:</h1>
+	<pre>#(code) - #(text)</pre>
+	<pre>End.</pre>
+}
