@@ -29,13 +29,13 @@ class AdminHandler: WebController {
 
 	var install: View {
 		//guard let ds = self.db else { return Fail.dataDriverError }
-		let schema = DataSchema(self.db!)
 
 		var log = "Ok"
 		do {
+			let schema = DataSchema(self.db!)
 			log = schema.create()
 		} catch {
-			//log = Fail.dataCreationError
+			//return Fail.dataCreationError
 			log = "Fail.dataCreationError"
 		}
 		let data: Node = ["log": Node(log)]

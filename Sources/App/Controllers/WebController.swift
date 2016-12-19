@@ -11,13 +11,13 @@ class WebController {
 		self.request = request
 	}
 
-	// Uses drop
+	// Use drop
 	init(_ request: Request, drop: Droplet) {
 		self.request = request
 		self.drop = drop
 	}
 
-	// Uses database
+	// Use database
 	init(_ request: Request, context: DataStore) {
 		self.request = request
 		self.db = context

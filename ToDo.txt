@@ -1,28 +1,27 @@
 TODO:
 
-- Heroku postgres
-- Design database
-
+- Test Heroku postgres
+~ Design database
+- Create database on /admin/install
 - database.verifyIntegrity, if not exists, create db, tables, populate, save flag
+- database.runJob(sql)
 - Fail.dataStoreError, design Fail system like vapor's Abort.notFound
 
 - base template:
-  forum info, forums list, user info in default DataNode for use in all templates
-
+  add forum info, forums list, user info to default DataNode for use in all templates
 
 - index:
   - list latest 50 messages from all forums
   - list forums on the sidebar
-
 - on forum: show last messages for that forum
 - on message: show all replies, allow new reply
 - on new thread: question? message? page? wiki (markdown)?
 - on new message:
 
 - Authentication:
-  - userid + pass + gmail?
   - github oAuth?
-  - reddit oAuth?
+  ? userid + pass + gmail
+  ? reddit oAuth?
 
 - no avatar for now, just like reddit
 

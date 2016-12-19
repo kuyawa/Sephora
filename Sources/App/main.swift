@@ -30,7 +30,7 @@ drop.get("forum/:forum/post/:post") { ThreadHandler($0).view }
 drop.get("404")                     { response in throw Abort.notFound }
 
 // Admin
-drop.get("install")                 { AdminHandler($0, context: ds).install }
+drop.get("admin/install")           { AdminHandler($0, context: ds).install }
 drop.get("admin/dbinfo")            { AdminHandler($0, context: ds).dbinfo }
 drop.get("admin/users")             { AdminHandler($0, context: ds).users }
 

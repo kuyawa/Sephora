@@ -14,7 +14,7 @@ CREATE DATABASE forums WITH
 -- Table: public.settings
 -- DROP TABLE public.settings;
 
-CREATE TABLE public.settings (
+CREATE TABLE public.settings IF NOT EXISTS (
     key       character varying(20) NOT NULL,
     value     character varying(140)
 )

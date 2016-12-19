@@ -10,11 +10,11 @@ class IndexHandler: WebController {
 	}
 
 	func getData() -> Node {
+		// Test data
 		let data: Node = [
-			"test":"tested",
 			"settings": [
-				"forumName" : "Sephora",
-				"forumTitle": "Join us in our quest to conquer the app world"
+				"forum.name" : "Sephora",
+				"forum.title": "Join us in our quest to conquer the app world"
 			],
 			"stats": [
 				"users"     :  320,
