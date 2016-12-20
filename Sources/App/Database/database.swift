@@ -15,25 +15,45 @@ class DataStore {
 
 	// SQL EXECUTION
 
-	func execute(_ sql: String, params: Node?=nil) -> Node? {
-		// TODO: Bindings
+	func execute(_ sql: String) -> Node? {
 		if let rows = try? db.raw(sql) {
 			return rows
 		}
 		return nil
 	}
 
-	func query(_ sql: String, params: Node?=nil) -> Node? {
-		// TODO: Bindings
+	func execute(_ sql: String, params: [Node]) -> Node? {
+		if let rows = try? db.raw(sql, params) {
+			return rows
+		}
+		return nil
+	}
+
+	func query(_ sql: String) -> Node? {
 		if let rows = try? db.raw(sql) {
 			return rows
 		}
 		return nil
 	}
 
-	func queryValue(_ sql: String, params: Node?=nil) -> Node? {
-		// TODO: Bindings
+	func query(_ sql: String, params: [Node]) -> Node? {
+		if let rows = try? db.raw(sql, params) {
+			return rows
+		}
+		return nil
+	}
+
+	func queryValue(_ sql: String) -> Node? {
 		if let rows = try? db.raw(sql) {
+			if let val = rows[0]?["value"] {
+				return val
+			}
+		}
+		return nil
+	}
+
+	func queryValue(_ sql: String, params: [Node]) -> Node? {
+		if let rows = try? db.raw(sql, params) {
 			if let val = rows[0]?["value"] {
 				return val
 			}
@@ -137,12 +157,56 @@ class DataStore {
 	// DATA MODELS
 
 	func getUsers() -> Node? {
-		if let users = query("Select * From users Order by nick") {
+		if let users = query("Select * From users Order by userid") {
 			return users
 		}
 		return []
 	}
 
+	func getStats() -> Stats {
+		var stats = Stats()
+		// TODO: query stats
+		stats.users     =  320
+		stats.threads   = 1234
+		stats.replies   = 3542
+		stats.questions =  156
+		stats.answered  =   72
+		return stats
+	}
+
+	func getForumId(_ forum: String) -> Int {
+		var id = 0
+		let sql = "Select forumid From forums Where dirname=$1 Limit 1"
+		if let result = try? db.raw(sql, [forum]) {
+			id = result[0]?["forumid"]?.int ?? 0
+		}
+		return id
+	}
+
+	func getForum(id: Int) -> Node? {
+		let sql = "Select * From forums Where forumid=$1 Limit 1"
+		if let result = try? db.raw(sql, [id]) {
+			return result[0]
+		}
+		return nil
+	}
+
+	func getForum(dir: String) -> Node? {
+		let sql = "Select * From forums Where dirname=$1 Limit 1"
+		if let result = try? db.raw(sql, [dir]) {
+			return result[0]
+		}
+		return nil
+	}
+
+	func getPosts(forumId: Int, start: Int? = 0, limit: Int? = 30) -> Node? {
+		let sql  = "Select * From posts Where forumid=$1 Order by date Desc Offset $2 Limit $3"
+		let args:[Node] = try! [forumId.makeNode(), start!.makeNode(), limit!.makeNode()]
+		if let rows = query(sql, params: args) {
+			return rows
+		}
+		return nil
+	}
 }
 
 // End

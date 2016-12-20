@@ -1,0 +1,22 @@
+#extend("base")
+
+#export("content") {
+		<h1>#(forum.name)</h1>
+		<table class="latest">
+			#loop(posts, "post") {
+			<tr>
+				<td>
+					<views><h1>#(post.views)</h1><h2>views</h2></views>
+					<replies><h1>#(post.replies)</h1><h2>replies</h2></replies>
+					<answered><img src="/images/answerno.png"/></answered>
+				</td>
+				<td>
+					<item>
+						<post><a href="/forum/#(forum.dirname)/post/#(post.postid)">#(post.title)</a></post>
+						<info><forum><a href="/forum/#(forum.dirname)">#(forum.name)</a></forum> <sep>•</sep> by <user><a href="/user/#(post.nick)">#(post.nick)</a></user> <sep>•</sep> <time>#(post.ago)</time></info>
+					</item>
+				</td>
+			</tr>
+		}
+		</table>
+}

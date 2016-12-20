@@ -6,13 +6,13 @@ body {
 	min-width: 1000px;
 	font-family: "Helvetica Neue";
 	font-size: 1em;
-	font-weight: 300;
+	font-weight: normal;
 	line-height: 1.4;
 	letter-spacing: .8px; 
 	color: #333;
 }
 
-h1,h2,h3,h4,h5 { font-weight: 300; }
+h1,h2,h3,h4,h5 { font-weight: normal; }
 
 a { color: #D42; text-decoration: none; }
 a:hover { color: #B42; }
