@@ -7,11 +7,20 @@ class DataStore {
 	var db: PostgreSQLDriver
 	var isLive: Bool = false
 
+/*
 	init(_ driver: PostgreSQLDriver, production: Bool) {
 		self.db = driver
 		self.isLive = production
 	}
+*/
+	init(){
+		let drop = Droplet()
+		//let postgres = PostgreSQL(droplet.config["postgres"])
+		try? drop.addProvider(VaporPostgreSQL.Provider.self)
+		self.db = drop.database?.driver as! PostgreSQLDriver
+	}
 
+	func connect() {}
 
 	// SQL EXECUTION
 

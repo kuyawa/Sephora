@@ -5,7 +5,7 @@ html, body { margin: 0; padding: 0; }
 body {
 	min-width: 1000px;
 	font-family: "Helvetica Neue";
-	font-size: 1em;
+	font-size: 90%;
 	font-weight: normal;
 	line-height: 1.4;
 	letter-spacing: .8px; 
@@ -61,6 +61,11 @@ user { font-weight: 500; }
 user a { color: #000; }
 sep { color: #AAA; }
 
+newpost { display: block; width: 500px; margin-top: 30px; padding-top:10px; border-top: 1px solid #CCC; }
+newpost #title { width: 100%; }
+newpost #content { width: 100%; height: 200px; }
+newpost .small { margin: 0; padding: 0; text-align: right; font-size: 60%; color: #666; }
+input[type="submit"] { width: 60px; /* height:30px; padding: 14px 30px; */}
 
 footer { clear: both; padding: 10px 20px; color: #333; background: #e8e8e8; border-top: 1px dotted #BBB; }
 footer line { display: block; margin: 0; padding: 0; text-align: center; }

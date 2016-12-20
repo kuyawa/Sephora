@@ -1,42 +1,41 @@
 import Vapor
+import VaporPostgreSQL
+import Foundation
 import HTTP
 
 class WebController {
 
-	var request  : Request
-	var drop     : Droplet?
-	var db       : DataStore?
-	var settings : Node?
-	var userInfo : Node?
-	var stats    : Node?
-	var forums   : Node?
+	var drop     = Droplet()
+	var db       = DataStore()
+//	var request  : Request?
+	var settings = Node(["settings":""])
+	var userInfo = Node(["user":""])
+	var stats    = Node(["stats":""])
+	var forums   = Node(["forums":""])
 
-	init(_ request: Request) {
-		self.request = request
+//	init() {}
+/*
+	func connect()
+		var isLive = false
+		if let envDatabase = ProcessInfo.processInfo.environment["DATABASE_URL"] {
+			isLive = envDatabase.hasPrefix("postgres")
+		}
+
+		self.drop = Droplet()
+		try? drop.addProvider(VaporPostgreSQL.Provider.self)
+		let driver = drop.database?.driver as! PostgreSQLDriver
+		self.db = DataStore(driver, production: isLive)
 	}
-
-	// Use drop
-	init(_ request: Request, drop: Droplet) {
-		self.request = request
-		self.drop = drop
-	}
-
-	// Use database
-	init(_ request: Request, db: DataStore) {
-		self.request = request
-		self.db = db
-	}
-
+*/
 	func getView(_ name: String, with node: Node?) -> View? {
-		let drop = Droplet()
 		var data = Node(["userIsLogged": false])
 		if node != nil { data = node! }
 
 		getBaseInfo()
-		data["settings"]     = settings ?? ""
-		data["user"]         = userInfo ?? ""
-		data["stats"]        = stats ?? ""
-		data["forums"]       = forums ?? ""
+		data["settings"]     = settings
+		data["user"]         = userInfo
+		data["stats"]        = stats
+		data["forums"]       = forums
 		data["userIsLogged"] = false // userInfo.isLogged
 
 		do { 
@@ -54,7 +53,6 @@ class WebController {
 	func getStaticView(_ name: String) -> View? {
 		let folder = "../../public/static/"
 		let file = folder+name
-		let drop = Droplet()
 
 		do { 
 			let view = try drop.view.make(file)

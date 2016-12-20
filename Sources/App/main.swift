@@ -1,37 +1,30 @@
 import Vapor
-import VaporPostgreSQL
-import Foundation
-
-var isLive = false
-if let envDatabase = ProcessInfo.processInfo.environment["DATABASE_URL"] {
-	isLive = envDatabase.hasPrefix("postgres")
-}
-if isLive{ print("Sephora is live!") } else { print("Sephora is running in dev mode") }
+import HTTP
 
 let drop = Droplet()
-try? drop.addProvider(VaporPostgreSQL.Provider.self)
-let driver = drop.database?.driver as? PostgreSQLDriver
-let forums = DataStore(driver!, production: isLive)
-forums.verifyIntegrity()
+if drop.environment == .development { print("Sephora is running in dev mode") }
 
 
 // Public
-drop.get                            { IndexHandler($0).view }
-drop.get("index")                   { IndexHandler($0).view }
-drop.get("register")                { RegisterHandler($0).view }
-drop.get("login")                   { LoginHandler($0).view }
-drop.get("logout")                  { TodoHandler($0).view }
-drop.get("profile")                 { TodoHandler($0).view }
-drop.get("user")                    { AppHandler($0).redirect("/") }
-drop.get("user/:user")              { UserHandler($0).view }
-drop.get("forum")                   { AppHandler($0).redirect("/forum/general") }
-drop.get("forum/:forum")            { ForumHandler($0, db: forums).view }
-drop.get("forum/:forum/post/:post") { ThreadHandler($0).view }
-drop.get("test")                    { TestHandler($0).view }
-drop.get("404")                     { response in throw Abort.notFound }
+drop.get(handler: IndexHandler().index)
+drop.get("/x", handler: IndexHandler().index)
+drop.get("index", handler: IndexHandler().index)
+drop.get("register", handler: RegisterHandler().form)
+drop.get("login", handler: LoginHandler().form)
+drop.get("logout", handler: TodoHandler().show)
+drop.get("profile", handler: TodoHandler().show)
+drop.get("user", handler: AppHandler().redirectToIndex)
+drop.get("user/:user", handler: UserHandler().show)
+drop.get("forum") { request in Response(redirect: "/forum/general") }
+drop.get("forum/:forum", handler: ForumHandler().show)
+drop.post("forum/:forum/submit", handler: ForumHandler().submit)
+drop.get("forum/:forum/post/:post", handler: ThreadHandler().show)
+drop.get("test", handler: TestHandler().show)
+drop.get("404") { request in throw Abort.notFound }
 
 // Admin
-drop.get("admin/dbinfo")            { AdminHandler($0, db: forums).dbinfo }
-drop.get("admin/users")             { AdminHandler($0, db: forums).users }
+drop.get("admin/dbinfo", handler: AdminHandler().dbinfo)
+drop.get("admin/users", handler: AdminHandler().users)
+
 
 drop.run()

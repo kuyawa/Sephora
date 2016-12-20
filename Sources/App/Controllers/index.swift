@@ -1,5 +1,6 @@
 import Vapor
 import HTTP
+import PostgreSQL
 
 class IndexHandler: WebController {
 
@@ -9,8 +10,17 @@ class IndexHandler: WebController {
 		return view!
 	}
 
+	func index(_ request: Request) -> ResponseRepresentable {
+		let data = getData()
+		let view = getView("index", with: data)
+		return view!
+	}
+
 	func getData() -> Node {
+		//db.connect()
 		// Test data
+		let result = db.query("Select Version() as version")
+		print(result)
 		let data: Node = [
 			"messages":[
 				[123456, 321, 12, 0, "XCode ate my homework", "General discussion", "2016-11-26 08:30:55", "Albatross"],

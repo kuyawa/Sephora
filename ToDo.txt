@@ -1,11 +1,20 @@
+FIX:
+
+- App breaking if db not available. Fail gracefuly
+
 TODO:
 
+- Markdown in Swift
+- if logged, allow to post in listing, show textarea and submit button
 - post new message
+- time ago in last posts. make ago(time) extension
+? question, answered, message, poll, job, app icons, default is message (chat bubble)
 x add forum info, forums list, user info to default DataNode for use in all templates
 x use DataNode with defaults in base template
 x add all forums to db
 - add some users to test
 - add some messages to every forum
+? hot topic (red question|message|poll icon > 10 messages)
 
 - index:
   - list latest 50 messages from all forums
