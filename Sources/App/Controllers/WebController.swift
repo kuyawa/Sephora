@@ -39,10 +39,13 @@ class WebController {
 		data["userIsLogged"] = false // userInfo.isLogged
 
 		do { 
-			let view = try drop.view.make(name, data) 
-			return view
-		}
-		catch { 
+			if let leaf = drop.view as? LeafRenderer {
+				// TODO: REGISTER ALL TEMPLATE FILTERS?
+ 				leaf.stem.register(LeafTimeAgo())
+				let view = try leaf.make(name, data) 
+				return view
+			}
+		} catch { 
 			print(error) 
 			// TODO: return errorView with error info
 		}

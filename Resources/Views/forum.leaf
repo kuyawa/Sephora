@@ -19,7 +19,7 @@
 				<td>
 					<item>
 						<post><a href="/forum/#(forum.dirname)/post/#(post.postid)">#(post.title)</a></post>
-						<info><forum><a href="/forum/#(forum.dirname)">#(forum.name)</a></forum> <sep>•</sep> by <user><a href="/user/#(post.nick)">#(post.nick)</a></user> <sep>•</sep> <time>#(post.ago)</time></info>
+						<info><forum><a href="/forum/#(forum.dirname)">#(forum.name)</a></forum> <sep>•</sep> by <user><a href="/user/#(post.nick)">#(post.nick)</a></user> <sep>•</sep> <time>#timeago(post.date)</time></info>
 					</item>
 				</td>
 			</tr>

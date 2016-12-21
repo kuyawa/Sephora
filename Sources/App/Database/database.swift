@@ -216,6 +216,10 @@ class DataStore {
 		}
 		return nil
 	}
+
+	func savePost(_ post: Post) {
+		//
+	}
 }
 
 // End

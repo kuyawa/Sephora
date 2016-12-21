@@ -52,3 +52,17 @@ Stages:
 3. Configurability for external installation
 4. Moderation tools
 5. Admin tools
+
+------------------------------------------------------------
+
+Nodes suck donkey balls
+
+node.string
+node.int
+node.array
+node.object
+
+// loop rows from db
+for item in rows.array! {
+	let val = item.object!["name"]!.string! // WTF???
+}
