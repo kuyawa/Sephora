@@ -17,8 +17,9 @@ drop.get("user", handler: AppHandler().redirectToIndex)
 drop.get("user/:user", handler: UserHandler().show)
 drop.get("forum") { request in Response(redirect: "/forum/general") }
 drop.get("forum/:forum", handler: ForumHandler().show)
-drop.post("forum/:forum/submit", handler: ForumHandler().submit)
-drop.get("forum/:forum/post/:post", handler: ThreadHandler().show)
+drop.post("forum/:forum/submit", handler: PostHandler().submit)
+drop.get("forum/:forum/post/:post", handler: PostHandler().show)
+drop.post("forum/:forum/post/:post/reply", handler: ReplyHandler().submit)
 drop.get("test", handler: TestHandler().show)
 drop.get("404") { request in throw Abort.notFound }
 
@@ -28,3 +29,5 @@ drop.get("admin/users", handler: AdminHandler().users)
 
 
 drop.run()
+
+// End

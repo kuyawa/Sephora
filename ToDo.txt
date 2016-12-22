@@ -1,10 +1,13 @@
 FIX:
 
 - App breaking if db not available. Fail gracefuly
+- Forum dirname must be unique, add constrain to db
 
 TODO:
 
+
 - Markdown in Swift
+- Show permalink in every post and reply for easy sharing
 - if logged, allow to post in listing, show textarea and submit button
 - post new message
 - time ago in last posts. make ago(time) extension

@@ -1,137 +1,28 @@
 #extend("base")
 
 #export("content") {
-		<h1>Latest Messages</h1>
+		<h1 class="forum-name">#(forum.name) <sep>•</sep> <span class="forum-descrip">#(forum.descrip)</span></h1>
 		<table class="latest">
+			#loop(posts, "post") {
 			<tr>
 				<td>
-					<views><h1>123</h1><h2>views</h2></views>
-					<replies><h1>8</h1><h2>replies</h2></replies>
-					<answered><img src="/images/answerok.png"/></answered>
+					<nviews><h1>#(post.views)</h1><h2>views</h2></nviews>
+					<nreplies><h1>#(post.replies)</h1><h2>replies</h2></nreplies>
+					<icon>
+						#if(post.answered) { <img src="/images/answerok.png"/> } ##else() {
+							#equal(post.type, "0") { <img src="/images/message.png"/> }
+							#equal(post.type, "1") { <img src="/images/answerno.png"/> }
+							#equal(post.type, "2") { <img src="/images/answerno.png"/> }
+						}
+					</icon>
 				</td>
 				<td>
 					<item>
-						<post><a href="/forum/general/post/123456">XCode ate my homework. I need it back!</a></post>
-						<info><forum><a href="/forum/general">General discussion</a></forum> <sep>•</sep> by <user><a href="/user/albatross">Albatross</a></user> <sep>•</sep> <time>30 mins ago</time></info>
+						<post><a href="/forum/#(post.dirname)/post/#(post.postid)">#(post.title)</a></post>
+						<info><forum><a href="/forum/#(post.dirname)">#(post.name)</a></forum> <sep>•</sep> by <user><a href="/user/#(post.nick)">#(post.nick)</a></user> <sep>•</sep> <time>#timeago(post.date)</time></info>
 					</item>
 				</td>
 			</tr>
-			<tr>
-				<td>
-					<views><h1>86</h1><h2>views</h2></views>
-					<replies><h1>2</h1><h2>replies</h2></replies>
-					<answered><img src="/images/answerno.png"/></answered>
-				</td>
-				<td>
-					<item>
-						<post><a href="/forum/general/post/123456">How to make a smooth transision in UIView</a></post>
-						<info><forum><a href="/forum/ios">iOS</a></forum> <sep>•</sep> by <user><a href="/user/albatross">Albatross</a></user> <sep>•</sep> <time>35 mins ago</time></info>
-					</item>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<views><h1>42</h1><h2>views</h2></views>
-					<replies><h1>0</h1><h2>replies</h2></replies>
-					<answered><img src="/images/answerno.png"/></answered>
-				</td>
-				<td>
-					<item>
-						<post><a href="/forum/general/post/123456">PDF is appending a blank page, how to remove?</a></post>
-						<info><forum><a href="/forum/macos">macOS</a></forum> <sep>•</sep> by <user><a href="/user/albatross">Albatross</a></user> <sep>•</sep> <time>45 mins ago</time></info>
-					</item>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<views><h1>57</h1><h2>views</h2></views>
-					<replies><h1>3</h1><h2>replies</h2></replies>
-					<answered><img src="/images/answerno.png"/></answered>
-				</td>
-				<td>
-					<item>
-						<post><a href="/forum/general/post/123456">Can't connect to SQLite, HALP!</a></post>
-						<info><forum><a href="/forum/server">Server</a></forum> <sep>•</sep> by <user><a href="/user/albatross">Albatross</a></user> <sep>•</sep> <time>1 hour ago</time></info>
-					</item>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<views><h1>220</h1><h2>views</h2></views>
-					<replies><h1>24</h1><h2>replies</h2></replies>
-					<answered><img src="/images/answerok.png"/></answered>
-				</td>
-				<td>
-					<item>
-						<post><a href="/forum/general/post/123456">Two NSTableViews in one View?</a></post>
-						<info><forum><a href="/forum/general">General discussion</a></forum> <sep>•</sep> by <user><a href="/user/albatross">Albatross</a></user> <sep>•</sep> <time>3 hours ago</time></info>
-					</item>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<views><h1>44</h1><h2>views</h2></views>
-					<replies><h1>11</h1><h2>replies</h2></replies>
-					<answered><img src="/images/answerno.png"/></answered>
-				</td>
-				<td>
-					<item>
-						<post><a href="/forum/general/post/123456">Plist, json, yaml, user defaults?</a></post>
-						<info><forum><a href="/forum/general">General discussion</a></forum> <sep>•</sep> by <user><a href="/user/albatross">Albatross</a></user> <sep>•</sep> <time>4 hours ago</time></info>
-					</item>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<views><h1>105</h1><h2>views</h2></views>
-					<replies><h1>10</h1><h2>replies</h2></replies>
-					<answered><img src="/images/answerno.png"/></answered>
-				</td>
-				<td>
-					<item>
-						<post><a href="/forum/general/post/123456">The awesomest app for your TV</a></post>
-						<info><forum><a href="/forum/tvos">tvOS</a></forum> <sep>•</sep> by <user><a href="/user/albatross">Albatross</a></user> <sep>•</sep> <time>4 hours ago</time></info>
-					</item>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<views><h1>63</h1><h2>views</h2></views>
-					<replies><h1>7</h1><h2>replies</h2></replies>
-					<answered><img src="/images/answerno.png"/></answered>
-				</td>
-				<td>
-					<item>
-						<post><a href="/forum/general/post/123456">Hiring iOS developer in Austin</a></post>
-						<info><forum><a href="/forum/general">Jobs Hiring</a></forum> <sep>•</sep> by <user><a href="/user/albatross">Albatross</a></user> <sep>•</sep> <time>30 mins ago</time></info>
-					</item>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<views><h1>59</h1><h2>views</h2></views>
-					<replies><h1>9</h1><h2>replies</h2></replies>
-					<answered><img src="/images/answerno.png"/></answered>
-				</td>
-				<td>
-					<item>
-						<post><a href="/forum/general/post/123456">XCode ate my homework</a></post>
-						<info><forum><a href="/forum/general">General discussion</a></forum> <sep>•</sep> by <user><a href="/user/albatross">Albatross</a></user> <sep>•</sep> <time>30 mins ago</time></info>
-					</item>
-				</td>
-			</tr>
-			<tr>
-				<td>
-					<views><h1>123</h1><h2>views</h2></views>
-					<replies><h1>8</h1><h2>replies</h2></replies>
-					<answered><img src="/images/answerno.png"/></answered>
-				</td>
-				<td>
-					<item>
-						<post><a href="/forum/general/post/123456">XCode ate my homework</a></post>
-						<info><forum><a href="/forum/general">General discussion</a></forum> <sep>•</sep> by <user><a href="/user/albatross">Albatross</a></user> <sep>•</sep> <time>30 mins ago</time></info>
-					</item>
-				</td>
-			</tr>
+		}
 		</table>
 }

@@ -1,7 +1,7 @@
 #extend("base")
 
 #export("content") {
-	<h1>System failure:</h1>
+	<h1>Oops!</h1>
 	<p>#(message)</p>
 	<img src="/images/deadswift.png" />
 }

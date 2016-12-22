@@ -5,6 +5,8 @@ enum FailType: String {
 	case dataCreationError   = "Data Creation Error. SQL driver could not create database"
 	case databaseUnavailable = "Database unavailable. Check database drivers are installed and running"
 	case forumNotAvailable   = "Forum not available. Check the correct forum name you want to access"
+	case postNotAvailable    = "Post not available. Check the correct post you want to access"
+	case replyNotAvailable   = "Message not available. Check the correct message you want to access"
 	case badRequest          = "Bad request. Check the correct parameters for the request"
 }
 

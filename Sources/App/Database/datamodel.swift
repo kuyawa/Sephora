@@ -3,14 +3,25 @@ import Foundation
 
 typealias Parameters = [String:Any]
 
-class DataModel : NSObject {
-
-    override var description : String { return self.toDictionary().description }
+class DataModel: NSObject {
+    
+    var db: DataStore
     
     var isNew      = false
     var isModified = false
     var isDeleted  = false
-    
+
+    override var description : String { return self.toDictionary().description }
+
+    // DataModel needs a context for storage, if not provided, create one
+    override convenience init() {
+    	self.init(in: DataStore())
+    }
+
+    init(in context: DataStore) {
+    	self.db = context
+    }
+
     func fromDictionary(_ dict: [String:Any], except: [String]? = [""]) {
         for (key,val) in dict {
             if (except?.index(of: key)) == nil {

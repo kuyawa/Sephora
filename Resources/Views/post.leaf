@@ -1,0 +1,51 @@
+#extend("base")
+
+#export("content") {
+	<h1 class="forum-name">#(forum.name) <sep>•</sep> <span class="forum-descrip">#(forum.descrip)</span></h1>
+
+	<article>
+		<icon>
+			#if(post.answered) { <img src="/images/answerok.png"/> } ##else() {
+				#equal(post.type, "0") { <img src="/images/message.png"/> }
+				#equal(post.type, "1") { <img src="/images/answerno.png"/> }
+				#equal(post.type, "2") { <img src="/images/answerno.png"/> }
+			}
+		</icon>
+		<top>
+			<h1>#(post.title)</h1>
+			<h6>#(post.nick) <sep>•</sep> #timeago(post.date) <sep>•</sep> #(post.views) views</h6>
+		</top>
+		<content>#(post.content)</content>
+	</article>
+
+	<replies>
+		<h3>#(numreplies) Replies</h3>
+		#loop(replies, "reply") {
+		<reply>
+			<side>
+				<votes>
+					<voteup><img src="/images/voteup.png" class="off" /></voteup> 
+					<votecount title="#(reply.votesup) / #(reply.votesdn)">#(reply.votes)</votecount> 
+					<votedn><img src="/images/votedn.png" class="off" /></votedn>
+				</votes>
+				<answered>	#if(reply.answer) { <img src="/images/answerok.png"/> } </answered>
+			</side>
+			<message>
+				<info><a href="/user/#(post.nick)">#(reply.nick)</a></user> <sep>•</sep> <time>#timeago(reply.date)</time></info>
+				<text>
+					#(reply.content)
+				</text>
+			</message>
+		</reply>
+		} ##(post) { <p>Be the first to leave a comment</p> }
+	</replies>
+
+	<newreply>
+		<form method="post" action="/forum/#(forum.dirname)/post/#(post.postid)/reply">
+			<h3>Reply to this thread:</h3>
+			<li><textarea id="content" name="content" rows="6" cols="60" placeholder="Content..."></textarea></li>
+			<li><p class="small">This forum uses markdown - <a href="javascript:void()">Show help for text formatting</a></p></li>
+			<li><input type="submit" value="Send"></li>
+		</form>
+	</newreply>
+}

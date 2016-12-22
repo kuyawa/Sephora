@@ -19,8 +19,8 @@ class AdminHandler: WebController {
 	}
 
 	func users(_ request: Request) -> ResponseRepresentable {
-		let users = db.getUsers()
-		let data: Node = ["users": users!]
+		guard let users = Users().all() else { return fail(.databaseUnavailable) }
+		let data: Node = ["users": users]
 		let view = getView("admin.users.leaf", with: data)
 		return view!
 	}

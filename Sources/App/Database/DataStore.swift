@@ -20,7 +20,7 @@ class DataStore {
 		self.db = drop.database?.driver as! PostgreSQLDriver
 	}
 
-	func connect() {}
+	//func connect() {}
 
 	// SQL EXECUTION
 
@@ -164,14 +164,16 @@ class DataStore {
 
 	//------------------------------------------------------------
 	// DATA MODELS
+	// TODO: Move to DataQuery classes
 
+	/*
 	func getUsers() -> Node? {
 		if let users = query("Select * From users Order by userid") {
 			return users
 		}
 		return []
 	}
-
+	
 	func getStats() -> Stats {
 		var stats = Stats()
 		// TODO: query stats
@@ -217,9 +219,16 @@ class DataStore {
 		return nil
 	}
 
-	func savePost(_ post: Post) {
-		//
+	func getLatestPosts(start: Int? = 0, limit: Int? = 30) -> Node? {
+		let sql  = "Select * From posts Order by date Desc Offset $1 Limit $2"
+		let args:[Node] = try! [start!.makeNode(), limit!.makeNode()]
+		if let rows = query(sql, params: args) {
+			return rows
+		}
+		return nil
 	}
+	*/
+
 }
 
 // End

@@ -2,6 +2,24 @@ import Foundation
 
 extension Date {
 
+    static func fromString(text: String) -> Date {
+    	return Date.fromString(text: text, format: "yyyy-MM-dd HH:mm:ss") // No format, use default
+    }
+    
+    static func fromString(text: String, format: String) -> Date {
+        let epoch = Date(timeIntervalSince1970: 0)
+        if text.isEmpty { return epoch }
+
+        var time = text
+        if text.characters.count > 19 { time = text.subtext(to: 19) }
+
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        guard let date = formatter.date(from: time) else { return epoch }
+
+        return date
+    }
+    
     func toString() -> String {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
@@ -15,7 +33,7 @@ extension Date {
         let text = formatter.string(from: self)
         return text
     }
-    
+
 
 	func timeAgo() -> String {
 	    

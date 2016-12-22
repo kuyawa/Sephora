@@ -39,18 +39,22 @@ aside statnum { display: inline-block; float: right; margin-right: 10px;}
 section { overflow: auto; padding: 20px 80px 20px 20px; }
 
 table.latest { width: 100%; font-size: 80%; }
-table.latest td{ border-bottom: 1px solid #eee; padding: 6px 6px; /*border:1px solid red;*/ }
+table.latest td{ padding: 6px 6px; /*border:1px solid red;*/ }
 table.latest td:first-child{ width: 180px; padding-left: 0; }
 
 /* LATEST POSTS */
-views { display:inline-block; width: 60px; height: 40px; border-radius: 4px; border: 1px solid #CCC; text-align: center; }
-views h1 { margin: 2px 0 0 0; padding: 0; font-size: 120%; }
-views h2 { margin: 0; padding: 0; font-size: 80%; }
-replies { display:inline-block; width: 60px; height: 40px; border-radius: 4px; border: 1px solid #CCC; text-align: center; }
-replies h1 { margin: 2px 0 0 0; padding: 0; font-size: 120%; }
-replies h2 { margin: 0; padding: 0; font-size: 80%; }
-answered { display:inline-block; width: 32px; height: 32px; margin-left: 14px; text-align: center; }
-answered img { margin: -2px; padding: 0; border: none; width: 32px; height: 32px; }
+nviews { display:inline-block; width: 60px; height: 40px; border-radius: 4px; border: 1px solid #CCC; text-align: center; }
+nviews h1 { margin: 2px 0 0 0; padding: 0; font-size: 120%; }
+nviews h2 { margin: 0; padding: 0; font-size: 80%; }
+nreplies { display:inline-block; width: 60px; height: 40px; border-radius: 4px; border: 1px solid #CCC; text-align: center; }
+nreplies h1 { margin: 2px 0 0 0; padding: 0; font-size: 120%; }
+nreplies h2 { margin: 0; padding: 0; font-size: 80%; }
+icon { display:inline-block; margin: 0; margin-left: 14px; }
+icon img { margin: 0px; padding: 0; border: none; width: 32px; height: 32px; }
+
+.forum-name { /*margin-bottom: 0; padding-bottom: 0;*/ }
+.forum-descrip { /*margin-top: 0; padding-top: 0;*/ font-size: 80%; color: #888; font-weight: 300; }
+.post-title { margin-top: 0; padding-top: 0; font-size: 80%; color: #888; font-weight: 300; }
 
 item { display:block; }
 post { display:block; font-size: 150%; }
@@ -66,6 +70,37 @@ newpost #title { width: 100%; }
 newpost #content { width: 100%; height: 200px; }
 newpost .small { margin: 0; padding: 0; text-align: right; font-size: 60%; color: #666; }
 input[type="submit"] { width: 60px; /* height:30px; padding: 14px 30px; */}
+
+/* VIEW POST */
+article { margin-top: 30px; padding-bottom: 20px; }
+article icon { float: left; margin: 0; margin-right: 10px; padding-top: 5px; }
+article top { display: block; margin-left: 50px;  }
+article h1 { margin-bottom: 0; padding-bottom: 0; color: #D42; }
+article h6 { margin-top: 0; padding-top: 0; font-weight: normal; color: #888; }
+article content { display: block; overflow: auto; clear: both; margin-left: 50px; font-weight: normal; }
+
+replies { display: block; clear: both; overflow: auto; }
+replies h3 { padding: 1px 20px; background: #CCC; color: #FFF; border-radius: 3px; }
+replies h3 { border-top: 1px solid #AAA; border-left: 1px solid #AAA; border-right: 1px solid #FFF; border-bottom: 1px solid #FFF; }
+reply { display: block; clear: both; overflow: auto; margin: 20px 0; border-bottom: 1px solid #CCC; }
+reply side { float: left; margin-right: 10px; }
+reply message { display: block; margin-left: 50px; }
+
+votes { display: block; padding-bottom: 20px; text-align: center; }
+voteup { display: block; }
+votecount { display: block; }
+votedn { display: block; }
+votes img.off { opacity: .3; }
+
+newreply { display: block; width: 500px; margin-top: 0px; padding-top: 10px; }
+newreply h3 { padding: 1px 20px; background: #CCC; color: #FFF; border-radius: 3px; border-top: 1px solid #BBB; }
+newreply h3 { border-top: 1px solid #AAA; border-left: 1px solid #AAA; border-right: 1px solid #FFF; border-bottom: 1px solid #FFF; }
+/*newpost #title { width: 100%; }*/
+newreply #content { width: 100%; height: 200px; }
+newreply .small { margin: 0; padding: 0; text-align: right; font-size: 60%; color: #666; }
+
+
+/* FOOTER */
 
 footer { clear: both; padding: 10px 20px; color: #333; background: #e8e8e8; border-top: 1px dotted #BBB; }
 footer line { display: block; margin: 0; padding: 0; text-align: center; }

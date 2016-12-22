@@ -54,7 +54,9 @@ extension String {
 
     func toDate() -> Date {
         // No format? use default
-        return self.toDate(format: "yyyy-MM-dd HH:mm:ss")
+        var text = self
+        if text.characters.count > 19 { text = self.subtext(to: 19) }
+        return text.toDate(format: "yyyy-MM-dd HH:mm:ss")
     }
 
     func toDate(format: String) -> Date {

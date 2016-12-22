@@ -71,18 +71,22 @@ class WebController {
 
 	func getBaseInfo() {
 		// TODO: get all from database
+		// TODO: Get from cache to avoid data hits
 
+		// TODO: let settings = Settings(in: db).load()
 		settings = [
 			"forum.name" : "Sephora",
 			"forum.title": "Join us in our quest to conquer the app world"
 		]
 
+		// TODO: let user = User(in: db).fromSession()
 		userInfo = [
 			"isLogged"  : true,
 			"nick"      : "Test",
 			"token"     : "e65c4477-b782-4d49-a689-2b6f9bb5419b"
 		]
 
+		// TODO: let stats = Stats(in: db).gather()
 		stats = [
 			"users"     :  320,
 			"threads"   : 1234,
@@ -91,6 +95,7 @@ class WebController {
 			"answered"  :   72,
 		]
 
+		// TODO: let forums = Forums(in: db).list()
 		forums = [
 			["Welcome", "/forum/welcome", 342],
 			["General discussion", "/forum/general", 123],
