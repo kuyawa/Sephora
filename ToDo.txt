@@ -5,6 +5,7 @@ FIX:
 TODO:
 
 ! Github authentication
+- Vote up/dn, color icons, send to server
 - Show permalink in every post and reply for easy sharing
 - if logged, allow to post in listing, show textarea and submit button
 - post new message

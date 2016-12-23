@@ -4,9 +4,9 @@ html, body { margin: 0; padding: 0; }
 
 body {
 	min-width: 1000px;
-	font-family: HelveticaNeue;
+	font-family: -webkit-system-font, HelveticaNeue, sans-serif;
 	font-size: 90%;
-	font-weight: normal;
+	font-weight: 300;
 	line-height: 1.4;
 	letter-spacing: .8px; 
 	color: #333;
@@ -34,12 +34,12 @@ header actions a { padding: 2px 10px; color: #FFF; border: 1px solid #EEE; borde
 header actions a:hover { color: #FFF; border: 1px solid #FFF; background: rgba(64,64,64,.1);}
 */
 
-actionbar { display: block; padding-right: 20px; background-color: #D42; overflow: auto; text-align: right; }
+actionbar { display: block; padding-right: 80px; background-color: #D42; overflow: auto; text-align: right; }
 actions { margin: 0; font-size: 90%; }
 actions a { padding: 4px 10px; color: #FFF; border-left: 1px solid #D42; border-right: 1px solid #D42; /*border-radius: 4px;*/ font-variant: small-caps; }
 actions a:hover { color: #FFF; background: rgba(64,64,64,.1); border-left: 1px solid #E64; border-right: 1px solid #E64; }
 
-main { overflow:auto; display:block; padding-bottom: 50px; border-top: 1px solid #FFF; /*border-bottom:1px solid #FFF;*/ }
+main { overflow: auto; display: block; padding-bottom: 50px; border-top: 1px solid #FFF; /*border-bottom:1px solid #FFF;*/ }
 
 aside { float: left; width: 220px; padding-left: 120px; padding-top: 20px; }
 aside h1 a { color: #333; }
@@ -84,15 +84,15 @@ article h1 { margin: 0; padding: 0; color: #D42; font-size: 120%; }
 article h6 { margin-top: 0; padding-top: 0; font-weight: normal; color: #888; }
 article h6 user { font-weight: bold; color: #888; }
 article h6 user a { color: #333; }
-article content { display: block; overflow: auto; clear: both; margin-left: 50px; font-weight: normal; }
+article content { display: block; overflow: auto; clear: both; margin-left: 46px; font-weight: normal; }
 
 replies { display: block; clear: both; overflow: auto; }
 replies>h3 { padding: 1px 20px; background: #CCC; color: #FFF; border-radius: 3px; }
 replies>h3 { border-top: 1px solid #AAA; border-left: 1px solid #AAA; border-right: 1px solid #FFF; border-bottom: 1px solid #FFF; }
 reply { display: block; clear: both; overflow: auto; margin: 20px 0; border-bottom: 1px solid #CCC; }
-reply side { float: left; margin: 0 10px 20px 8px; }
+reply side { float: left; margin: 0 10px 20px 6px; }
 
-message { display: block; margin-left: 50px; }
+message { display: block; margin-left: 46px; }
 message info { font-size: 70%; color: #888; }
 message info user { font-weight: bold; }
 message info user a { color: #333; }
@@ -105,8 +105,9 @@ message text pre { color: #333; background-color: #E6E6E6; }
 
 votes { display: block; text-align: center; }
 voteup { display: block; }
-votecount { display: block; }
+votecount { display: block; color: #AAA; }
 votedn { display: block; }
+voteup img, votedn img { width: 24px; height: 12px; }
 votes img.off { opacity: .3; }
 
 newreply { display: block; /*width: 500px;*/ margin-top: 0px; padding-top: 10px; }

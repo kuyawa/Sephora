@@ -15,7 +15,7 @@
 			<h1>#(post.title)</h1>
 			<h6><user><a href="/user/#(post.nick)">#(post.nick)</a></user> <sep>•</sep> #timeago(post.date) <sep>•</sep> #(post.views) views <sep>•</sep> #(post.replies) replies</h6>
 		</top>
-		<content>#(post.content)</content>
+		<content>#markdown(post.content)</content>
 	</article>
 
 	<replies>
@@ -24,9 +24,9 @@
 		<reply>
 			<side>
 				<votes>
-					<voteup><img src="/images/voteup.png" class="off" /></voteup> 
+					<voteup><a href="javascript:void()"><img src="/images/voteup.png" class="off" /></a></voteup> 
 					<votecount title="#(reply.votesup) / #(reply.votesdn)">#(reply.votes)</votecount> 
-					<votedn><img src="/images/votedn.png" class="off" /></votedn>
+					<votedn><a href="javascript:void()"><img src="/images/votedn.png" class="off" /></a></votedn>
 				</votes>
 				<answered>	#if(reply.answer) { <img src="/images/answerok.png"/> } </answered>
 			</side>

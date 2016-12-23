@@ -8,19 +8,26 @@ enum FailType: String {
 	case postNotAvailable    = "Post not available. Check the correct post you want to access"
 	case replyNotAvailable   = "Message not available. Check the correct message you want to access"
 	case badRequest          = "Bad request. Check the correct parameters for the request"
+	case authorizationError  = "Authorization error. Failed to access authorization server"
+	case unauthorizedAccess  = "Unauthorized access. Login is required to access that feature"
+	case invalidCredentials  = "Unauthorized access. Invalid credentials sent by server"
 }
 
 extension WebController {
-	func fail(_ fail: FailType) -> View {
-		return getFailView(fail.rawValue)!
+	func fail(_ fail: FailType, content: String? = nil) -> View {
+		return getFailView(fail.rawValue, content: content)!
 	}
 
 	func fail(message: String) -> View? {
 		return getFailView(message)!
 	}
 
-	func getFailView(_ message: String) -> View? {
-		let data: Node = ["message": Node(message)]
+	func fail(message: String, content: String) -> View? {
+		return getFailView(message, content: content)!
+	}
+
+	func getFailView(_ message: String, content: String? = nil) -> View? {
+		let data: Node = ["message": Node(message), "content": Node(content ?? "")]
 		let view = getView("fail", with: data)
 		return view
 	}

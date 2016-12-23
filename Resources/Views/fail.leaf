@@ -3,5 +3,6 @@
 #export("content") {
 	<h1>Oops!</h1>
 	<p>#(message)</p>
+	<pre>#(content)</pre>
 	<img src="/images/deadswift.png" />
 }

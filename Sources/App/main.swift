@@ -9,12 +9,17 @@ if drop.environment == .development { print("Sephora is running in dev mode") }
 drop.get(handler: IndexHandler().index)
 drop.get("/x", handler: IndexHandler().index)
 drop.get("index", handler: IndexHandler().index)
+
+// Users
 drop.get("register", handler: RegisterHandler().form)
-drop.get("login", handler: LoginHandler().form)
-drop.get("logout", handler: TodoHandler().show)
+drop.get("login", handler: LoginHandler().login)
+drop.get("logout", handler: LoginHandler().logout)
+drop.get("authorize", handler: LoginHandler().authorize)
 drop.get("profile", handler: TodoHandler().show)
 drop.get("user", handler: AppHandler().redirectToIndex)
 drop.get("user/:user", handler: UserHandler().show)
+
+// Forums
 drop.get("forum") { request in Response(redirect: "/forum/general") }
 drop.get("forum/:forum", handler: ForumHandler().show)
 drop.post("forum/:forum/submit", handler: PostHandler().submit)

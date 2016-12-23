@@ -23,6 +23,10 @@ class AppHandler: WebController {
 		return Response(redirect: url)
 	}
 
+	func redirectToIndex() -> ResponseRepresentable {
+		return Response(redirect: "/")
+	}
+
 	func redirectToIndex(_ request: Request) -> ResponseRepresentable {
 		return Response(redirect: "/")
 	}
