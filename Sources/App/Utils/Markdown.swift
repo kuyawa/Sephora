@@ -115,7 +115,6 @@ software, even if advised of the possibility of such damage.
 
 import Foundation
 
-
 public struct MarkdownOptions {
     /// when true, (most) bare plain URLs are auto-hyperlinked
     /// WARNING: this is a significant deviation from the markdown spec

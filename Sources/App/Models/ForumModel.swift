@@ -37,7 +37,6 @@ class Forum: DataModel {
 
 extension Forum {
     func save() {
-        print("Saving forum: ", forumid)
         if forumid < 1 { // New forum, id not generated yet
             insert()
         } else {
@@ -46,27 +45,34 @@ extension Forum {
     }
     
     func insert() {
+        print("Saving forum...")
         // Map data to sql and insert
         let exclude = ["forumid", "hidden", "disabled"]
         let fields = getFields(except: exclude)
         let params = getBindingsNode(for: fields)
-        let sql    = getSqlInsert(table: "forums", fields: fields)
+        let sql    = getSqlInsert(table: "forums", fields: fields, returning: "forumid")
         let newId  = db.execute(sql, params: params)
-        // TODO: Where is the new id?
-        print("New ID: ", newId)
-        //forumid = newId!.int!
-        //print("New forum Id:", forumid)
+
+        let id = newId?[0]?["forumid"]?.int
+        if id == nil {
+        	print("Error inserting forum, new id not provided")
+        	return 
+        }
+
+        self.forumid = id!
+        print("New forum Id: ", id!)
     }
     
     func update() {
+        print("Updating forum ", forumid)
         let exclude = ["forumid"]
         let fields  = getFields(except: exclude)
         let params  = getBindingsNode(for: fields)
         let sql     = getSqlUpdate(table: "forums", fields: fields, params: params, key: "forumid", id: forumid)
         let num     = db.execute(sql, params: params)
         
-        if num!.int! < 1 {
-            print("Error \(num) updating forum ", forumid)
+        if num == nil {
+            print("Error updating forum ", forumid)
         }
     }
     
@@ -77,8 +83,8 @@ extension Forum {
         var params: [Node]() = [Node(forumid)]
         let num = context.execute(sql, params: params)
         
-        if num!.int! < 1 {
-            print("Error \(num) deleting forum ", forumid)
+        if num == nil {
+            print("Error deleting forum ", forumid)
         }
         */
     }

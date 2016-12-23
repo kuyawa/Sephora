@@ -51,7 +51,6 @@ class Reply: DataModel {
 
 extension Reply {
     func save() {
-        print("Saving reply: ", replyid)
         if replyid < 1 { // New post, id not generated yet
             insert()
         } else {
@@ -60,26 +59,36 @@ extension Reply {
     }
     
     func insert() {
+        print("Saving reply...")
         // Map data to sql and insert
         let exclude = ["replyid", "date", "votes", "votesup", "votesdn", "answer", "hidden"]
         let fields = getFields(except: exclude)
         let params = getBindingsNode(for: fields)
-        let sql    = getSqlInsert(table: "replies", fields: fields)
+        let sql    = getSqlInsert(table: "replies", fields: fields, returning: "replyid")
         let newId  = db.execute(sql, params: params)
-        print("New ID: ", newId)
-        //replyid = newId!.int!
-        //print("New reply Id:", replyid)
+        
+        let id = newId?[0]?["replyid"]?.int
+        if id == nil {
+        	print("Error inserting reply, new id not provided")
+        	return 
+        }
+
+        self.replyid = id!
+        print("New reply Id: ", id!)
+
+        countReply(postid)
     }
     
     func update() {
+        print("Updating reply: ", replyid)
         let exclude = ["reply"]
         let fields  = getFields(except: exclude)
         let params  = getBindingsNode(for: fields)
         let sql     = getSqlUpdate(table: "replies", fields: fields, params: params, key: "replyid", id: replyid)
         let num     = db.execute(sql, params: params)
         
-        if num!.int! < 1 {
-            print("Error \(num) updating reply ", replyid)
+        if num == nil {
+            print("Error updating reply ", replyid)
         }
     }
     
@@ -88,8 +97,8 @@ extension Reply {
         let args: [Node] = [Node(replyid)]
         let num = db.execute(sql, params: args)
         
-        if num!.int! < 1 {
-            print("Error \(num) deleting reply ", replyid)
+        if num == nil {
+            print("Error deleting reply ", replyid)
         }
     }
     
@@ -100,6 +109,12 @@ extension Reply {
         guard let node = rows[0] else { return nil }
         try? self.fromNode(node)
         return self
+    }
+
+    func countReply(_ postId: Int) {
+        let sql = "Update posts set replies = replies+1 where postid = $1"
+        let args: [Node] = [Node(postid)]
+        _ = db.execute(sql, params: args)
     }
 
 } 

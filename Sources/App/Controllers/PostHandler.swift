@@ -12,8 +12,13 @@ class PostHandler: WebController {
 		guard let replies = post.getReplies() else { return fail(.badRequest) }
 
 		post.countView()
-		
-		let data: Node = ["forum": try! forum.makeNode(), "post": try! post.makeNode(), "replies": replies]
+
+		var markdown = Markdown()
+		let md = "hi *italics* **bold** there"
+		let html = markdown.transform("hi *italics* **bold** there")
+		//let html = Node(md).markdown
+		//print("MD: ", html!)
+		let data: Node = ["forum": try! forum.makeNode(), "post": try! post.makeNode(), "replies": replies, "markdown": Node(md), "html": Node(html)]
 		let view = getView("post", with: data) 
 
 		return view!

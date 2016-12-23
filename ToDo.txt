@@ -1,20 +1,14 @@
 FIX:
 
-- App breaking if db not available. Fail gracefuly
 - Forum dirname must be unique, add constrain to db
 
 TODO:
 
-
-- Markdown in Swift
+! Github authentication
 - Show permalink in every post and reply for easy sharing
 - if logged, allow to post in listing, show textarea and submit button
 - post new message
-- time ago in last posts. make ago(time) extension
 ? question, answered, message, poll, job, app icons, default is message (chat bubble)
-x add forum info, forums list, user info to default DataNode for use in all templates
-x use DataNode with defaults in base template
-x add all forums to db
 - add some users to test
 - add some messages to every forum
 ? hot topic (red question|message|poll icon > 10 messages)
@@ -37,6 +31,15 @@ x add all forums to db
 
 ------------------------------------------------------------
 
+x Markdown library
+x Add template tag for markdown
+x Add actionbar below header for username, messages, actions
+x Remove table, use LI in index list
+x time ago in last posts. make ago(time) extension
+x add forum info, forums list, user info to default DataNode for use in all templates
+x use DataNode with defaults in base template
+x add all forums to db
+x App breaking if db not available. Fail gracefuly
 x Test Heroku postgres
 ~ Design database
 ? Create database on /admin/install

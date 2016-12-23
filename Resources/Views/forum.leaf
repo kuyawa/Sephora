@@ -2,29 +2,27 @@
 
 #export("content") {
 		<h1 class="forum-name">#(forum.name) <sep>•</sep> <span class="forum-descrip">#(forum.descrip)</span></h1>
-		<table class="latest">
-			#loop(posts, "post") {
-			<tr>
-				<td>
-					<nviews><h1>#(post.views)</h1><h2>views</h2></nviews>
-					<nreplies><h1>#(post.replies)</h1><h2>replies</h2></nreplies>
-					<icon>
-						#if(post.answered) { <img src="/images/answerok.png"/> } ##else() {
-							#equal(post.type, "0") { <img src="/images/message.png"/> }
-							#equal(post.type, "1") { <img src="/images/answerno.png"/> }
-							#equal(post.type, "2") { <img src="/images/answerno.png"/> }
-						}
-					</icon>
-				</td>
-				<td>
-					<item>
-						<post><a href="/forum/#(forum.dirname)/post/#(post.postid)">#(post.title)</a></post>
-						<info><user><a href="/user/#(post.nick)">#(post.nick)</a></user> <sep>•</sep> <time>#timeago(post.date)</time></info>
-					</item>
-				</td>
-			</tr>
+
+		#loop(posts, "post") {
+		<latest>
+			<icon>
+				#if(post.answered) { <img src="/images/answerok.png"/> } ##else() {
+					#equal(post.type, "0") { <img src="/images/message.png"/> }
+					#equal(post.type, "1") { <img src="/images/answerno.png"/> }
+					#equal(post.type, "2") { <img src="/images/answerno.png"/> }
+				}
+			</icon>
+			<item>
+				<post><a href="/forum/#(forum.dirname)/post/#(post.postid)">#(post.title)</a></post>
+				<info>
+					<user><a href="/user/#(post.nick)">#(post.nick)</a></user> 
+					<sep>•</sep> <time>#timeago(post.date)</time>
+					<sep>•</sep> <span>#(post.views) views</span> 
+					<sep>•</sep> <span>#(post.replies) replies</span>
+				</info>
+			</item>
+		</latest>
 		}
-		</table>
 
 		<newpost>
 			<form method="post" action="/forum/#(forum.dirname)/submit">

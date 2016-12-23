@@ -14,3 +14,38 @@ class LeafTimeAgo: BasicTag {
         return Node(ago)
     }
 }
+
+class LeafMarkdown: BasicTag {
+	let name = "markdown"
+
+	func run(arguments: [Argument]) throws -> Node? {
+    	guard let text = arguments.first?.value?.string else { return nil }
+        var markdown = Markdown()
+        let html: String = markdown.transform(text)
+        let unescaped = html.bytes
+        return .bytes(unescaped)
+    }
+}
+
+/*
+extension Node {
+
+	var markdown : Node? {
+		guard let text = self.string else { return Node("some **bold** here") }
+		var markdown = Markdown()
+		let html = markdown.transform(text)
+		return Node(html)
+	}
+
+	func markdown(options: MarkdownOptions) -> Node? {
+		guard let text = self.string else { return Node("some **bold** here") }
+		var markdown = Markdown()
+		let html = markdown.transform(text)
+		print("Marked: ", html)
+		return Node(html)
+	}
+
+}
+*/
+
+// End

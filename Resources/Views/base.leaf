@@ -17,6 +17,9 @@
 			<h3>Join Swift enthusiasts all around the world</h3>
 		</a>
 	</company>
+</header>
+
+<actionbar>
 	<actions>
 	#if(isLogged) {
 		<a href="/profile">Profile</a>
@@ -26,11 +29,11 @@
 		<a href="/login">Log In</a>
 	}
 	</actions>
-</header>
+</actionbar>
 
 <main>
 	<aside>
-		<h1>Forums</h1>
+		<h1><a href="/">Forums</a></h1>
 		<ul class="forums">
 		#embed("sidebar")
 		</ul>

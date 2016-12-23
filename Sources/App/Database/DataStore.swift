@@ -25,15 +25,21 @@ class DataStore {
 	// SQL EXECUTION
 
 	func execute(_ sql: String) -> Node? {
-		if let rows = try? db.raw(sql) {
+		do {
+			let rows = try db.raw(sql)
 			return rows
+		} catch {
+			print("DB Error: ", error)
 		}
 		return nil
 	}
 
 	func execute(_ sql: String, params: [Node]) -> Node? {
-		if let rows = try? db.raw(sql, params) {
+		do {
+			let rows = try db.raw(sql, params)
 			return rows
+		} catch {
+			print("DB Error: ", error)
 		}
 		return nil
 	}

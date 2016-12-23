@@ -69,29 +69,34 @@ extension Post {
     }
     
     func insert() {
+        print("Saving post...")
         // Map data to sql and insert
         let exclude = ["postid", "date", "views", "replies", "answered", "sticky", "closed", "hidden"]
         let fields = getFields(except: exclude)
-        print(fields)
         let params = getBindingsNode(for: fields)
-        print(params)
-        let sql    = getSqlInsert(table: "posts", fields: fields)
-        print(sql)
+        let sql    = getSqlInsert(table: "posts", fields: fields, returning: "postid")
         let newId  = db.execute(sql, params: params)
-        print("New ID: ", newId)
-        //postid = newId!.int!
-        //print("New post Id:", postid)
+
+        let id = newId?[0]?["postid"]?.int
+        if id == nil {
+        	print("Error inserting post, new id not provided")
+        	return 
+        }
+
+        self.postid = id!
+        print("New post Id: ", id!)
     }
     
     func update() {
+        print("Updating post: ", postid)
         let exclude = ["postid"]
         let fields  = getFields(except: exclude)
         let params  = getBindingsNode(for: fields)
         let sql     = getSqlUpdate(table: "posts", fields: fields, params: params, key: "postid", id: postid)
         let num     = db.execute(sql, params: params)
         
-        if num!.int! < 1 {
-            print("Error \(num) updating post ", postid)
+        if num == nil {
+            print("Error updating post ", postid)
         }
     }
     
@@ -100,8 +105,8 @@ extension Post {
         let args: [Node] = [Node(postid)]
         let num = db.execute(sql, params: args)
         
-        if num!.int! < 1 {
-            print("Error \(num) deleting post ", postid)
+        if num == nil {
+            print("Error deleting post ", postid)
         }
     }
     
@@ -124,6 +129,12 @@ extension Post {
 
     func countView() {
         let sql = "Update posts set views = views+1 where postid = $1"
+        let args: [Node] = [Node(postid)]
+        _ = db.execute(sql, params: args)
+    }
+
+    func countReplies() {
+        let sql = "Update posts set replies = replies+1 where postid = $1"
         let args: [Node] = [Node(postid)]
         _ = db.execute(sql, params: args)
     }

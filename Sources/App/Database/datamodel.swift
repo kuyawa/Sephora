@@ -160,10 +160,13 @@ class DataModel: NSObject {
     
     
     // Insert into Invoices(field1, field2...) values(:field1, :field2...)
-    func getSqlInsert(table: String, fields: [String]) -> String {
+    func getSqlInsert(table: String, fields: [String], returning id: String? = nil) -> String {
         let props  = getInsertFields(fields)
         let values = getInsertPositions(fields.count)
-        let sql = "Insert into \(table)(\(props)) values(\(values));"
+        var sql = "Insert into \(table)(\(props)) values(\(values));"
+        if id != nil {
+        	sql = "Insert into \(table)(\(props)) values(\(values)) returning \(id!);"
+        }
         return sql
     }
     

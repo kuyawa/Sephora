@@ -13,13 +13,13 @@
 		</icon>
 		<top>
 			<h1>#(post.title)</h1>
-			<h6>#(post.nick) <sep>•</sep> #timeago(post.date) <sep>•</sep> #(post.views) views</h6>
+			<h6><user><a href="/user/#(post.nick)">#(post.nick)</a></user> <sep>•</sep> #timeago(post.date) <sep>•</sep> #(post.views) views <sep>•</sep> #(post.replies) replies</h6>
 		</top>
 		<content>#(post.content)</content>
 	</article>
 
 	<replies>
-		<h3>#(numreplies) Replies</h3>
+		<h3>#(post.replies) Replies</h3>
 		#loop(replies, "reply") {
 		<reply>
 			<side>
@@ -31,9 +31,9 @@
 				<answered>	#if(reply.answer) { <img src="/images/answerok.png"/> } </answered>
 			</side>
 			<message>
-				<info><a href="/user/#(post.nick)">#(reply.nick)</a></user> <sep>•</sep> <time>#timeago(reply.date)</time></info>
+				<info><user><a href="/user/#(reply.nick)">#(reply.nick)</a></user> <sep>•</sep> <time>#timeago(reply.date)</time></info>
 				<text>
-					#(reply.content)
+					#markdown(reply.content)
 				</text>
 			</message>
 		</reply>
