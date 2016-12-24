@@ -1,7 +1,7 @@
 #extend("base")
 
 #export("content") {
-	<h1 class="forum-name">#(forum.name) <sep>•</sep> <span class="forum-descrip">#(forum.descrip)</span></h1>
+	<h1 class="forum-name"><a href="/forum/#(forum.dirname)">#(forum.name)</a> <sep><small>•</small></sep> <span class="forum-descrip">#(forum.descrip)</span></h1>
 
 	<article>
 		<icon>
@@ -20,7 +20,9 @@
 				<sep>•</sep> #(post.replies) replies
 			</h6>
 		</top>
-		<content>#(post.content)</content>
+		<content>
+			#(post.content)
+		</content>
 	</article>
 
 	<replies>
@@ -38,7 +40,7 @@
 			<message>
 				<info><user><a href="/user/#(reply.nick)">#(reply.nick)</a></user> <sep>•</sep> <time>#timeago(reply.date)</time></info>
 				<text>
-					#(reply.content)
+					<p>#(reply.content)</p>
 				</text>
 			</message>
 		</reply>

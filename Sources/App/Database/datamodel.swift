@@ -1,6 +1,17 @@
 import Vapor
 import Foundation
 
+
+
+/* WARNING : LINUX DOESN'T LIKE NSOBJECT
+
+   Methods not allowed:
+     .value
+     .setValue
+     .dictionaryFromValues
+
+*/
+
 typealias Parameters = [String:Any]
 
 class DataModel: NSObject {
@@ -22,15 +33,15 @@ class DataModel: NSObject {
     	self.db = context
     	super.init()
     }
-
+/*
     func fromDictionary(_ dict: [String:Any], except: [String]? = [""]) {
         for (key,val) in dict {
             if (except?.index(of: key)) == nil {
-                super.setValue(val, forKey: key)
+                self.setValue(val, forKey: key)
             }
         }
     }
-    
+*/    
     func toDictionary(except: [String]? = [""]) -> Parameters {
         var data = [String:Any]()
         let mirror = Mirror(reflecting: self)
@@ -44,27 +55,27 @@ class DataModel: NSObject {
         
         return data
     }
-    
+/*    
     func toDictionary() -> Parameters {
         let fields = self.getFields()
-        let data   = super.dictionaryWithValues(forKeys: fields)
+        let data   = self.dictionaryWithValues(forKeys: fields)
         return data
     }
 
     
     func toDictionary(fields: [String]) -> Parameters {
-        let data = super.dictionaryWithValues(forKeys: fields)
+        let data = self.dictionaryWithValues(forKeys: fields)
         return data
     }
 
     
     func toMutableDictionary() -> NSMutableDictionary {
         let fields = self.getFields()
-        let data   = super.dictionaryWithValues(forKeys: fields)
+        let data   = self.dictionaryWithValues(forKeys: fields)
         let dixy   = NSMutableDictionary(dictionary: data)
         return dixy
     }
-    
+*/    
     
     // Returns a list of fields from the table
     func getFields(except: [String]? = [""]) -> [String] {
@@ -109,11 +120,13 @@ class DataModel: NSObject {
     
     // Dictionary of fields and placeholders
     // Placeholders are fields prepended with ":" for sql binding
+
+/*
     func getBindings(for fields: [String]) -> Parameters {
         var data = [String:Any]()
         for field in fields {
             let key = ":"+field
-            data[key] = super.value(forKey: field)
+            data[key] = self.value(forKey: field)
         }
         
         return data
@@ -122,16 +135,16 @@ class DataModel: NSObject {
     func getBindingsArray(for fields: [String]) -> [Any] {
         var data = [Any]()
         for field in fields {
-            data.append(super.value(forKey: field)!)
+            data.append(self.value(forKey: field)!)
         }
         
         return data
     }
-    
+   
     func getBindingsNode(for fields: [String]) -> [Node] {
         var data = [Node]()
         for field in fields {
-        	let any = super.value(forKey: field)!
+        	let any = self.value(forKey: field)!
         	var node = Node("")
         	switch any {
     		case let any as String: let str: String = any; node = Node(str)
@@ -144,8 +157,26 @@ class DataModel: NSObject {
         
         return data
     }
-    
-    // OBSOLETE: Use mirror instead of object.keyValue
+*/   
+    func getBindingsNode(for fields: [String]) -> [Node] {
+        var data = [Node]()
+        var bind = getBindingsFromMirror(for: fields)
+
+        for field in fields {
+        	let any = bind[field]!
+        	var node = Node("")
+        	switch any {
+    		case let any as String: let str: String = any; node = Node(str)
+    		case let any as Int   : let int: Int = any; node = Node(int)
+    		case let any as Double: let dbl: Double = any; node = Node(dbl)
+    		default: let str: String = any as? String ?? ""; node = Node(str)
+        	}
+            data.append(node)
+        }
+        
+        return data
+    }
+   
     func getBindingsFromMirror(for fields: [String]) -> Parameters {
         var data = [String:Any]()
         let mirror = Mirror(reflecting: self)

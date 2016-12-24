@@ -22,7 +22,7 @@ li { list-style-type: none; }
 
 header { height: 80px; padding: 20px; color: #FFF; }
 /*header { background: linear-gradient(#F55214, #F89248); }*/
-header { background: linear-gradient(#D42, #F84); }
+header { background: linear-gradient(#D42, #F84); border-bottom: 1px solid #F95; }
 header .logo { float: left; margin-right: 10px; }
 header h1, header h3 { margin:0; padding: 0px; color: #FFF; padding-left: 100px; }
 header h1{ padding-top: 10px; opacity: .95; }
@@ -34,7 +34,7 @@ header actions a { padding: 2px 10px; color: #FFF; border: 1px solid #EEE; borde
 header actions a:hover { color: #FFF; border: 1px solid #FFF; background: rgba(64,64,64,.1);}
 */
 
-actionbar { display: block; padding-right: 80px; background-color: #D42; overflow: auto; text-align: right; }
+actionbar { display: block; overflow: auto; text-align: right; padding-right: 80px; background-color: #D42; border-top: 1px solid #C42; }
 actions { margin: 0; font-size: 90%; }
 actions a { padding: 4px 10px; color: #FFF; border-left: 1px solid #D42; border-right: 1px solid #D42; /*border-radius: 4px;*/ font-variant: small-caps; }
 actions a:hover { color: #FFF; background: rgba(64,64,64,.1); border-left: 1px solid #E64; border-right: 1px solid #E64; }
@@ -51,6 +51,10 @@ aside statnum { display: inline-block; float: right; margin-right: 10px;}
 section { overflow: auto; padding: 20px 80px 20px 20px; }
 
 .forum-name { /*margin-bottom: 0; padding-bottom: 0;*/ }
+.forum-name a { color: #333; }
+.forum-name a:hover { color: #B42; }
+.forum-name a:visited { color: #333; }
+.forum-name a:visited:hover { color: #B42; }
 .forum-descrip { /*margin-top: 0; padding-top: 0;*/ font-size: 80%; color: #888; font-weight: 300; }
 .post-title { margin-top: 0; padding-top: 0; font-size: 80%; color: #888; font-weight: 300; }
 
@@ -93,9 +97,10 @@ reply { display: block; clear: both; overflow: auto; margin: 20px 0; border-bott
 reply side { float: left; margin: 0 10px 20px 6px; }
 
 message { display: block; margin-left: 46px; }
-message info { font-size: 70%; color: #888; }
+message info { display: block; margin-top: 6px; font-size: 70%; color: #888; }
 message info user { font-weight: bold; }
 message info user a { color: #333; }
+message text { /*padding: 20px 0;*/ }
 message text li { list-style-type: circle; }
 message text blockquote { margin-left: 0; padding-left: 20px; border-left: 3px solid #CCC; color: #888; font-size: 80%; font-style: italic; }
 message text pre { padding: 10px; color: #4A4; background-color: #030; border-radius: 3px; word-wrap: break-word; /*font-family: monaco;*/ }

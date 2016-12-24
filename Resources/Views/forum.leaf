@@ -1,7 +1,7 @@
 #extend("base")
 
 #export("content") {
-		<h1 class="forum-name">#(forum.name) <sep>•</sep> <span class="forum-descrip">#(forum.descrip)</span></h1>
+		<h1 class="forum-name"><a href="/forum/#(forum.dirname)">#(forum.name)</a> <sep><small>•</small></sep> <span class="forum-descrip">#(forum.descrip)</span></h1>
 
 		#loop(posts, "post") {
 		<latest>
