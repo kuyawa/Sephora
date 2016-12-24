@@ -16,10 +16,12 @@ class DataModel: NSObject {
     // DataModel needs a context for storage, if not provided, create one
     override convenience init() {
     	self.init(in: DataStore())
+    	self.super.init()
     }
 
     init(in context: DataStore) {
     	self.db = context
+    	self.super.init()
     }
 
     func fromDictionary(_ dict: [String:Any], except: [String]? = [""]) {
