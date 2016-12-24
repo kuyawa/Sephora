@@ -16,18 +16,17 @@ class DataModel: NSObject {
     // DataModel needs a context for storage, if not provided, create one
     override convenience init() {
     	self.init(in: DataStore())
-    	self.super.init()
     }
 
     init(in context: DataStore) {
     	self.db = context
-    	self.super.init()
+    	super.init()
     }
 
     func fromDictionary(_ dict: [String:Any], except: [String]? = [""]) {
         for (key,val) in dict {
             if (except?.index(of: key)) == nil {
-                self.setValue(val, forKey: key)
+                super.setValue(val, forKey: key)
             }
         }
     }
@@ -48,18 +47,20 @@ class DataModel: NSObject {
     
     func toDictionary() -> Parameters {
         let fields = self.getFields()
-        let data   = self.dictionaryWithValues(forKeys: fields)
+        let data   = super.dictionaryWithValues(forKeys: fields)
         return data
     }
+
     
     func toDictionary(fields: [String]) -> Parameters {
-        let data = self.dictionaryWithValues(forKeys: fields)
+        let data = super.dictionaryWithValues(forKeys: fields)
         return data
     }
+
     
     func toMutableDictionary() -> NSMutableDictionary {
         let fields = self.getFields()
-        let data   = self.dictionaryWithValues(forKeys: fields)
+        let data   = super.dictionaryWithValues(forKeys: fields)
         let dixy   = NSMutableDictionary(dictionary: data)
         return dixy
     }
@@ -112,7 +113,7 @@ class DataModel: NSObject {
         var data = [String:Any]()
         for field in fields {
             let key = ":"+field
-            data[key] = self.value(forKey: field)
+            data[key] = super.value(forKey: field)
         }
         
         return data
@@ -121,7 +122,7 @@ class DataModel: NSObject {
     func getBindingsArray(for fields: [String]) -> [Any] {
         var data = [Any]()
         for field in fields {
-            data.append(self.value(forKey: field)!)
+            data.append(super.value(forKey: field)!)
         }
         
         return data
@@ -130,7 +131,7 @@ class DataModel: NSObject {
     func getBindingsNode(for fields: [String]) -> [Node] {
         var data = [Node]()
         for field in fields {
-        	let any = self.value(forKey: field)!
+        	let any = super.value(forKey: field)!
         	var node = Node("")
         	switch any {
     		case let any as String: let str: String = any; node = Node(str)
