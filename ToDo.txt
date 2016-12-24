@@ -1,10 +1,17 @@
 FIX:
 
 - Forum dirname must be unique, add constrain to db
+- CHANGE OAUTH CALLBACK IN GITHUB OAUTH SETTINGS WHEN GOING LIVE IN HEROKU!!!
 
 TODO:
 
 ! Github authentication
+- Save user token, user info in user session
+
+- register user, get github nick, 
+- fetch api.github.com/users/{nick} for name, avatar, save in db
+- on save: redirect to github for login 
+
 - Vote up/dn, color icons, send to server
 - Show permalink in every post and reply for easy sharing
 - if logged, allow to post in listing, show textarea and submit button

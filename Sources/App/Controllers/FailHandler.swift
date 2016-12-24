@@ -9,8 +9,9 @@ enum FailType: String {
 	case replyNotAvailable   = "Message not available. Check the correct message you want to access"
 	case badRequest          = "Bad request. Check the correct parameters for the request"
 	case authorizationError  = "Authorization error. Failed to access authorization server"
-	case unauthorizedAccess  = "Unauthorized access. Login is required to access that feature"
+	case missingCredentials  = "Authorization error. Missing credentials from the server"
 	case invalidCredentials  = "Unauthorized access. Invalid credentials sent by server"
+	case unauthorizedAccess  = "Unauthorized access. Login is required to access that feature"
 }
 
 extension WebController {
