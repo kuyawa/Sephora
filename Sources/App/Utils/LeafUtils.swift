@@ -15,6 +15,7 @@ class LeafTimeAgo: BasicTag {
     }
 }
 
+/*
 class LeafMarkdown: BasicTag {
 	let name = "markdown"
 
@@ -26,6 +27,7 @@ class LeafMarkdown: BasicTag {
         return .bytes(unescaped)
     }
 }
+*/
 
 /*
 extension Node {

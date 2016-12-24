@@ -13,12 +13,7 @@ class PostHandler: WebController {
 
 		post.countView()
 
-		var markdown = Markdown()
-		let md = "hi *italics* **bold** there"
-		let html = markdown.transform("hi *italics* **bold** there")
-		//let html = Node(md).markdown
-		//print("MD: ", html!)
-		let data: Node = ["forum": try! forum.makeNode(), "post": try! post.makeNode(), "replies": replies, "markdown": Node(md), "html": Node(html)]
+		let data: Node = ["forum": try! forum.makeNode(), "post": try! post.makeNode(), "replies": replies]
 		let view = getView("post", with: data) 
 
 		return view!

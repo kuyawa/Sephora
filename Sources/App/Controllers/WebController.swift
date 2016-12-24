@@ -42,7 +42,7 @@ class WebController {
 			if let leaf = drop.view as? LeafRenderer {
 				// TODO: REGISTER ALL TEMPLATE FILTERS?
  				leaf.stem.register(LeafTimeAgo())
- 				leaf.stem.register(LeafMarkdown())
+ 				//leaf.stem.register(LeafMarkdown())
 				let view = try leaf.make(name, data) 
 				return view
 			}
