@@ -3,7 +3,7 @@
 
 Sephora is a bulletin board made in Swift. It will allow full configuration in the near future. Stay tuned.
 
-![Screenshot](https://raw.githubusercontent.com/kuyawa/Sephora/master/Screenshots/screenshot1.jpg)
+![Screenshot](https://raw.githubusercontent.com/kuyawa/Sephora/master/Screenshots/screenshot2.jpg)
 
 ## Community
 
