@@ -15,8 +15,9 @@ class ForumHandler: WebController {
 			print(sdate, date, date.timeAgo())
 		}
 */
+		let context = getContext(request)
 		let data: Node = ["forum": try! forum.makeNode(), "posts": posts]
-		let view = getView("forum", with: data) 
+		let view = getView("forum", with: data, in: context) 
 
 		return view!
 	}

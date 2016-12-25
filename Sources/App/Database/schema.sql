@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS settings (
 CREATE TABLE IF NOT EXISTS users (
     userid    serial NOT NULL PRIMARY KEY,
     nick      varchar(20) NOT NULL,
+    name      varchar(40),
     avatar    varchar(30),
     status    varchar(40),
     timezone  integer DEFAULT 0,

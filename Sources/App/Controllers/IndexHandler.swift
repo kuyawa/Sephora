@@ -8,7 +8,9 @@ class IndexHandler: WebController {
 		let ini =  0  // get from pagination
 		let max = 50  // get from Config.latestPosts.max
 
-		guard let posts = Posts(in: db).getLatest(start: ini, limit: max) else { return fail(.databaseUnavailable) }
+		guard let posts = Posts(in: db).getLatest(start: ini, limit: max) else { 
+			return fail(.databaseUnavailable) 
+		}
 
 		// TODO: Pagination from config max, total rec count, and current page
 		let data: Node = [
@@ -18,7 +20,8 @@ class IndexHandler: WebController {
 			"pagination":[0,100,200,300,400]
 		]
 
-		let view = getView("index", with: data)
+		let context = getContext(request)
+		let view = getView("index", with: data, in: context)
 
 		return view!
 	}

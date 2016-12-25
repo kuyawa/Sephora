@@ -1,0 +1,22 @@
+#extend("base")
+
+#export("content") {
+	<h1>Settings</h1>
+	<li>#($settings.forumName)</li>
+	<li>#($settings.forumTitle)</li>
+
+	<h1>User Info</h1>
+	<li>#($userInfo.nick)</li>
+	<li>#($userInfo.name)</li>
+	<li>#($userInfo.avatar)</li>
+
+	<h1>Stats</h1>
+	<li>#($stats.users)</li>
+	<li>#($stats.threads)</li>
+	<li>#($stats.replies)</li>
+	<li>#($stats.questions)</li>
+	<li>#($stats.answered)</li>
+
+	<h1>Test</h1>
+	<li>#($test)</li>
+}

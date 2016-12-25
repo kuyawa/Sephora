@@ -13,8 +13,9 @@ class PostHandler: WebController {
 
 		post.countView()
 
+		let context = getContext(request)
 		let data: Node = ["forum": try! forum.makeNode(), "post": try! post.makeNode(), "replies": replies]
-		let view = getView("post", with: data) 
+		let view = getView("post", with: data, in: context) 
 
 		return view!
 	}

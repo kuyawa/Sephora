@@ -172,6 +172,46 @@ class LoginHandler: WebController {
 		return
 	}
 
+/*
+	// Set session info
+	func setUserSession(_ request: Request) -> ResponseRepresentable {
+		guard let name = request.data["name"]?.string else {
+	        throw Abort.badRequest
+	    }
+
+	    // Is this how we set session?
+	    try request.session().data["name"] = Node.string(name)
+
+	    return "Remebered name."
+	}
+
+	func getUserSession(_ request: Request) -> ResponseRepresentable {
+	    guard let name = try request.session().data["name"]?.string else {
+	        return "Please submit your name first."
+	    }
+
+	    return name
+	}
+
+	// Set cookies
+	func getUserCookie(_ request: Request) -> ResponseRepresentable {
+	    print(request.cookies)
+	    let response = Response()
+
+	    // Direct cookie
+	    response.cookies["test"] = "123"
+
+	    // Cookie class
+	    let cookie = Cookie(name: "life", value: "42")
+	    response.cookies.insert(cookie)
+	    
+	    return response
+	}
+
+	// MORE COOL STUFF: Cahce, MemoryDriver, etc
+	// https://github.com/vapor/vapor/blob/master/Sources/Development/main.swift
+*/
+
 }
 
 // End

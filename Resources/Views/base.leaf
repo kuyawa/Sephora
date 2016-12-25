@@ -4,7 +4,7 @@
     <meta charset="utf-8">
 	<title>Sephora - Forums in Swift</title>
     <link rel="stylesheet" type="text/css" href="/styles/forum.css">
-    #import("style")
+    #import("styles")
 </head>
 
 <body>
@@ -21,10 +21,11 @@
 
 <actionbar>
 	<actions>
-	#if(isLogged) {
+	#if(userIsLogged) {
+		<a href="/profile">#(userInfo.nick)</a>
 		<a href="/profile">Profile</a>
 		<a href="/logout">Log out</a>
-	} #else() {
+	} ##else() {
 		<a href="/register">Register</a>
 		<a href="/login">Log In</a>
 	}
@@ -56,6 +57,8 @@
 	<line><small><a href="https://heroku.com">Hosted on Heroku</a> ~ <a href="https://github.com/kuyawa/Sephora">Developed on Github</a></small></line>
 	<last>&copy; Armonia Software</last>
 </footer>
+
+#import("scripts")
 
 </body>
 </html>

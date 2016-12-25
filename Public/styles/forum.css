@@ -58,6 +58,19 @@ section { overflow: auto; padding: 20px 80px 20px 20px; }
 .forum-descrip { /*margin-top: 0; padding-top: 0;*/ font-size: 80%; color: #888; font-weight: 300; }
 .post-title { margin-top: 0; padding-top: 0; font-size: 80%; color: #888; font-weight: 300; }
 
+
+/* REGISTER */
+register { display: block; margin-top: 26px; }
+register .note { font-size:80%; font-style: italic; color: #090; }
+register #wait { width: 10px; height:10px;  visibility: hidden; }
+userinfo { display: inline-block; width: 320px; margin-top: 0; padding: 10px; background: #FFF; border-top: 1px solid #CCC; border-bottom: 1px solid #CCC; }
+userinfo name { display: block; font-size: 100%; font-weight: bold; margin: 0; padding: 0; }
+userinfo nick { display: block; font-size: 80%; font-weight: regular; margin: 0; padding: 0; }
+userinfo avatar { float:left; margin-right: 10px; width: 34px; height: 34px; border-radius: 16px; border: 1px solid #DDD; }
+userinfo avatar img { width: 32px; height: 32px; padding: 1px; border-radius: 16px; border: none; }
+userinfo #login { float: right; margin-top: -24px; visibility: hidden; }
+
+
 /* LATEST POSTS */
 latest { display: block; font-size: 80%; padding: 10px 0; }
 latest icon { float: left; margin: 4px 14px 0 0; }
@@ -77,6 +90,7 @@ newpost #title { width: 100%; }
 newpost #content { width: 100%; height: 200px; }
 newpost .small { margin: 0; padding: 0; text-align: right; font-size: 60%; color: #666; }
 input[type="submit"] { width: 60px; /* height:30px; padding: 14px 30px; */}
+
 
 /* VIEW POST */
 article { display: block; margin: 0; padding: 10px 0 20px 0; }
