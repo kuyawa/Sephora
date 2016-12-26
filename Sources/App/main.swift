@@ -1,9 +1,8 @@
 import Vapor
-import HTTP
 
 let drop = Droplet()
 
-drop.get(handler: IndexHandler().index)
+drop.get(){ req in return "Hello world!" }
 
 drop.run()
 
