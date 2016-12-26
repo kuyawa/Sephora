@@ -138,34 +138,4 @@ extension User {
 } 
 
 
-// Used to store session info
-class UserInfo {
-	var nick   : String = "anonymous"
-	var name   : String = "John Doe"
-	var avatar : String = "/images/unknown.png"
-	var isLogged = false
-
-	func fromSession(_ request: Request) -> UserInfo {
-		guard let session = try? request.session() else { return self }
-
-	    nick = session.data["nick"]?.string ?? "anonymous"
-	    name = session.data["name"]?.string ?? "John Doe"
-	    avatar = session.data["avatar"]?.string ?? "/images/unknown.png"
-	    isLogged = session.data["islogged"]?.bool ?? false
-
-	    return self
-	}
-
-	func toNode() -> Node {
-		let node: Node = Node(["user":[
-			"nick"    : Node.string(nick),
-			"name"    : Node.string(name),
-			"avatar"  : Node.string(avatar),
-			"isLogged": Node.bool(isLogged)
-		]])
-
-		return node
-	}
-}
-
 // End

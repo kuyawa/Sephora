@@ -59,22 +59,29 @@ class WebController {
 		// TODO: get all from database
 		// TODO: Get from cache to avoid data hits
 
-		let userInfo = UserInfo().fromSession(request)
+		print("--Cookies: ", request.cookies)
+		if let session = try? request.session() {
+			print("--Session: ", session.data)
+		}
+
+
+		let userInfo = UserInfo(in: db).fromSession(request)
 		let user     = userInfo.toNode()
 		let logged   = Node(userInfo.isLogged)
 		let settings = Settings(in: db).load().toNode()
 		let stats    = Stats(in: db).gather().toNode()
-		let forums   = Forums(in: db).getSidebar()!
+		//let forums   = Forums(in: db).getSidebar()!
 
 		// Context goes prefixed with $ to avoid collisions with request data
 		let node: Node = try! Node(node: [
 			"$userInfo"     : user,
 			"$settings"     : settings,
 			"$stats"        : stats,
-			"$forums"       : forums,
 			"$userIsLogged" : logged
+			/*"$forums"       : forums*/
 		])
 
+		print("--Context: ", node)
 		return node
 	}
 

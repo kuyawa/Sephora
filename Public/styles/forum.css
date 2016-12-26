@@ -38,6 +38,7 @@ actionbar { display: block; overflow: auto; text-align: right; padding-right: 80
 actions { margin: 0; font-size: 90%; }
 actions a { padding: 4px 10px; color: #FFF; border-left: 1px solid #D42; border-right: 1px solid #D42; /*border-radius: 4px;*/ font-variant: small-caps; }
 actions a:hover { color: #FFF; background: rgba(64,64,64,.1); border-left: 1px solid #E64; border-right: 1px solid #E64; }
+actions .nick { font-variant: small-caps; text-transform: capitalize; }
 
 main { overflow: auto; display: block; padding-bottom: 50px; border-top: 1px solid #FFF; /*border-bottom:1px solid #FFF;*/ }
 

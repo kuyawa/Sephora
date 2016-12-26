@@ -36,7 +36,7 @@ class RegisterHandler: WebController {
 				return failJson(.userInfoInvalid)
 			}
 
-			//print("User info: ", nick, name, avatar)
+			print("User info: ", nick, name, avatar)
 
 			let user = User()
 			user.nick = nick
@@ -45,13 +45,22 @@ class RegisterHandler: WebController {
 			user.register()
 			
 			// Save session info
+			//try request.session().data["nick"] = Node(nick)
+			//try request.session().data["name"] = Node(name)
+			//try request.session().data["avatar"] = Node(avatar)
+
+			let info = easyJson(["nick": nick, "name": name, "avatar": avatar])
+
+			let response = Response(status: .ok, body: info)
+			response.headers["Content-Type"] = "application/json"
+			response.cookies["nick"] = nick
+
+			print("Session info: ", nick, name, avatar)
 			try request.session().data["nick"] = Node(nick)
 			try request.session().data["name"] = Node(name)
 			try request.session().data["avatar"] = Node(avatar)
 
-			let info = easyJson(["nick": nick, "name": name, "avatar": avatar])
-
-			return info
+			return response
 
 		} catch {
 			print("Error accessing Github: ", error)

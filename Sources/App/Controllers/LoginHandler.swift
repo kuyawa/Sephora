@@ -32,9 +32,22 @@ class LoginHandler: WebController {
 	func logout(_ request: Request) -> ResponseRepresentable {
 		// TODO: clear cookies and session, remove token from user.token
 		print("Logged out")
-		return AppHandler().redirectToIndex()
+
+		if let session = try? request.session() {
+			session.data["nick"] = Node("")
+			session.data["name"] = Node("")
+			session.data["avatar"] = Node("")
+			session.data["isLogged"] = Node(false)
+		}
+
+		let response = Response(redirect: "/")
+		response.cookies["nick"] = ""
+		//return AppHandler().redirectToIndex()
+		return response
 	}
 
+
+	// TODO: REDESIGN TO USE SYNC REQUESTS
 	// Callback grom Github oAuth reqeust
 	func authorize(_ request: Request) -> ResponseRepresentable {
 		if let errorCode = request.data["error"] {
@@ -43,13 +56,15 @@ class LoginHandler: WebController {
 			return fail(.unauthorizedAccess, content: message?.string)
 		}
 
-		guard let code  = request.data["code"]?.string 
-		      //let state = request.data["state"]?.string 
+		guard let code  = request.data["code"]?.string, 
+		      let state = request.data["state"]?.string 
 		else { 
 			return fail(.unauthorizedAccess, content: "Error: Incorrect response received from server") 
 		}
 
-		//print("Login Code: ", code, state)
+		print("Login Code: ", code, state)
+		// TODO: GET USER FORM DB BY TOKEN, USE USER INFO FROM RECORD
+		try? request.session().data["isLogged"] = Node(true)
 
 		do {
 			try requestAuthToken(code) { token in
@@ -66,8 +81,9 @@ class LoginHandler: WebController {
 						}
 
 						print("User nick: ", nick!)
-						// save user info
-						// Redirect to index
+
+						//let response = Response(redirect: "/")
+						//response.cookies["nick"] = nick!
 						return //AppHandler().redirectToIndex()
 					}
 				} catch {
@@ -208,7 +224,7 @@ class LoginHandler: WebController {
 	    return response
 	}
 
-	// MORE COOL STUFF: Cahce, MemoryDriver, etc
+	// MORE COOL STUFF: Cache, MemoryDriver, etc
 	// https://github.com/vapor/vapor/blob/master/Sources/Development/main.swift
 */
 

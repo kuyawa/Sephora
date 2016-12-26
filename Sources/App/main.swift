@@ -1,7 +1,12 @@
 import Vapor
 import HTTP
+import Sessions
+
+let memory = MemorySessions()
+let sessions = SessionsMiddleware(sessions: memory)
 
 let drop = Droplet()
+drop.middleware.append(sessions)
 if drop.environment == .development { print("Sephora is running in dev mode") }
 
 

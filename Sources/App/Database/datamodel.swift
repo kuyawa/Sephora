@@ -42,12 +42,25 @@ class DataModel: NSObject {
         }
     }
 */    
-    func toDictionary(except: [String]? = [""]) -> Parameters {
+
+    func toDictionary() -> Parameters {
         var data = [String:Any]()
         let mirror = Mirror(reflecting: self)
         for child in mirror.children {
             if let key = child.label {
-                if (except?.index(of: key)) == nil {
+                data[key] = child.value
+            }
+        }
+        
+        return data
+    }
+
+    func toDictionary(fields: [String]) -> Parameters {
+        var data = [String:Any]()
+        let mirror = Mirror(reflecting: self)
+        for child in mirror.children {
+            if let key = child.label {
+                if (fields.index(of: key)) != nil {
                     data[key] = child.value
                 }
             }
@@ -55,6 +68,21 @@ class DataModel: NSObject {
         
         return data
     }
+
+    func toDictionary(except: [String]) -> Parameters {
+        var data = [String:Any]()
+        let mirror = Mirror(reflecting: self)
+        for child in mirror.children {
+            if let key = child.label {
+                if (except.index(of: key)) == nil {
+                    data[key] = child.value
+                }
+            }
+        }
+        
+        return data
+    }
+
 /*    
     func toDictionary() -> Parameters {
         let fields = self.getFields()
@@ -158,12 +186,13 @@ class DataModel: NSObject {
         return data
     }
 */   
+
     func getBindingsNode(for fields: [String]) -> [Node] {
-        var data = [Node]()
-        var bind = getBindingsFromMirror(for: fields)
+        var data: [Node] = [Node]()
+        var binds = toDictionary(fields: fields)
 
         for field in fields {
-        	let any = bind[field]!
+        	let any = binds[field]
         	var node = Node("")
         	switch any {
     		case let any as String: let str: String = any; node = Node(str)
@@ -177,17 +206,38 @@ class DataModel: NSObject {
         return data
     }
    
-    func getBindingsFromMirror(for fields: [String]) -> Parameters {
-        var data = [String:Any]()
+    func getValueFromMirror(for field: String) -> Any? {
         let mirror = Mirror(reflecting: self)
+        //mirror.children[field].value
+        
         for child in mirror.children {
             if let label = child.label {
+            	if field == label {
+                	return child.value
+                }
+            }
+        }
+        
+        return nil
+    }
+
+    func getBindingsFromMirror(for fields: [String]) -> Parameters {
+        var data = [String: Any]()
+        let mirror = Mirror(reflecting: self)
+        print("mirror in")
+        debugPrint(mirror)
+        for child in mirror.children {
+        	print("child:", child)
+            if let label = child.label {
+        		print("label:", label)
                 if (fields.index(of: label)) != nil {
                     let key = ":"+label
+        			print("key:", key)
                     data[key] = child.value
                 }
             }
         }
+        print("mirror out")
         
         return data
     }
@@ -254,6 +304,7 @@ class DataModel: NSObject {
     private func getUpdateBindings(_ fields: [String]) -> String {
         var places = [String]()
         for item in fields {
+        	// TODO: Replace ? with $n
             places.append("\(item) = ?")
             //places.append("\(item) = :\(item)")
         }

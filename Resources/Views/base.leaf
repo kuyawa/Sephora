@@ -21,8 +21,8 @@
 
 <actionbar>
 	<actions>
-	#if(userIsLogged) {
-		<a href="/profile">#(userInfo.nick)</a>
+	#if($userIsLogged) {
+		<a class="nick" href="/profile">#($userInfo.nick) [0]</a>
 		<a href="/profile">Profile</a>
 		<a href="/logout">Log out</a>
 	} ##else() {
