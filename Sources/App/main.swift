@@ -18,11 +18,12 @@ drop.get("index", handler: IndexHandler().index)
 drop.get("register", handler: RegisterHandler().form)
 drop.get("register/user/:user", handler: RegisterHandler().fetchUser)
 drop.get("login", handler: LoginHandler().login)
-drop.get("logout", handler: LoginHandler().logout)
+drop.get("login/github/:nick", handler: LoginHandler().loginGithub)
 drop.get("authorize", handler: LoginHandler().authorize)
 drop.get("profile", handler: TodoHandler().show)
 drop.get("user", handler: AppHandler().redirectToIndex)
 drop.get("user/:user", handler: UserHandler().show)
+drop.get("logout", handler: LoginHandler().logout)
 
 // Forums
 drop.get("forum") { request in Response(redirect: "/forum/general") }

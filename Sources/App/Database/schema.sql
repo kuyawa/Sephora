@@ -27,7 +27,20 @@ CREATE TABLE IF NOT EXISTS users (
     lastact   timestamp DEFAULT now(),
     isnoob    boolean DEFAULT true,
     ismod     boolean DEFAULT false,
-    banned    boolean DEFAULT false
+    banned    boolean DEFAULT false,
+);
+------------------------------------------------------------
+-- CREDENTIALS
+
+CREATE TABLE IF NOT EXISTS credentials {
+    userid    serial NOT NULL PRIMARY KEY,
+    nick      varchar(20) NOT NULL,
+    nick      varchar(20) NOT NULL,
+    code      varchar(80),
+    state     varchar(80),
+    token     varchar(80),
+    invalid   boolean DEFAULT true,
+    islogged  boolean DEFAULT false
 );
 
 ------------------------------------------------------------

@@ -3,19 +3,32 @@ import HTTP
 import Foundation
 
 
-typealias Callback1 = (_ token: String?) -> Void
-typealias Callback2 = (_ nick: String?) -> Void
-
 class LoginHandler: WebController {
 
 	func login(_ request: Request) -> ResponseRepresentable {
-		// TODO: User session
-		// Send to Github for login
-		// on authorize, redirect to index
+		// If we already have a nick send him to github directly
+		if let nick = request.cookies["nick"] {
+			if !nick.isEmpty {
+				return loginGithub(request)  // Redirect
+			}
+		}
 
-		// TODO: CHANGE CALLBACK IN GITHUB OAUTH SETTINGS WHEN GOING LIVE IN HEROKU!!!
+		// else ask for nick, verify info
+		let context = getContext(request)
+		let view = getView("login", in: context)
 
+		return view!
+
+	}
+
+	// TODO: CHANGE CALLBACK IN GITHUB OAUTH SETTINGS WHEN GOING LIVE IN HEROKU!!!
+	func loginGithub(_ request: Request) -> ResponseRepresentable {
 		print("Starting authentication...")
+
+		guard let nick = request.parameters["nick"]?.string else { 
+			return fail(.unauthorizedAccess, content: "Error: Incorrect login credentials") 
+		}
+
 		guard let clientId = drop.config["github", "clientid"]?.string else {
 			print("Secret credentials not found")
 			return fail(.missingCredentials)
@@ -24,9 +37,10 @@ class LoginHandler: WebController {
 		let stateId  = UUID().uuidString   // TODO: save in session
 		let loginUrl = "https://github.com/login/oauth/authorize?client_id=\(clientId)&state=\(stateId)"
 
-		//print("Login url: ", loginUrl)
+		let response = Response(redirect: loginUrl)
+		response.cookies["nick"] = nick
 
-		return AppHandler().redirect(loginUrl)
+		return response
 	}
 
 	func logout(_ request: Request) -> ResponseRepresentable {
@@ -47,9 +61,36 @@ class LoginHandler: WebController {
 	}
 
 
-	// TODO: REDESIGN TO USE SYNC REQUESTS
+	// TODO: REDESIGN TO USE TOKEN ONLY
+
+
 	// Callback grom Github oAuth reqeust
 	func authorize(_ request: Request) -> ResponseRepresentable {
+		if let errorCode = request.data["error"] {
+			print("Login error: ", errorCode)
+			let message = request.data["error_description"]
+			return fail(.unauthorizedAccess, content: message?.string)
+		}
+
+		guard let code  = request.data["code"]?.string, 
+		      let state = request.data["state"]?.string 
+		else { 
+			return fail(.unauthorizedAccess, content: "Error: Incorrect response received from server") 
+		}
+
+		print("Login Code: ", code, state)
+
+		// TODO: GET USER FORM DB BY TOKEN, USE USER INFO FROM RECORD
+		try? request.session().data["isLogged"] = Node(true)
+		let response = Response(redirect: "/")
+		//response.cookies["nick"] = nick!
+
+		print("Exiting /authorize...")
+		return response
+	}
+
+
+	func authorizeOLD(_ request: Request) -> ResponseRepresentable {
 		if let errorCode = request.data["error"] {
 			print("Login error: ", errorCode)
 			let message = request.data["error_description"]

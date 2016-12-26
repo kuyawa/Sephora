@@ -21,7 +21,8 @@ function onUserInfo(json) {
 }
 
 function loginRedirect() {
-	window.location.href = "/login";
+	nick = $("usernick").value;
+	window.location.href = "/login/github/"+nick;
 }
 
 function $(id) {

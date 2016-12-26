@@ -1,0 +1,30 @@
+#extend("base")
+
+#export("content") {
+		<h1 class="forum-name">Login <sep><small>•</small></sep> <span class="forum-descrip">Please identify</span></h1>
+
+		<register>
+			<p>If you are already registered all you have to do is to enter your nick and log in using Github's authentication system.</p>
+
+			<h3>Github Nick:</h3>
+			<li>
+				<input type="textbox" name="usernick" id="usernick" placeholder="nick"> 
+				<button id="fetch" onclick="fetchUserInfo()">Fetch user info</button>
+				<img id="wait" src="/images/spinner.gif" />
+			</li>
+
+			<p class="note">* Your nick is your Github login used to access your repos like http://github.com/<b>mynick</b></p>
+			
+			<userinfo>
+				<avatar> <img id="avatar" width="32" height="32" src="/images/unknown.png" /> </avatar>
+				<name id="name">John Doe</name>
+				<nick id="nick">unknown</nick>
+				<button id="login" onclick="loginRedirect()">Login</button>
+			</userinfo>
+
+			<p>Once your info is updated, you can go to the login page.</p>
+		</register>
+
+}
+
+#export("scripts") { <script src="/static/fetchuserinfo.js"></script> }
