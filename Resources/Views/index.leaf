@@ -17,7 +17,7 @@
 				<info>
 					<forum><a href="/forum/#(post.dirname)">#(post.name)</a></forum>
 					<sep>•</sep> by <user><a href="/user/#(post.nick)">#(post.nick)</a></user> 
-					<sep>•</sep> <time>#timeago(post.date)</time> 
+					<sep>•</sep> <time>#(post.date)</time> 
 					<sep>•</sep> <span>#(post.views) views</span> 
 					<sep>•</sep> <span>#(post.replies) replies</span>
 				</info>
