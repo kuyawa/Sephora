@@ -1,6 +1,5 @@
 import Vapor
 import HTTP
-import PostgreSQL
 
 class IndexHandler: WebController {
 
