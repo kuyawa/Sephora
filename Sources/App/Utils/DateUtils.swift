@@ -35,19 +35,28 @@ extension Date {
     }
 
 	func timeAgo() -> String {
-	    
+	    //guard let date = self else { return "time ago?" }
+/*
 	    let now = Date()
 	    let calendar = Calendar.current
 	    let unitFlags = Set<Calendar.Component>([.second, .minute, .hour, .day, .weekOfYear, .month, .year])
-	    let components = calendar.dateComponents(unitFlags, from: self, to: now)
-
+	    //let components = calendar.dateComponents(unitFlags, from: self, to: now)
+*/
+/*
+        let year = calendar.component(.year, from: self, to: now)
+        let month = calendar?.component(.month, from: self, to: now)
+        let day = calendar?.component(.weekdayOrdinal, from: self, to: now)
+        let hour = calendar?.component(.hour, from: self, to: now)
+        let minutes = calendar?.component(.minute, from: self, to: now)
+        let seconds = calendar?.component(.second, from: self, to: now)
+*/
 /*
 	    let now = Date()
    	    let calendar = Calendar.current
 	    let unitFlags: NSCalendar.Unit = [.second, .minute, .hour, .day, .weekOfYear, .month, .year]
 	    let components = (calendar as NSCalendar).components(unitFlags, from: self, to: now)
 */
-	    
+	    /*
 	    if let year = components.year, year >= 2 {
 	        return "\(year) years ago"
 	    }
@@ -99,6 +108,7 @@ extension Date {
 	    if let second = components.second, second >= 3 {
 	        return "\(second) seconds ago"
 	    }
+	    */
 	    
 	    return "Just now"
 	}
