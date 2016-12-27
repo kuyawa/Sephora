@@ -2,7 +2,7 @@ import Vapor
 
 let drop = Droplet()
 
-drop.get(handler: IndexHandler().index)
+drop.get(){ IndexHandler().index($0) }
 
 drop.run()
 

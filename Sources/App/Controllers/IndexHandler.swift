@@ -1,13 +1,14 @@
 import Vapor
 import HTTP
 
-class IndexHandler: WebController {
+class IndexHandler {
 
 	func index(_ request: Request) -> ResponseRepresentable {
+		var drop = Droplet()
 		let data: Node = ["forum": ["name": "Latest Messages", "descrip": "From all forums"]]
-		let view = getView("index", with: data)
+		let view = try! drop.view.make("index", data)
 
-		return view!
+		return view
 	}
 
 }
