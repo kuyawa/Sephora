@@ -36,18 +36,17 @@ extension Date {
 
 	func timeAgo() -> String {
 	    
-	    /*
 	    let now = Date()
-	    let calendar = NSCalendar.current
+	    let calendar = Calendar.current
 	    let unitFlags = Set<Calendar.Component>([.second, .minute, .hour, .day, .weekOfYear, .month, .year])
 	    let components = calendar.dateComponents(unitFlags, from: self, to: now)
-	    */
 
+/*
 	    let now = Date()
    	    let calendar = Calendar.current
 	    let unitFlags: NSCalendar.Unit = [.second, .minute, .hour, .day, .weekOfYear, .month, .year]
 	    let components = (calendar as NSCalendar).components(unitFlags, from: self, to: now)
-
+*/
 	    
 	    if let year = components.year, year >= 2 {
 	        return "\(year) years ago"
