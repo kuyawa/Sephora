@@ -13,6 +13,13 @@ class User: DataModel {
     var isnoob   : Bool   = true
     var ismod    : Bool   = false
     var banned   : Bool   = false
+	//  oAuth
+    var state    : String = ""
+    var code     : String = ""
+    var token    : String = ""
+    var isvalid  : Bool   = false
+    var expired  : Bool   = false
+    var islogged : Bool   = false
 
     func fromNode(_ node: Node) throws {
         userid   = try node.extract("userid")
@@ -25,20 +32,33 @@ class User: DataModel {
         isnoob   = try node.extract("isnoob")
         ismod    = try node.extract("ismod")
         banned   = try node.extract("banned")
+        // oAuth
+        state    = try node.extract("state")
+        code     = try node.extract("code")
+        token    = try node.extract("token")
+        isvalid  = try node.extract("isvalid")
+        expired  = try node.extract("expired")
+        islogged = try node.extract("islogged")
     }
 
     func makeNode() throws -> Node {
         let node = try Node(node: [
-            "userid"   : userid,
-            "nick"     : nick,
-            "name"     : name,
-            "avatar"   : avatar,
-            "status"   : status,
-            "timezone" : timezone,
-            "lastact"  : lastact.toString(),
-            "isnoob"   : isnoob,
-            "ismod"    : ismod,
-            "banned"   : banned
+            "userid"    : userid,
+            "nick"      : nick,
+            "name"      : name,
+            "avatar"    : avatar,
+            "status"    : status,
+            "timezone"  : timezone,
+            "lastact"   : lastact.toString(),
+            "isnoob"    : isnoob,
+            "ismod"     : ismod,
+            "banned"    : banned,
+            "state"		: state,
+			"code"		: code,
+			"token"		: token,
+			"isvalid"	: isvalid,
+			"expired"	: expired,
+			"islogged"	: islogged
         ])
 
         return node
@@ -85,7 +105,7 @@ extension User {
         let exclude = ["userid"]
         let fields  = getFields(except: exclude)
         let params  = getBindingsNode(for: fields)
-        let sql     = getSqlUpdate(table: "users", fields: fields, params: params, key: "userid", id: userid)
+        let sql     = getSqlUpdate(table: "users", fields: fields, key: "userid", id: userid)
         let num     = db.execute(sql, params: params)
         
         if num == nil {
@@ -126,13 +146,47 @@ extension User {
     }
 
     func get(nick: String) -> User? {
-        let sql = "Select * From users Where dirname=$1 Limit 1"
+        let sql = "Select * From users Where nick=$1 Limit 1"
         if let result = db.query(sql, params: [Node(nick)]) {
             guard let node = result[0] else { return nil }
             try? self.fromNode(node)    // assign values to itself
             return self
         }
         return nil
+    }
+
+    // Gets user by oAuth state id
+    func get(state: String) -> User? {
+        let sql = "Select * From users Where state=$1 Limit 1"
+        if let result = db.query(sql, params: [Node(state)]) {
+            guard let node = result[0] else { return nil }
+            try? self.fromNode(node)    // assign values to itself
+            return self
+        }
+        return nil
+    }
+
+    // Additional methods
+
+    func saveAuthState(_ id: String) {
+    	if self.nick.isEmpty { return }
+    	let sql  = "Update users Set state=$1, lastact=now() Where nick=$2"
+    	let args = [Node(id), Node(self.nick)]
+        _ = db.execute(sql, params: args)
+    }
+
+    func saveAuthCode(_ id: String) {
+    	if self.nick.isEmpty { return }
+    	let sql  = "Update users Set code=$1, islogged=true Where nick=$2"
+    	let args = [Node(id), Node(self.nick)]
+        _ = db.execute(sql, params: args)
+    }
+
+    func saveAuthToken(_ id: String) {
+    	if self.nick.isEmpty { return }
+    	let sql  = "Update users Set token=$1 Where nick=$2"
+    	let args = [Node(id), Node(self.nick)]
+        _ = db.execute(sql, params: args)
     }
 
 } 

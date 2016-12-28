@@ -92,7 +92,7 @@ extension Post {
         let exclude = ["postid"]
         let fields  = getFields(except: exclude)
         let params  = getBindingsNode(for: fields)
-        let sql     = getSqlUpdate(table: "posts", fields: fields, params: params, key: "postid", id: postid)
+        let sql     = getSqlUpdate(table: "posts", fields: fields, key: "postid", id: postid)
         let num     = db.execute(sql, params: params)
         
         if num == nil {

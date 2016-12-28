@@ -1,20 +1,24 @@
 FIX:
 
-- REMOVE NSOBJECT FROM DATAMODELS !!!
-
-- CHANGE OAUTH CALLBACK IN GITHUB OAUTH SETTINGS WHEN GOING LIVE IN HEROKU!!!
-- MARKDOWN NOT COMPILING ON HEROKU?
+- MARKDOWN NOT COMPILING ON HEROKU ???
 - Forum dirname must be unique, add constrain to db
+- User nick must be unique, add constraint to db
+- Fix timeago in dateUtils for use in templates
 
 TODO:
 
-! Github authentication
-- remove authToken, userInfo from authorization, use code to verify or error to deny
-? Save user token, user info in user session
+x Github authentication
+x test credential secrets are set correctly for live, dev and local
+x remove authToken, userInfo from authorization, use code to verify or error to deny
+x Save user token, user info in user session
+x save cookies for nick and user when loggin in
+x save oauth code in user table for future logins
 
-- register user, get github nick, 
-- fetch api.github.com/users/{nick} for name, avatar, save in db
-- on save: redirect to github for login 
+x register user, get github nick, 
+x Double entry in users table on login/register !!!
+x fetch api.github.com/users/{nick} for name, avatar, save in db
+x on save: redirect to github for login 
+
 
 - Vote up/dn, color icons, send to server
 - Show permalink in every post and reply for easy sharing

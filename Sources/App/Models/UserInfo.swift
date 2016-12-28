@@ -57,7 +57,7 @@ class UserInfo: DataQuery {
 	}
 
 	func getByNick(_ nick: String) {
-		let sql = "Select nick, name, avatar From users Where nick = $1 Limit 1"
+		let sql = "Select nick, name, avatar From users Where nick=$1 Limit 1"
 		let params = [Node(nick)]
 		let rows = db.query(sql, params: params)
 		if rows != nil {

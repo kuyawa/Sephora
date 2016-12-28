@@ -196,13 +196,15 @@ class DataModel: NSObject {
         	var node = Node("")
         	switch any {
     		case let any as String: let str: String = any; node = Node(str)
-    		case let any as Int   : let int: Int = any; node = Node(int)
+    		case let any as Int:    let int: Int    = any; node = Node(int)
     		case let any as Double: let dbl: Double = any; node = Node(dbl)
+    		case let any as Date:   let dat: Date   = any; node = Node(dat.toString())
+    		case let any as Bool:   let bol: Bool   = any; node = Node(bol)
     		default: let str: String = any as? String ?? ""; node = Node(str)
         	}
             data.append(node)
         }
-        
+
         return data
     }
    
@@ -224,20 +226,14 @@ class DataModel: NSObject {
     func getBindingsFromMirror(for fields: [String]) -> Parameters {
         var data = [String: Any]()
         let mirror = Mirror(reflecting: self)
-        print("mirror in")
-        debugPrint(mirror)
         for child in mirror.children {
-        	print("child:", child)
             if let label = child.label {
-        		print("label:", label)
                 if (fields.index(of: label)) != nil {
                     let key = ":"+label
-        			print("key:", key)
                     data[key] = child.value
                 }
             }
         }
-        print("mirror out")
         
         return data
     }
@@ -254,8 +250,8 @@ class DataModel: NSObject {
         return sql
     }
     
-    // Update Invoices set field1 = :field1, field2 = :field2 where invoiceId = :invoiceId limit 1
-    func getSqlUpdate(table: String, fields: [String], params: [Any], key: String, id: Int) -> String {
+    // Update Invoices set field1 = $1, field2 = $2 where invoiceId = $3
+    func getSqlUpdate(table: String, fields: [String], key: String, id: Int) -> String {
         let updates = getUpdateBindings(fields)
         //let updates = getUpdateValues(fields, params: params)
         let sql = "Update \(table) set \(updates) where \(key) = \(id);"
@@ -303,9 +299,8 @@ class DataModel: NSObject {
     // Not working, dunno why. Use direct values instead
     private func getUpdateBindings(_ fields: [String]) -> String {
         var places = [String]()
-        for item in fields {
-        	// TODO: Replace ? with $n
-            places.append("\(item) = ?")
+        for (index, item) in fields.enumerated() {
+            places.append("\(item) = $\(index+1)")
             //places.append("\(item) = :\(item)")
         }
         let updates = places.joined(separator: ", ")

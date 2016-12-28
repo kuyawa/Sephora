@@ -68,7 +68,7 @@ extension Forum {
         let exclude = ["forumid"]
         let fields  = getFields(except: exclude)
         let params  = getBindingsNode(for: fields)
-        let sql     = getSqlUpdate(table: "forums", fields: fields, params: params, key: "forumid", id: forumid)
+        let sql     = getSqlUpdate(table: "forums", fields: fields, key: "forumid", id: forumid)
         let num     = db.execute(sql, params: params)
         
         if num == nil {

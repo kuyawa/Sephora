@@ -84,7 +84,7 @@ extension Reply {
         let exclude = ["reply"]
         let fields  = getFields(except: exclude)
         let params  = getBindingsNode(for: fields)
-        let sql     = getSqlUpdate(table: "replies", fields: fields, params: params, key: "replyid", id: replyid)
+        let sql     = getSqlUpdate(table: "replies", fields: fields, key: "replyid", id: replyid)
         let num     = db.execute(sql, params: params)
         
         if num == nil {

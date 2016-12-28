@@ -61,9 +61,9 @@ class WebController {
 		// TODO: get all from database
 		// TODO: Get from cache to avoid data hits
 
-		print("--Cookies: ", request.cookies)
+		//print("--Cookies: ", request.cookies)
 		if let session = try? request.session() {
-			print("--Session: ", session.data)
+			//print("--Session: ", session.data)
 		}
 
 
@@ -83,8 +83,37 @@ class WebController {
 			/*"$forums"       : forums*/
 		])
 
-		print("--Context: ", node)
+		//print("--Context: ", node)
 		return node
 	}
 
+
+	func getConfigSecrets(host: String) -> (String, String) {
+		var clientLabel = "clientid-live"
+		var secretLabel = "secret-live"
+
+		if drop.environment == .development { 
+			if host == "localhost" || host == "127.0.0.1" {
+				clientLabel = "clientid-local"
+				secretLabel = "secret-local"
+			} else {
+				clientLabel = "clientid-dev"
+				secretLabel = "secret-dev"
+			}
+		}
+
+		//print(clientLabel, secretLabel)
+
+		guard let clientId = drop.config["github", clientLabel]?.string,
+		      let secret   = drop.config["github", secretLabel]?.string
+		else {
+			print("Secret credentials not found")
+			return ("","")
+		}
+		
+		return (clientId, secret)
+	}
+
 }
+
+// End

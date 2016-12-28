@@ -6,11 +6,11 @@ class RegisterHandler: WebController {
 
 	func form(_ request: Request) -> ResponseRepresentable {
 		let context = getContext(request)
-		let data: Node = ["text": "Not ready"]
-		let view = getView("register", with: data, in: context) 
+		let view = getView("register", in: context) 
 		return view!
 	}
 
+	// API to get user info from github, returns json
 	func fetchUser(_ request: Request) -> ResponseRepresentable {
 		guard let user = request.parameters["user"]?.string else {
 			print("User nick is required")
@@ -22,7 +22,7 @@ class RegisterHandler: WebController {
 		}
 
 		do {
-			let data = try Data(contentsOf: url)
+			let data = try Data(contentsOf: url) // Sync fecth
 
 			//print("User Info: \n", String(data: data, encoding: .utf8))
 
@@ -44,11 +44,6 @@ class RegisterHandler: WebController {
 			user.avatar = avatar
 			user.register()
 			
-			// Save session info
-			//try request.session().data["nick"] = Node(nick)
-			//try request.session().data["name"] = Node(name)
-			//try request.session().data["avatar"] = Node(avatar)
-
 			let info = easyJson(["nick": nick, "name": name, "avatar": avatar])
 
 			let response = Response(status: .ok, body: info)
