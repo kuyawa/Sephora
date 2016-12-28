@@ -79,7 +79,7 @@ class LoginHandler: WebController {
 			return fail(.unauthorizedAccess, content: "Error: Incorrect response received from server") 
 		}
 
-		//print("Login Code: ", code, state)
+		print("Login Code: ", code, state)
 
 		guard let user = User().get(state: state) else {
 			// state from github not found in db
@@ -89,6 +89,7 @@ class LoginHandler: WebController {
 		user.islogged = true
 
 		let (clientId, secret) = getConfigSecrets(host: request.uri.host)
+		//print("Secrets: ", clientId, secret)
 
 		var validateUser = true
 		if clientId.isEmpty || secret.isEmpty {
@@ -268,6 +269,7 @@ class LoginHandler: WebController {
 		print("Logged out")
 
 		if let session = try? request.session() {
+			session.data["userid"] = Node(0)
 			session.data["nick"] = Node("")
 			session.data["name"] = Node("")
 			session.data["avatar"] = Node("")

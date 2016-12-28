@@ -76,8 +76,10 @@ extension User {
     
     func register() {
     	if self.get(nick: nick) == nil {
+    		print("Registering new user")
     		insert()
     	} else {
+    		print("Not registered, user already exists")
     		// Already registered
     	}
     }

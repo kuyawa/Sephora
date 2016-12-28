@@ -92,6 +92,8 @@ newpost #content { width: 100%; height: 200px; }
 newpost .small { margin: 0; padding: 0; text-align: right; font-size: 60%; color: #666; }
 input[type="submit"] { width: 60px; /* height:30px; padding: 14px 30px; */}
 
+warn { display: block; margin-top: 30px; font-size: 80%; border-top: 1px solid #CCC; }
+warn a { color: #333; border-bottom: 1px dashed #888; }
 
 /* VIEW POST */
 article { display: block; margin: 0; padding: 10px 0 20px 0; }

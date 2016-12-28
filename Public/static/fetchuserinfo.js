@@ -22,6 +22,13 @@ function onUserInfo(json) {
 	$("fetch").disabled = false;
 	try {
 		info = JSON.parse(json);
+		if(info.error){ 
+			$("nick").innerHTML = "error";
+			$("name").innerHTML = info.error;
+			$("login").style.visibility = "hidden";
+			alert("Error validating information. Try again later")
+			return;
+		}
 		$("nick").innerHTML = info.nick;
 		$("name").innerHTML = info.name;
 		$("avatar").src     = info.avatar;

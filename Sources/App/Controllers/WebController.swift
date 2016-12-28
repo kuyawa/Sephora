@@ -62,9 +62,9 @@ class WebController {
 		// TODO: Get from cache to avoid data hits
 
 		//print("--Cookies: ", request.cookies)
-		if let session = try? request.session() {
+		//if let session = try? request.session() {
 			//print("--Session: ", session.data)
-		}
+		//}
 
 
 		let userInfo = UserInfo(in: db).fromSession(request)
@@ -102,7 +102,7 @@ class WebController {
 			}
 		}
 
-		//print(clientLabel, secretLabel)
+		print(clientLabel, secretLabel)
 
 		guard let clientId = drop.config["github", clientLabel]?.string,
 		      let secret   = drop.config["github", secretLabel]?.string

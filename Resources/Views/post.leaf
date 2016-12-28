@@ -47,6 +47,7 @@
 		} ##(post) { <p>Be the first to leave a comment</p> }
 	</replies>
 
+	#if($userIsLogged) {
 	<newreply>
 		<form method="post" action="/forum/#(forum.dirname)/post/#(post.postid)/reply">
 			<h3>Reply to this thread:</h3>
@@ -55,4 +56,9 @@
 			<li><input type="submit" value="Send"></li>
 		</form>
 	</newreply>
+	} ##else() {
+		<warn><p>Must be <a href="/login">logged in</a> to post on this forum</p></warn>
+	}
+
+
 }

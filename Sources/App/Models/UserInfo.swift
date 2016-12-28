@@ -4,6 +4,7 @@ import Foundation
 
 // Used to store session info
 class UserInfo: DataQuery {
+	var userid : Int    = 0
 	var nick   : String = "anonymous"
 	var name   : String = "John Doe"
 	var avatar : String = "/images/unknown.png"
@@ -26,7 +27,8 @@ class UserInfo: DataQuery {
 		// Session info
 		if !nick.isEmpty && nick != "anonymous" { 
 			self.nick = nick
-			if let name = session.data["name"]?.string { self.name = name }
+			if let userid = session.data["userid"]?.int    { self.userid = userid }
+			if let name   = session.data["name"]?.string   { self.name = name }
 			if let avatar = session.data["avatar"]?.string { self.avatar = avatar }
 			self.isLogged = true
 		} else {
@@ -40,6 +42,7 @@ class UserInfo: DataQuery {
 
 	func toNode() -> Node {
 		let node: Node = Node([
+			"userid"  : Node(userid),
 			"nick"    : Node.string(nick),
 			"name"    : Node.string(name),
 			"avatar"  : Node.string(avatar),
@@ -50,6 +53,7 @@ class UserInfo: DataQuery {
 	}
 
     func fromNode(_ node: Node) throws {
+        userid   = try node.extract("userid")
         nick     = try node.extract("nick")
         name     = try node.extract("name")
         avatar   = try node.extract("avatar")
@@ -57,7 +61,7 @@ class UserInfo: DataQuery {
 	}
 
 	func getByNick(_ nick: String) {
-		let sql = "Select nick, name, avatar From users Where nick=$1 Limit 1"
+		let sql = "Select userid, nick, name, avatar From users Where nick=$1 Limit 1"
 		let params = [Node(nick)]
 		let rows = db.query(sql, params: params)
 		if rows != nil {

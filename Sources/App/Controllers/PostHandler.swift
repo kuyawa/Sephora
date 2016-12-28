@@ -30,9 +30,15 @@ class PostHandler: WebController {
 		let forumid = Forum(in: db).getId(dir: dirname)
 		guard forumid > 0 else { return fail(.forumNotAvailable) }
 
-		let type = 0     		// get from form 
-		let userid = 5   		// get from session
-		let nick = "Kuyawa"		// get from session
+		let info = UserInfo(in: db).fromSession(request)
+		if info.userid == 0 { 
+			print("Error posting. Must be logged in to post")
+			return fail(.unauthorizedAccess)
+		}
+
+		let type = 0     		  // get from form 
+		let userid = info.userid  // get from session
+		let nick = info.nick	  // get from session
 
 		let post = Post(in: db)
 		post.postid   	= 0  // Used for insert

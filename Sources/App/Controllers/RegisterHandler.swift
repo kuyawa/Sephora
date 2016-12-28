@@ -22,9 +22,10 @@ class RegisterHandler: WebController {
 		}
 
 		do {
+			print("Fetching user data...")
 			let data = try Data(contentsOf: url) // Sync fecth
 
-			//print("User Info: \n", String(data: data, encoding: .utf8))
+			print("User Info: \n", String(data: data, encoding: .utf8))
 
 			let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject]
 
@@ -43,7 +44,8 @@ class RegisterHandler: WebController {
 			user.name = name
 			user.avatar = avatar
 			user.register()
-			
+			print("User registered")
+
 			let info = easyJson(["nick": nick, "name": name, "avatar": avatar])
 
 			let response = Response(status: .ok, body: info)
@@ -51,10 +53,12 @@ class RegisterHandler: WebController {
 			response.cookies["nick"] = nick
 
 			print("Session info: ", nick, name, avatar)
-			try request.session().data["nick"] = Node(nick)
-			try request.session().data["name"] = Node(name)
-			try request.session().data["avatar"] = Node(avatar)
-
+			try request.session().data["id"] = Node(user.userid)
+			try request.session().data["nick"] = Node(user.nick)
+			try request.session().data["name"] = Node(user.name)
+			try request.session().data["avatar"] = Node(user.avatar)
+			print("User in session")
+			
 			return response
 
 		} catch {

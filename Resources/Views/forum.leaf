@@ -24,6 +24,7 @@
 		</latest>
 		}
 
+		#if($userIsLogged) {
 		<newpost>
 			<form method="post" action="/forum/#(forum.dirname)/submit">
 				<h3>Create a new thread in this forum</h3>
@@ -34,4 +35,7 @@
 				<li><input type="submit" value="Send"></li>
 			</form>
 		</newpost>
+		} ##else() {
+			<warn><p>Must be <a href="/login">logged in</a> to post on this forum</p></warn>
+		}
 }
