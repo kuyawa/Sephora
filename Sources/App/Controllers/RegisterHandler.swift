@@ -25,7 +25,7 @@ class RegisterHandler: WebController {
 			print("Fetching user data...")
 			let data = try Data(contentsOf: url) // Sync fecth
 
-			print("User Info: \n", String(data: data, encoding: .utf8))
+			print("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
 
 			let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject]
 
@@ -58,7 +58,7 @@ class RegisterHandler: WebController {
 			try request.session().data["name"] = Node(user.name)
 			try request.session().data["avatar"] = Node(user.avatar)
 			print("User in session")
-			
+
 			return response
 
 		} catch {
