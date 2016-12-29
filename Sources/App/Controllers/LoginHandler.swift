@@ -104,9 +104,14 @@ class LoginHandler: WebController {
 			user.saveAuthCode(code)
 			validateUser = true
 		}
-
+		print("Validate user? ", validateUser)
+		
 		// If credentials not valid yet: validate credentials
 		// This async process does not affect main process
+
+
+/* TODO: FIX TOMORROW
+
 		if !user.isvalid && validateUser {
 			do {
 				try requestAuthToken(code: code, clientId: clientId, secret: secret) { token in
@@ -148,7 +153,7 @@ class LoginHandler: WebController {
 	            return fail(.unauthorizedAccess, content: "Error: Incorrect response received from server") 
 	        }
 		}
-
+*/
 
 		try? request.session().data["isLogged"] = Node(true)
 		let response = Response(redirect: "/")
@@ -159,7 +164,7 @@ class LoginHandler: WebController {
 	}
 
 
-
+/*
 	// Auth token necessary for github API
 	func requestAuthToken(code: String, clientId: String, secret: String, callback: @escaping (_ token: String?) -> Void) throws {
 		guard !clientId.isEmpty, !secret.isEmpty else {
@@ -262,7 +267,7 @@ class LoginHandler: WebController {
 		print("Exiting userInfo")
 		return
 	}
-
+*/
 
 	// Clear cookies and session, remove token from user.token, user.islogged=false, lastact=now
 	func logout(_ request: Request) -> ResponseRepresentable {

@@ -14,13 +14,69 @@ class RegisterHandler: WebController {
 
 	func fetch(_ request: Request) -> ResponseRepresentable {
 		return try! Response.async { stream in 
+			let info = self.fetchUser(request)
+			stream.close(with: info) 
+		}
+	}
+
+	func fetchUser(_ request: Request) -> ResponseRepresentable {
+		let invalidJson: String = errorJson(FailType.userInfoInvalid.rawValue)
+
+		guard let user = request.parameters["user"]?.string else {
+			print("User nick is required")
+			return invalidJson
+		}
+
+		let url = "https://api.github.com/users/\(user)"
+
+		print("Fetching user data...")
+
+		guard let response = try? drop.client.get(url, headers: ["User-Agent":"swiftforums"]) else {
+			return invalidJson
+		}
+		//print("Response: ", response)
+
+		do {
+			let json = response.json
+
+			guard let nick = json?["login"]?.string,
+				  let name = json?["name"]?.string,
+				  let avatar = json?["avatar_url"]?.string
+			else {
+				print("User info: Invalid data")
+				return invalidJson
+			}
+
+			print("User info: ", nick, name, avatar)
+
+			let user = User()
+			user.nick = nick
+			user.name = name
+			user.avatar = avatar
+			user.register()
+			print("User registered")
+
+			let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
+			print("Json: ", info)
+			return info
+		} catch {
+			print("Error accessing Github: ", error)
+			return invalidJson
+		}
+	}
+
+/*
+
+	func fetchOLD2(_ request: Request) -> ResponseRepresentable {
+		return try! Response.async { stream in 
 			self.fetchUser(request) { info in 
 				stream.close(with: info) 
 			}
 		}
 	}
+	
 
-	func fetchUser(_ request: Request, callback: @escaping (_ userInfo: String) -> Void) {
+	func fetchUserOLD2(_ request: Request, callback: @escaping (_ userInfo: String) -> Void) {
 		let invalidJson: String = errorJson(FailType.userInfoInvalid.rawValue)
 
 		guard let user = request.parameters["user"]?.string else {
@@ -90,9 +146,10 @@ class RegisterHandler: WebController {
 		task.resume()
 
 	}
+*/
 
 /*
-	func fetchUserOLD2(_ request: Request, callback: @escaping (_ userInfo: String) -> Void) {
+	func fetchUserOLD1(_ request: Request, callback: @escaping (_ userInfo: String) -> Void) {
 		let invalidJson: String = errorJson(FailType.userInfoInvalid.rawValue)
 
 		guard let user = request.parameters["user"]?.string else {
@@ -163,9 +220,10 @@ class RegisterHandler: WebController {
 
 	}
 */
+
 /*
 	// API to get user info from github, returns json
-	func fetchUserOLD(_ request: Request) -> ResponseRepresentable {
+	func fetchUserOLD0(_ request: Request) -> ResponseRepresentable {
 		guard let user = request.parameters["user"]?.string else {
 			print("User nick is required")
 			return failJson(.userNickRequired)
