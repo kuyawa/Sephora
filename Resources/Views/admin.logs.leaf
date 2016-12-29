@@ -1,0 +1,11 @@
+#extend("admin")
+
+#export("content") {
+	<h1>Logs:</h1>
+	<table>
+		<tr><th width="60">Time</th><th width="10">&nbsp;</th><th>Log</th></tr> 
+	#loop(logs, "log") { 
+		<tr><td>#time(log.date)</td><td align="center">#(log.type)</td><td>#(log.text)</td></tr> 
+	}
+	</table>
+}

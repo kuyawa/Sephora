@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+	<title>Sephora - Forums in Swift</title>
+    <link rel="stylesheet" type="text/css" href="/styles/forum.css">
+    <link rel="stylesheet" type="text/css" href="/styles/admin.css">
+</head>
+
+<body>
+
+<header>
+	<company>
+		<a href="/">
+			<img class="logo" src="/images/swiftlogo.png" width="80" height="80">
+			<h1>Sephora - Forums in Swift</h1>
+			<h3>Join Swift enthusiasts all around the world</h3>
+		</a>
+	</company>
+</header>
+
+<actionbar>
+	<actions>
+	#if($userIsLogged) {
+		<a class="nick" href="/profile">#($userInfo.nick) [0]</a>
+		<a href="/profile">Profile</a>
+		<a href="/logout">Log out</a>
+	} ##else() {
+		<a href="/register">Register</a>
+		<a href="/login">Log In</a>
+	}
+	</actions>
+</actionbar>
+
+<main>
+	<section>
+		#import("content")
+	</section>
+</main>
+
+<footer>
+	<line>Forums by Sephora ~ Powered by Swift</line>
+	<line><small><a href="https://heroku.com">Hosted on Heroku</a> ~ <a href="https://github.com/kuyawa/Sephora">Developed on Github</a></small></line>
+	<last>&copy; Armonia Software</last>
+</footer>
+
+#import("scripts")
+
+</body>
+</html>

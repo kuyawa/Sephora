@@ -27,6 +27,7 @@ class WebController {
 		do { 
 			if let leaf = drop.view as? LeafRenderer {
  				leaf.stem.register(LeafTimeAgo())
+ 				leaf.stem.register(LeafTimeOnly())
  				//leaf.stem.register(LeafMarkdown())
 				let view = try leaf.make(name, info) 
 				return view
@@ -112,6 +113,11 @@ class WebController {
 		}
 		
 		return (clientId, secret)
+	}
+
+	func weblog(_ text: String) {
+		print("- ", text)
+		_ = db.execute("Insert into weblogs(text) values($1)", params: [Node(text)])
 	}
 
 }

@@ -8,6 +8,8 @@ FIX:
 
 TODO:
 
+- Log to db 
+- Detect dev/live/production by host not by config
 - Work on login async validation
 x if logged, allow to post in listing, show textarea and submit button
 - allow in-place edition/saving

@@ -23,40 +23,45 @@ class RegisterHandler: WebController {
 		let invalidJson: String = errorJson(FailType.userInfoInvalid.rawValue)
 
 		guard let id = request.parameters["user"]?.string else {
-			print("User nick is required")
-			return invalidJson+"1"
+			weblog("User nick is required")
+			return invalidJson
 		}
 
 		let url = "https://api.github.com/users/\(id)"
 
-		print("Fetching user data...")
+		weblog("Fetching user data...")
 
-		guard let response = try? drop.client.get(url, headers: ["User-Agent":"swiftforums"]) else {
-			return invalidJson+"2"
+		// headers: ["User-Agent":"swiftforums"]
+		guard let response = try? drop.client.get(url) else {
+			return invalidJson
 		}
-		//print("Response: ", response)
+		
 
 		let json = response.json
+		weblog("Response: \(response)")
+		weblog("Response json: \(response.json)")
+		weblog("Response name: \(response.json?["name"])")
+
 
 		guard let nick = json?["login"]?.string,
 			  let name = json?["name"]?.string,
 			  let avatar = json?["avatar_url"]?.string
 		else {
-			print("User info: Invalid data")
-			return invalidJson+"3"
+			weblog("User info: Invalid json data")
+			return invalidJson
 		}
 
-		print("User info: ", nick, name, avatar)
+		weblog("User info: \(nick), \(name), \(avatar)")
 
 		let user = User()
 		user.nick = nick
 		user.name = name
 		user.avatar = avatar
 		user.register()
-		print("User registered")
+		weblog("User registered")
 
 		let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
-		print("Json: ", info)
+		weblog("Json: \(info)")
 
 		return info
 	}
@@ -76,18 +81,18 @@ class RegisterHandler: WebController {
 		let invalidJson: String = errorJson(FailType.userInfoInvalid.rawValue)
 
 		guard let user = request.parameters["user"]?.string else {
-			print("User nick is required")
+			weblog("User nick is required")
 			callback(invalidJson)
 			return
 		}
 
 		guard let url = URL(string: "http://api.github.com/users/\(user)") else {
-			print("Invalid user nick")
+			weblog("Invalid user nick")
 			callback(invalidJson)
 			return
 		}
 
-		print("Fetching user data...")
+		weblog("Fetching user data...")
 
         var fetch = URLRequest(url: url)
         fetch.httpMethod = "GET"
@@ -95,19 +100,19 @@ class RegisterHandler: WebController {
 
 		let task = URLSession.shared.dataTask(with: fetch) { data, req, err in
 			guard err == nil else {
-				print("UserInfo error: ", err!)
+				weblog("UserInfo error: ", err!)
 				callback(invalidJson)
 				return
 			}
 
 			guard let data = data else { 
-				print("UserInfo: No data")
+				weblog("UserInfo: No data")
 				callback(invalidJson)
 				return
 			}
 
 			do {
-				//print("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
+				//weblog("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
 
 				let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject]
 
@@ -115,26 +120,26 @@ class RegisterHandler: WebController {
 					  let name = json?["name"] as? String,
 					  let avatar = json?["avatar_url"] as? String
 				else {
-					print("User info: Invalid data")
+					weblog("User info: Invalid data")
 					callback(invalidJson)
 					return
 				}
 
-				print("User info: ", nick, name, avatar)
+				weblog("User info: ", nick, name, avatar)
 
 				let user = User()
 				user.nick = nick
 				user.name = name
 				user.avatar = avatar
 				user.register()
-				print("User registered")
+				weblog("User registered")
 
 				let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
-				print("Json: ", info)
+				weblog("Json: ", info)
 				callback(info)
 				return
 			} catch {
-				print("Error accessing Github: ", error)
+				weblog("Error accessing Github: ", error)
 				callback(invalidJson)
 				return
 			}
@@ -149,18 +154,18 @@ class RegisterHandler: WebController {
 		let invalidJson: String = errorJson(FailType.userInfoInvalid.rawValue)
 
 		guard let user = request.parameters["user"]?.string else {
-			print("User nick is required")
+			weblog("User nick is required")
 			callback(invalidJson)
 			return
 		}
 
 		guard let url = URL(string: "http://api.github.com/users/\(user)") else {
-			print("Invalid user nick")
+			weblog("Invalid user nick")
 			callback(invalidJson)
 			return
 		}
 
-		print("Fetching user data...")
+		weblog("Fetching user data...")
 
         var fetch = URLRequest(url: url)
         fetch.httpMethod = "GET"
@@ -168,19 +173,19 @@ class RegisterHandler: WebController {
 
 		let task = URLSession.shared.dataTask(with: fetch) { data, req, err in
 			guard err == nil else {
-				print("UserInfo error: ", err!)
+				weblog("UserInfo error: ", err!)
 				callback(invalidJson)
 				return
 			}
 
 			guard let data = data else { 
-				print("UserInfo: No data")
+				weblog("UserInfo: No data")
 				callback(invalidJson)
 				return
 			}
 
 			do {
-				//print("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
+				//weblog("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
 
 				let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject]
 
@@ -188,26 +193,26 @@ class RegisterHandler: WebController {
 					  let name = json?["name"] as? String,
 					  let avatar = json?["avatar_url"] as? String
 				else {
-					print("User info: Invalid data")
+					weblog("User info: Invalid data")
 					callback(invalidJson)
 					return
 				}
 
-				print("User info: ", nick, name, avatar)
+				weblog("User info: ", nick, name, avatar)
 
 				//let user = User()
 				//user.nick = nick
 				//user.name = name
 				//user.avatar = avatar
 				//user.register()
-				//print("User registered")
+				//weblog("User registered")
 
 				let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
-				print("Json: ", info)
+				weblog("Json: ", info)
 				callback(info)
 				return
 			} catch {
-				print("Error accessing Github: ", error)
+				weblog("Error accessing Github: ", error)
 				callback(invalidJson)
 				return
 			}
@@ -221,19 +226,19 @@ class RegisterHandler: WebController {
 	// API to get user info from github, returns json
 	func fetchUserOLD0(_ request: Request) -> ResponseRepresentable {
 		guard let user = request.parameters["user"]?.string else {
-			print("User nick is required")
+			weblog("User nick is required")
 			return failJson(.userNickRequired)
 		}
 		guard let url = URL(string: "http://api.github.com/users/\(user)") else {
-			print("Invalid user nick")
+			weblog("Invalid user nick")
 			return failJson(.userInfoInvalid)
 		}
 
 		do {
-			print("Fetching user data...")
+			weblog("Fetching user data...")
 			let data = try Data(contentsOf: url) // Sync fetch
 
-			print("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
+			weblog("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
 
 			let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject]
 
@@ -241,18 +246,18 @@ class RegisterHandler: WebController {
 				  let name = json?["name"] as? String,
 				  let avatar = json?["avatar_url"] as? String
 			else {
-				print("User info: Invalid data")
+				weblog("User info: Invalid data")
 				return failJson(.userInfoInvalid)
 			}
 
-			print("User info: ", nick, name, avatar)
+			weblog("User info: ", nick, name, avatar)
 
 			let user = User()
 			user.nick = nick
 			user.name = name
 			user.avatar = avatar
 			user.register()
-			print("User registered")
+			weblog("User registered")
 
 			let info = easyJson(["nick": nick, "name": name, "avatar": avatar])
 
@@ -260,17 +265,17 @@ class RegisterHandler: WebController {
 			response.headers["Content-Type"] = "application/json"
 			response.cookies["nick"] = nick
 
-			print("Session info: ", nick, name, avatar)
+			weblog("Session info: ", nick, name, avatar)
 			try request.session().data["id"] = Node(user.userid)
 			try request.session().data["nick"] = Node(user.nick)
 			try request.session().data["name"] = Node(user.name)
 			try request.session().data["avatar"] = Node(user.avatar)
-			print("User in session")
+			weblog("User in session")
 
 			return response
 
 		} catch {
-			print("Error accessing Github: ", error)
+			weblog("Error accessing Github: ", error)
 			return failJson(.errorAccessingGithub)
 		}
 

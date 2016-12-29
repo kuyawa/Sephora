@@ -15,6 +15,19 @@ class LeafTimeAgo: BasicTag {
     }
 }
 
+class LeafTimeOnly: BasicTag {
+	let name = "time"
+
+	func run(arguments: [Argument]) throws -> Node? {
+    	guard arguments.count == 1,
+      		let sdate = arguments[0].value?.string,
+      		sdate.characters.count > 18
+    	else { return nil }
+        let time: String = sdate.subtext(to: 19).toDate().toString(format: "HH:mm:ss")
+        return Node(time)
+    }
+}
+
 /*
 class LeafMarkdown: BasicTag {
 	let name = "markdown"

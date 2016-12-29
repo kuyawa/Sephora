@@ -37,10 +37,11 @@ aside li { padding: 2px 0; font-size: 80%; font-weight: 400;}
 section { overflow: auto; padding: 20px 80px 20px 20px; }
 
 /* ADMIN TABLES */
-table { width:100%; border-collapse: collapse; border: 1px solid #CCC; font-size: 80%; }
+table { width:100%; border-collapse: collapse; border: 1px solid #CCC; font-size: 80%; table-layout:fixed; }
 table tr:nth-child(odd) { background-color: #e4e8ea; }
 table th, table td { padding: 2px 6px; border: 1px solid #CCC; }
 table th { font-weight: 400; font-variant: small-caps; }
+table td { word-wrap: break-word; }
 
 footer { clear: both; height: 40px; padding: 20px; color: #333; background: #e8e8e8; border-top: 1px dotted #BBB; }
 footer .info { margin-top: 8px; text-align: center; }

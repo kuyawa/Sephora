@@ -39,6 +39,7 @@ drop.post("forum/:forum/post/:post/reply"){ ReplyHandler().submit($0) }
 // Admin
 drop.get("admin/dbinfo"){ AdminHandler().dbinfo($0) }
 drop.get("admin/users"){ AdminHandler().users($0) }
+drop.get("admin/log"){ AdminHandler().log($0) }
 drop.get("test"){ TestHandler().show($0) }
 drop.get("404") { request in throw Abort.notFound }
 
