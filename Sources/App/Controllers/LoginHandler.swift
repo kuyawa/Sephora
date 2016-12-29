@@ -65,7 +65,7 @@ class LoginHandler: WebController {
 	}
 
 
-	// Callback grom Github oAuth reqeust
+	// Callback from Github oAuth reqeust
 	func authorize(_ request: Request) -> ResponseRepresentable {
 		if let errorCode = request.data["error"] {
 			print("Login error: ", errorCode)

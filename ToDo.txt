@@ -8,6 +8,7 @@ FIX:
 
 TODO:
 
+- Work on login async validation
 x if logged, allow to post in listing, show textarea and submit button
 - allow in-place edition/saving
 
