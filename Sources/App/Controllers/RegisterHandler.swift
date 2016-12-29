@@ -31,39 +31,40 @@ class RegisterHandler: WebController {
 
 		weblog("Fetching user data...")
 
-		// headers: ["User-Agent":"swiftforums"]
-		guard let response = try? drop.client.get(url) else {
+		do {
+			// headers: ["User-Agent":"swiftforums"]
+			let response = try drop.client.get(url)
+			weblog("Response: \(response)")
+			weblog("Response json: \(response.json)")
+			weblog("Response name: \(response.json?["name"])")
+
+			let json = response.json
+
+			guard let nick = json?["login"]?.string,
+				  let name = json?["name"]?.string,
+				  let avatar = json?["avatar_url"]?.string
+			else {
+				weblog("User info: Invalid json data")
+				return invalidJson
+			}
+
+			weblog("User info: \(nick), \(name), \(avatar)")
+
+			let user = User()
+			user.nick = nick
+			user.name = name
+			user.avatar = avatar
+			user.register()
+			weblog("User registered")
+
+			let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
+			weblog("Json: \(info)")
+
+			return info
+		} catch {
+			weblog("Error fetching user data: \(error)")
 			return invalidJson
 		}
-		
-
-		let json = response.json
-		weblog("Response: \(response)")
-		weblog("Response json: \(response.json)")
-		weblog("Response name: \(response.json?["name"])")
-
-
-		guard let nick = json?["login"]?.string,
-			  let name = json?["name"]?.string,
-			  let avatar = json?["avatar_url"]?.string
-		else {
-			weblog("User info: Invalid json data")
-			return invalidJson
-		}
-
-		weblog("User info: \(nick), \(name), \(avatar)")
-
-		let user = User()
-		user.nick = nick
-		user.name = name
-		user.avatar = avatar
-		user.register()
-		weblog("User registered")
-
-		let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
-		weblog("Json: \(info)")
-
-		return info
 	}
 
 /*
