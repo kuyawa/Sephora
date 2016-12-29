@@ -22,47 +22,43 @@ class RegisterHandler: WebController {
 	func fetchUser(_ request: Request) -> ResponseRepresentable {
 		let invalidJson: String = errorJson(FailType.userInfoInvalid.rawValue)
 
-		guard let user = request.parameters["user"]?.string else {
+		guard let id = request.parameters["user"]?.string else {
 			print("User nick is required")
-			return invalidJson
+			return invalidJson+"1"
 		}
 
-		let url = "https://api.github.com/users/\(user)"
+		let url = "https://api.github.com/users/\(id)"
 
 		print("Fetching user data...")
 
 		guard let response = try? drop.client.get(url, headers: ["User-Agent":"swiftforums"]) else {
-			return invalidJson
+			return invalidJson+"2"
 		}
 		//print("Response: ", response)
 
-		do {
-			let json = response.json
+		let json = response.json
 
-			guard let nick = json?["login"]?.string,
-				  let name = json?["name"]?.string,
-				  let avatar = json?["avatar_url"]?.string
-			else {
-				print("User info: Invalid data")
-				return invalidJson
-			}
-
-			print("User info: ", nick, name, avatar)
-
-			let user = User()
-			user.nick = nick
-			user.name = name
-			user.avatar = avatar
-			user.register()
-			print("User registered")
-
-			let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
-			print("Json: ", info)
-			return info
-		} catch {
-			print("Error accessing Github: ", error)
-			return invalidJson
+		guard let nick = json?["login"]?.string,
+			  let name = json?["name"]?.string,
+			  let avatar = json?["avatar_url"]?.string
+		else {
+			print("User info: Invalid data")
+			return invalidJson+"3"
 		}
+
+		print("User info: ", nick, name, avatar)
+
+		let user = User()
+		user.nick = nick
+		user.name = name
+		user.avatar = avatar
+		user.register()
+		print("User registered")
+
+		let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
+		print("Json: ", info)
+
+		return info
 	}
 
 /*
