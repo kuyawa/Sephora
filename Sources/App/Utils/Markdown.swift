@@ -288,7 +288,7 @@ public struct Markdown {
                         keepGoing = false
                         let graf = grafs[i]
                         grafs[i] = Markdown._htmlBlockHash.replace(graf) { match in
-                            if let replacementValue = self._htmlBlocks[match.value as String] {
+                            if let replacementValue = self._htmlBlocks[String(match.value)] {
                                 keepGoing = true
                                 return replacementValue
                             }
@@ -398,7 +398,7 @@ public struct Markdown {
 
     fileprivate mutating func linkEvaluator(_ match: Match) -> String
     {
-        let linkID = match.valueOfGroupAtIndex(1) as String
+        let linkID = String(match.valueOfGroupAtIndex(1))
         _urls[linkID] = encodeAmpsAndAngles(match.valueOfGroupAtIndex(2) as String)
 
         let group3Value = match.valueOfGroupAtIndex(3)
@@ -566,7 +566,7 @@ public struct Markdown {
     }
 
     fileprivate mutating func htmlEvaluator(_ match: Match) -> String {
-        let text: String = match.valueOfGroupAtIndex(1) as String 
+        let text: String = String(match.valueOfGroupAtIndex(1))
         let key = Markdown.getHashKey(text, isHtmlBlock: true)
         _htmlBlocks[key] = text
 
@@ -598,7 +598,7 @@ public struct Markdown {
         var tagStart = 0
         var tokens = Array<Token>()
 
-        let str = text as NSString
+        let str = NSString(string: text)
 
         // this regex is derived from the _tokenize() subroutine in Brad Choate's MTRegex plugin.
         // http://www.bradchoate.com/past/mtregex.php
@@ -609,7 +609,7 @@ public struct Markdown {
                 let range = NSMakeRange(pos, tagStart - pos)
                 tokens.append(Token(type: .text, value: str.substring(with: range)))
             }
-            tokens.append(Token(type: .tag, value: match.value as String))
+            tokens.append(Token(type: .tag, value: String(match.value)))
             pos = tagStart + match.length
         }
 
@@ -690,7 +690,7 @@ public struct Markdown {
 
     fileprivate func anchorRefEvaluator(_ match: Match) -> String {
         let wholeMatch = match.valueOfGroupAtIndex(1)
-        let linkText = saveFromAutoLinking(match.valueOfGroupAtIndex(2) as String)
+        let linkText = saveFromAutoLinking(String(match.valueOfGroupAtIndex(2)))
         var linkID = match.valueOfGroupAtIndex(3).lowercased
 
         var result: String
@@ -714,7 +714,7 @@ public struct Markdown {
             result += ">\(linkText)</a>"
         }
         else {
-            result = wholeMatch as String
+            result = String(wholeMatch)
         }
 
         return result
@@ -722,7 +722,7 @@ public struct Markdown {
 
     fileprivate func anchorRefShortcutEvaluator(_ match: Match) -> String {
         let wholeMatch = match.valueOfGroupAtIndex(1)
-        let linkText = saveFromAutoLinking(match.valueOfGroupAtIndex(2) as String)
+        let linkText = saveFromAutoLinking(String(match.valueOfGroupAtIndex(2)))
         let linkID = Regex.replace(linkText.lowercased(),
             pattern: "\\p{Z}*\\n\\p{Z}*",
             replacement: " ")  // lower case and remove newlines / extra spaces
@@ -743,30 +743,30 @@ public struct Markdown {
             result += ">\(linkText)</a>"
         }
         else {
-            result = wholeMatch as String
+            result = String(wholeMatch)
         }
 
         return result
     }
 
     fileprivate func anchorInlineEvaluator(_ match: Match) -> String {
-        let linkText = saveFromAutoLinking(match.valueOfGroupAtIndex(2) as String)
+        let linkText = saveFromAutoLinking(String(match.valueOfGroupAtIndex(2)))
         var url = match.valueOfGroupAtIndex(3)
         var title = match.valueOfGroupAtIndex(6)
 
         var result: String
 
-        url = encodeProblemUrlChars(url as String) as NSString
-        url = escapeBoldItalic(url as String) as NSString
+        url = encodeProblemUrlChars(String(url)) as NSString
+        url = escapeBoldItalic(String(url)) as NSString
         if url.hasPrefix("<") && url.hasSuffix(">") {
-            url = url.substring(with: NSMakeRange(1, url.length - 2)) as NSString // remove <>'s surrounding URL, if present
+            url = NSString(string: url.substring(with: NSMakeRange(1, url.length - 2)))  // remove <>'s surrounding URL, if present
         }
 
         result = "<a href=\"\(url)\""
 
         if title.length != 0 {
-            title = Markdown.attributeEncode(title as String) as NSString
-            title = escapeBoldItalic(title as String) as NSString
+            title = Markdown.attributeEncode(String(title)) as NSString
+            title = escapeBoldItalic(String(title)) as NSString
             result += " title=\"\(title)\""
         }
 
@@ -833,7 +833,7 @@ public struct Markdown {
 /* DISABLED: Error in linux
     fileprivate func escapeImageAltText(_ s: String) -> String {
         var s = escapeBoldItalic(s)
-        s = Regex.replace(s, pattern: "[\\[\\]()]") { Markdown._escapeTable[$0.value as String]! }
+        s = Regex.replace(s, pattern: "") { Markdown._escapeTable[$0.value as String]! }
         return s
     }
 */

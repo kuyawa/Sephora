@@ -1,9 +1,10 @@
 import Foundation
 
 
-// Used in regex
+// Used in regex, also in Markdown.swift
 #if os(Linux)
 typealias NSRegularExpression = RegularExpression
+typealias NSTextCheckingResult = TextCheckingResult
 extension TextCheckingResult {
 	func rangeAt(_ n: Int) -> NSRange {
 		return self.range(at: n)
