@@ -830,12 +830,13 @@ public struct Markdown {
     // This prevents the creation of horribly broken HTML when some syntax ambiguities
     // collide. It likely still doesn't do what the user meant, but at least we're not
     // outputting garbage.
+/* DISABLED: Error in linux
     fileprivate func escapeImageAltText(_ s: String) -> String {
         var s = escapeBoldItalic(s)
         s = Regex.replace(s, pattern: "[\\[\\]()]") { Markdown._escapeTable[$0.value as String]! }
         return s
     }
-
+*/
     fileprivate func imageReferenceEvaluator(_ match: Match) -> String {
         let wholeMatch = match.valueOfGroupAtIndex(1)
         let altText = match.valueOfGroupAtIndex(2)
@@ -872,7 +873,7 @@ public struct Markdown {
     }
 
     fileprivate func imageTag(_ url: String, altText: String, title: String?) -> String {
-        let altText = escapeImageAltText(Markdown.attributeEncode(altText))
+        let altText = ""  // FIX: Error in linux: escapeImageAltText(Markdown.attributeEncode(altText))
         var url = encodeProblemUrlChars(url)
         url = escapeBoldItalic(url)
         var result = "<img src=\"\(url)\" alt=\"\(altText)\""
