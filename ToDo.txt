@@ -8,12 +8,16 @@ x FetchUser not working live, debug step by step in registerhandler!!!
 
 TODO:
 
+- test markdown again, enable in templates
+- allow in-place edition/saving
+- fix login
+- deploy v1
+
 - get clientid, secret from ENV not from secrets on heroku for every app, dev/live/prod
-- clear logs from admin/logs, add link to "Clear logs" -> /admin/clearlogs then redirect to admin/logs
+x clear logs from admin/logs, add link to "Clear logs" -> /admin/clearlogs then redirect to admin/logs
 - fix login, get code from github oauth, get user info, save in session + cookies
 - Detect dev/live/production by host not by config
 - Work on login async validation
-- allow in-place edition/saving
 x if logged, allow to post in listing, show textarea and submit button
 x Log to db 
 

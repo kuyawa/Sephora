@@ -21,7 +21,7 @@
 			</h6>
 		</top>
 		<content>
-			#(post.content)
+			#markdown(post.content)
 		</content>
 	</article>
 
@@ -40,7 +40,7 @@
 			<message>
 				<info><user><a href="/user/#(reply.nick)">#(reply.nick)</a></user> <sep>•</sep> <time>#timeago(reply.date)</time></info>
 				<text>
-					<p>#(reply.content)</p>
+					<p>#markdown(reply.content)</p>
 				</text>
 			</message>
 		</reply>

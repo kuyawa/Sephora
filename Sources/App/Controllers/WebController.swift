@@ -28,7 +28,7 @@ class WebController {
 			if let leaf = drop.view as? LeafRenderer {
  				leaf.stem.register(LeafTimeAgo())
  				leaf.stem.register(LeafTimeOnly())
- 				//leaf.stem.register(LeafMarkdown())
+ 				leaf.stem.register(LeafMarkdown())
 				let view = try leaf.make(name, info) 
 				return view
 			}
