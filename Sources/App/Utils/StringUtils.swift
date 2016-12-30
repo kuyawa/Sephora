@@ -1,5 +1,17 @@
 import Foundation
 
+
+// Used in regex
+#if os(Linux)
+typealias NSRegularExpression = RegularExpression
+extension TextCheckingResult {
+	func rangeAt(_ n: Int) -> NSRange {
+		return self.range(at: n)
+	}
+}
+#endif
+
+
 extension String {
 
     func trim() -> String {
@@ -77,11 +89,7 @@ extension String {
 
 
     // Regex
-
-#if os(Linux)
-	typealias NSRegularExpression = RegularExpression
-#endif
-
+    // Check for linux differences
     
     func match(_ pattern: String) -> Bool {
         guard self.characters.count > 0 else { return false }
@@ -113,7 +121,7 @@ extension String {
             let results = regex.matches(in: self, options: [], range: all)
             
             for item in results {
-                let first = item.rangeAt(1)
+                let first = item.rangeAt(1)  // rangeAt in OSX, range(at: in linux)
                 let range = self.rangeIndex(first)
                 let match = self.substring(with: range)
                 
@@ -138,3 +146,5 @@ extension String {
     }
 
 }
+
+// End
