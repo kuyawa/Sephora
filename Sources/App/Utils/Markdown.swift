@@ -18,6 +18,19 @@ by Kristopher Johnson
 
 import Foundation
 
+
+// Kuyawa - 2016/30/12. Used in regex linux, also in StringUtils.swift
+#if os(Linux)
+typealias NSRegularExpression = RegularExpression
+typealias NSTextCheckingResult = TextCheckingResult
+extension TextCheckingResult {
+	func rangeAt(_ n: Int) -> NSRange {
+		return self.range(at: n)
+	}
+}
+#endif
+
+
 public struct MarkdownOptions {
     /// when true, (most) bare plain URLs are auto-hyperlinked
     /// WARNING: this is a significant deviation from the markdown spec
