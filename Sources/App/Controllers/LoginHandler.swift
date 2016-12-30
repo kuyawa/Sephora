@@ -39,7 +39,9 @@ class LoginHandler: WebController {
 		try? request.session().data["nick"] = Node(nick) // Assign to session
 
 		// Change accordingly to live, dev, local
+		weblog("Host: \(request.uri.host)")
 		let (clientId, secret) = getConfigSecrets(host: request.uri.host)
+		weblog("Secrets: \(clientId), \(secret)")
 
 		if clientId.isEmpty || secret.isEmpty {
 			print("Secret credentials not found")

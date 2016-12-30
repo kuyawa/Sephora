@@ -104,6 +104,8 @@ class WebController {
 		}
 
 		print(clientLabel, secretLabel)
+		weblog("Labels: \(clientLabel), \(secretLabel)")
+		weblog("Config: \(drop.config)")
 
 		guard let clientId = drop.config["github", clientLabel]?.string,
 		      let secret   = drop.config["github", secretLabel]?.string
@@ -111,7 +113,6 @@ class WebController {
 			print("Secret credentials not found")
 			return ("","")
 		}
-		
 		return (clientId, secret)
 	}
 
