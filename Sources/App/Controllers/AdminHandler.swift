@@ -28,12 +28,17 @@ class AdminHandler: WebController {
 		return view!
 	}
 
-	func log(_ request: Request) -> ResponseRepresentable {
+	func logs(_ request: Request) -> ResponseRepresentable {
 		// TODO: filter by type, limit by num
 		guard let logs = db.query("Select * from weblogs order by date desc limit 100") else { return fail(.databaseUnavailable) }
 		let data: Node = ["logs": logs]
 		let view = getView("admin.logs.leaf", with: data)
 		return view!
+	}
+
+	func clearLogs(_ request: Request) -> ResponseRepresentable {
+		_ = db.execute("Delete from weblogs")
+		return Response(redirect: "/admin/logs")
 	}
 
 }
