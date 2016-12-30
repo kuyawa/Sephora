@@ -27,18 +27,22 @@ class RegisterHandler: WebController {
 			return invalidJson
 		}
 
-		let url = "https://api.github.com/users/\(id)"
+		let url = "http://app-data-mobile.appspot.com/test/fetchuser?nick=\(id)"
+		//let url = "https://api.github.com/users/\(id)"
 
 		weblog("Fetching user data...")
 
 		do {
 			// headers: ["User-Agent":"swiftforums"]
 			let response = try drop.client.get(url)
-			weblog("Response: \(response)")
-			weblog("Response json: \(response.json)")
-			weblog("Response name: \(response.json?["name"])")
-
 			let json = response.json
+			
+			weblog("Response: \(response)")
+			weblog("Response body: \(response.body)")
+			weblog("Response json: \(response.json)")
+			weblog("Response name: \(json?["name"]?.string)")
+
+			//let json = String(data: response.body, encoding: .utf8)
 
 			guard let nick = json?["login"]?.string,
 				  let name = json?["name"]?.string,

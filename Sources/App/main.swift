@@ -17,10 +17,6 @@ drop.get("index"){ IndexHandler().index($0)}
 // Users
 drop.get("register"){ RegisterHandler().form($0) }
 drop.get("register/user/:user"){ RegisterHandler().fetch($0) }
-//1.drop.get("register/user/:user"){ RegisterHandler().fetchUser($0) }
-//2.drop.get("register/user/:user"){ req in return try Response.async { stream in 
-//	RegisterHandler().fetchUser(req) { info in stream.close(with: info) }
-//}}
 drop.get("login"){ LoginHandler().login($0) }
 drop.get("login/github/:user"){ LoginHandler().loginGithub($0) }
 drop.get("authorize"){ LoginHandler().authorize($0) }
@@ -39,7 +35,7 @@ drop.post("forum/:forum/post/:post/reply"){ ReplyHandler().submit($0) }
 // Admin
 drop.get("admin/dbinfo"){ AdminHandler().dbinfo($0) }
 drop.get("admin/users"){ AdminHandler().users($0) }
-drop.get("admin/log"){ AdminHandler().log($0) }
+drop.get("admin/logs"){ AdminHandler().log($0) }
 drop.get("test"){ TestHandler().show($0) }
 drop.get("404") { request in throw Abort.notFound }
 
