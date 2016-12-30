@@ -74,8 +74,15 @@ extension String {
         return date
     }
 
+
+
     // Regex
-/*    
+
+#if os(Linux)
+	typealias NSRegularExpression = RegularExpression
+#endif
+
+    
     func match(_ pattern: String) -> Bool {
         guard self.characters.count > 0 else { return false }
         if let first = self.range(of: pattern, options: .regularExpression) {
@@ -129,6 +136,5 @@ extension String {
         
         return result
     }
-*/    
 
 }
