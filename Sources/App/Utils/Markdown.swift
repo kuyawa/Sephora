@@ -6,13 +6,10 @@
 
 import Foundation
 
-
-// Kuyawa - 2016/30/12. Used in regex for linux, also in StringUtils.swift
-
-/*
+/* Kuyawa - 2016/30/12. Used in regex for linux, also in StringUtils.swift
 
 - Linux compatibility:
-  Uses a Typealias
+  Uses a Typealias for NSRegularExpression
   Uses an extension to TextCheckingResult
 
 */
@@ -28,26 +25,55 @@ extension TextCheckingResult {
 #endif
 
 
-extension NSMutableString {
+extension String {
+    /* Already defined in StringUtils
+    func match(_ pattern: String) -> Bool {
+        guard self.characters.count > 0 else { return false }
+        if let first = self.range(of: pattern, options: .regularExpression) {
+            let match = self.substring(with: first)
+            return !match.isEmpty
+        }
+        
+        return false
+    }
+    */
     
+    /* Already defined in StringUtils
+    func trim() -> String {
+        return self.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    */
+    
+    func remove(_ pattern: String) -> String {
+        guard self.characters.count > 0 else { return self }
+        if let first = self.range(of: pattern, options: .regularExpression) {
+            return self.replacingCharacters(in: first, with: "")
+        }
+        
+        return self
+    }
+    
+    func prepend(_ text: String) -> String {
+        return text + self
+    }
+    
+    func append(_ text: String) -> String {
+        return self + text
+    }
+ 
+    func enclose(_ fence: (String, String)?) -> String {
+        return (fence?.0 ?? "") + self + (fence?.1 ?? "")
+    }
+}
+
+extension NSMutableString {
     func matchAndReplace(_ rex: String, _ rep: String, options: NSRegularExpression.Options? = []) {
-        let regex = try? NSRegularExpression.init(pattern: rex, options: options!)
+        let regex = try? NSRegularExpression(pattern: rex, options: options!)
         let range = NSRange(location: 0, length: self.length)
         regex?.replaceMatches(in: self, options: [], range: range, withTemplate: rep)
     }
-    
 }
 
-
-/*
- 
- TODO: 
- - insert p and br tags for paragraphs, loop all lines?
- - if line does not start with < consider it a starting paragraph
- - if it ends in double newline consider it an end of paragraph (furst pass before BR)
- - if it ends in a single newline without block tag consider it a BR tag
- 
- */
 
 class Markdown {
     
@@ -62,19 +88,22 @@ class Markdown {
         parseImages(&md)
         parseLinks(&md)
         parseUnorderedLists(&md)
-        parseOrderedLists(&md)    // TODO
-        parseQuotes(&md)          // TODO
-        parseBlockquotes(&md)     // Partial
+        parseOrderedLists(&md)
+        parseBlockquotes(&md)
         parseCodeBlock(&md)
         parseCodeInline(&md)
         parseHorizontalRule(&md)
-        parseParagraphs(&md)      // TODO
+        parseParagraphs(&md)
         
         return String(md)
     }
     
     func cleanHtml(_ md: inout NSMutableString) {
         md.matchAndReplace("<.*?>", "")
+    }
+    
+    func cleanBreaks() {
+        //
     }
     
     func parseHeaders(_ md: inout NSMutableString) {
@@ -107,23 +136,23 @@ class Markdown {
     }
     
     func parseUnorderedLists(_ md: inout NSMutableString) {
-        md.matchAndReplace("^\\*(.*)?", "<li>$1</li>", options: [.anchorsMatchLines])
+        //md.matchAndReplace("^\\*(.*)?", "<li>$1</li>", options: [.anchorsMatchLines])
+        parseBlock(&md, format: "^\\*", blockEnclose: ("<ul>", "</ul>"), lineEnclose: ("<li>", "</li>"))
     }
     
     func parseOrderedLists(_ md: inout NSMutableString) {
-        md.matchAndReplace("", "")
-    }
-    
-    func parseQuotes(_ md: inout NSMutableString) {
-        md.matchAndReplace("", "")
+        parseBlock(&md, format: "^\\d+[\\.|-]", blockEnclose: ("<ol>", "</ol>"), lineEnclose: ("<li>", "</li>"))
     }
     
     func parseBlockquotes(_ md: inout NSMutableString) {
-        md.matchAndReplace("^>(.*)?", "<blockquote>$1</blockquote>", options: [.anchorsMatchLines])
+        //md.matchAndReplace("^>(.*)?", "<blockquote>$1</blockquote>", options: [.anchorsMatchLines])
+        parseBlock(&md, format: "^>", blockEnclose: ("<blockquote>", "</blockquote>"))
+        parseBlock(&md, format: "^:", blockEnclose: ("<blockquote>", "</blockquote>"))
     }
     
     func parseCodeBlock(_ md: inout NSMutableString) {
-        md.matchAndReplace("````(.*?)````", "<pre>$1</pre>", options: [.dotMatchesLineSeparators])
+        md.matchAndReplace("```(.*?)```", "<pre>$1</pre>", options: [.dotMatchesLineSeparators])
+        parseBlock(&md, format: "^\\s{4}", blockEnclose: ("<pre>", "</pre>"))
     }
     
     func parseCodeInline(_ md: inout NSMutableString) {
@@ -131,14 +160,38 @@ class Markdown {
     }
     
     func parseHorizontalRule(_ md: inout NSMutableString) {
-        md.matchAndReplace("----", "<hr>")
+        md.matchAndReplace("---", "<hr>")
     }
     
     func parseParagraphs(_ md: inout NSMutableString) {
-        md.matchAndReplace("", "")
+        md.matchAndReplace("\n([^\n]+)\n", "\n<p>$1</p>\n", options: [.anchorsMatchLines])
+    }
+    
+    func parseBlock(_ md: inout NSMutableString, format: String, blockEnclose: (String, String), lineEnclose: (String, String)? = nil) {
+        let lines = md.components(separatedBy: .newlines)
+        var result = [String]()
+        var isBlock = false
+        var isFirst = true
+        
+        for line in lines {
+            var text = line
+            if text.match(format) {
+                isBlock = true
+                if isFirst { result.append(blockEnclose.0); isFirst = false }
+                text = text.remove(format)
+                text = text.trim().enclose(lineEnclose)
+            } else if isBlock {
+                isBlock = false
+                isFirst = true
+                text = text.append(blockEnclose.1)
+            }
+            result.append(text)
+        }
+
+        if isBlock { result.append(blockEnclose.1) } // close open blocks
+        
+        md = NSMutableString(string: result.joined(separator: "\n"))
     }
     
 }
 
-
-// End
