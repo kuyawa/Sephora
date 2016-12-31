@@ -107,6 +107,23 @@ article h6 user { font-weight: bold; color: #888; }
 article h6 user a { color: #333; }
 article content { display: block; overflow: auto; clear: both; margin-left: 46px; font-weight: normal; }
 
+/* MARKDOWN */
+article content s  { color: #AAA; }
+article content h1 { font-size: 140%; color: #369; }
+article content h2 { font-size: 120%; color: #369; }
+article content h3 { font-size: 100%; color: #369; }
+article content ul li { list-style-type: circle; }
+article content ol li { list-style-type: decimal; }
+article content blockquote { margin-left: 0; padding-left: 20px; border-left: 3px solid #CCC; color: #888; font-size: 80%; font-style: italic; }
+article content code { padding: 1px 4px; color: #4A4; background-color: #030; border-radius: 2px; border: 1px solid #DDD; }
+article content code { color: #333; background-color: #E6E6E6; }
+article content pre { padding: 10px; color: #4A4; background-color: #030; border-radius: 3px; word-wrap: break-word; /*font-family: monaco;*/ }
+article content pre { border-top: 1px solid #CCC; border-left: 1px solid #CCC; border-right: 1px solid #FFF; border-bottom: 1px solid #FFF; }
+article content pre { color: #4A4; background-color: #030; }
+article content pre { color: #333; background-color: #E6E6E6; }
+
+
+/* REPLIES */
 replies { display: block; clear: both; overflow: auto; }
 replies>h3 { padding: 1px 20px; background: #CCC; color: #FFF; border-radius: 3px; }
 replies>h3 { border-top: 1px solid #AAA; border-left: 1px solid #AAA; border-right: 1px solid #FFF; border-bottom: 1px solid #FFF; }

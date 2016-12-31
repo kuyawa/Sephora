@@ -39,11 +39,11 @@
 		#embed("sidebar")
 		</ul>
 		<ul class="stats">
-			<li><stat>Users</stat> <statnum>#(stats.users)</statnum></li>
-			<li><stat>Threads</stat> <statnum>#(stats.threads)</statnum></li>
-			<li><stat>Replies</stat> <statnum>#(stats.replies)</statnum></li>
-			<li><stat>Questions</stat> <statnum>#(stats.questions)</statnum></li>
-			<li><stat>Answered</stat> <statnum>#(stats.answered)</statnum></li>
+			<li><stat>Users</stat> <statnum>#($stats.users)</statnum></li>
+			<li><stat>Threads</stat> <statnum>#($stats.threads)</statnum></li>
+			<li><stat>Replies</stat> <statnum>#($stats.replies)</statnum></li>
+			<li><stat>Questions</stat> <statnum>#($stats.questions)</statnum></li>
+			<li><stat>Answered</stat> <statnum>#($stats.answered)</statnum></li>
 		</ul>
 	</aside>
 
