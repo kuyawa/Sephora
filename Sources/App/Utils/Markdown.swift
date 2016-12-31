@@ -37,7 +37,7 @@ extension String {
         return false
     }
     */
-    
+
     /* Already defined in StringUtils
     func trim() -> String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -70,7 +70,7 @@ extension NSMutableString {
     func matchAndReplace(_ rex: String, _ rep: String, options: NSRegularExpression.Options? = []) {
         let regex = try? NSRegularExpression(pattern: rex, options: options!)
         let range = NSRange(location: 0, length: self.length)
-        regex?.replaceMatches(in: self, options: [], range: range, withTemplate: rep)
+        _ = regex?.replaceMatches(in: self, options: [], range: range, withTemplate: rep)
     }
 }
 
@@ -93,9 +93,9 @@ class Markdown {
         parseCodeBlock(&md)
         parseCodeInline(&md)
         parseHorizontalRule(&md)
-        parseParagraphs(&md)
+        parseParagraphs(&md)  // FIX: not working 
         
-        return String(md)
+        return String(describing: md)
     }
     
     func cleanHtml(_ md: inout NSMutableString) {
@@ -164,7 +164,7 @@ class Markdown {
     }
     
     func parseParagraphs(_ md: inout NSMutableString) {
-        md.matchAndReplace("\n([^\n]+)\n", "\n<p>$1</p>\n", options: [.anchorsMatchLines])
+        //md.matchAndReplace("\n([^\n]+)\n", "\n<p>$1</p>\n", options: [.anchorsMatchLines])
     }
     
     func parseBlock(_ md: inout NSMutableString, format: String, blockEnclose: (String, String), lineEnclose: (String, String)? = nil) {
