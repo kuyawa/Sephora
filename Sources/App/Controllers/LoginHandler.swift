@@ -40,10 +40,10 @@ class LoginHandler: WebController {
 
 		// Change accordingly to live, dev, local
 		db.log("Host: \(request.uri.host)")
-		let (clientId, secret) = getConfigSecrets(host: request.uri.host)
-		db.log("\(clientId)\(secret)")
+		let (clientId, secretId) = getConfigSecrets(host: request.uri.host)
+		//db.log("\(clientId)\(secretId)")
 
-		if clientId.isEmpty || secret.isEmpty {
+		if clientId.isEmpty || secretId.isEmpty {
 			print("Secret credentials not found")
 			return fail(.missingCredentials)
 		}

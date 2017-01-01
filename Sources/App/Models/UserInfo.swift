@@ -43,8 +43,8 @@ class UserInfo: DataQuery {
 		}
 
 		db.log("User info data query: \(self.toNode())")
-		db.log("Session info: \(session)")
-		db.log("Cookies info: \(request.cookies)")
+		//db.log("Session info: \(session)")
+		//db.log("Cookies info: \(request.cookies)")
 
 	    return self
 	}

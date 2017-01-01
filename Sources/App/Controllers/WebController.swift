@@ -95,7 +95,7 @@ class WebController {
 		var clientId = ProcessInfo.processInfo.environment["clientid"]
 		var secretId = ProcessInfo.processInfo.environment["secretid"]
 
-		db.log("Environment credentials: \(clientId) - \(secretId)")
+		//db.log("Environment credentials: \(clientId) - \(secretId)")
 
 		if clientId == nil || clientId!.isEmpty || secretId == nil || secretId!.isEmpty {
 			// If not in ENV try Config
