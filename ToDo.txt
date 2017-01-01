@@ -1,18 +1,16 @@
 FIX:
 
-x FetchUser not working live, debug step by step in registerhandler!!!
-- MARKDOWN NOT COMPILING ON HEROKU ???
 - Forum dirname must be unique, add constrain to db
-- User nick must be unique, add constraint to db
+- User nick must be unique, add constrain to db
 - Fix timeago in dateUtils for use in templates
 
 TODO:
 
-- test markdown again, enable in templates
-- allow in-place edition/saving
 - fix login
+- allow in-place edition/saving
 - deploy v1
 
+- move admin stuff to external swift app sharing same db (try kitura?)
 - get clientid, secret from ENV not from secrets on heroku for every app, dev/live/prod
 x clear logs from admin/logs, add link to "Clear logs" -> /admin/clearlogs then redirect to admin/logs
 - fix login, get code from github oauth, get user info, save in session + cookies
@@ -47,6 +45,10 @@ x Authentication:
 
 
 ------------------------------------------------------------
+
+x FetchUser not working live, debug step by step in registerhandler!!!
+x Markdown not compiling on heroku ???
+x test markdown again, enable in templates
 
 x Github authentication
 x test credential secrets are set correctly for live, dev and local

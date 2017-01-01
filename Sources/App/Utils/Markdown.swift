@@ -93,17 +93,13 @@ class Markdown {
         parseCodeBlock(&md)
         parseCodeInline(&md)
         parseHorizontalRule(&md)
-        parseParagraphs(&md)  // FIX: not working 
+        parseParagraphs(&md)
         
         return String(describing: md)
     }
     
     func cleanHtml(_ md: inout NSMutableString) {
         md.matchAndReplace("<.*?>", "")
-    }
-    
-    func cleanBreaks() {
-        //
     }
     
     func parseHeaders(_ md: inout NSMutableString) {
@@ -164,7 +160,7 @@ class Markdown {
     }
     
     func parseParagraphs(_ md: inout NSMutableString) {
-        //md.matchAndReplace("\n([^\n]+)\n", "\n<p>$1</p>\n", options: [.anchorsMatchLines])
+        md.matchAndReplace("\n\n([^\n]+)\n\n", "\n\n<p>$1</p>\n\n", options: [.dotMatchesLineSeparators])
     }
     
     func parseBlock(_ md: inout NSMutableString, format: String, blockEnclose: (String, String), lineEnclose: (String, String)? = nil) {
@@ -183,7 +179,7 @@ class Markdown {
             } else if isBlock {
                 isBlock = false
                 isFirst = true
-                text = text.append(blockEnclose.1)
+                text = text.append(blockEnclose.1+"\n")
             }
             result.append(text)
         }
@@ -195,3 +191,5 @@ class Markdown {
     
 }
 
+
+// End
