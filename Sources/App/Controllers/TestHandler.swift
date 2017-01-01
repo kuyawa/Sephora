@@ -24,7 +24,7 @@ class TestHandler: WebController {
 		let img  = html.matchFirst(regx)
 		let imgs = html.matchAll(regx)
 		let res  = "Test regex: \(img) + \(imgs)"
-		weblog(res)
+		db.log(res)
 		return res
 	}
 

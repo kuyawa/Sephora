@@ -89,24 +89,34 @@ class WebController {
 	}
 
 	func getConfigSecrets(host: String) -> (String, String) {
-		let clientLabel = "clientid - \(host)"
-		let secretLabel = "secret - \(host)"
 
-		weblog("Labels: \(clientLabel), \(secretLabel)")
-		weblog("Config: \(drop.config)")
+		//db.log("Config: \(drop.config)")
 
-		guard let clientId = drop.config["github", clientLabel]?.string,
-		      let secret   = drop.config["github", secretLabel]?.string
-		else {
-			weblog("Secret credentials not found for host \(host)")
-			return ("","")
+		var clientId = ProcessInfo.processInfo.environment["clientid"]
+		var secretId = ProcessInfo.processInfo.environment["secretid"]
+
+		db.log("Environment credentials: \(clientId) - \(secretId)")
+
+		if clientId == nil || clientId!.isEmpty || secretId == nil || secretId!.isEmpty {
+			// If not in ENV try Config
+			var keyName = "$NAME"
+			if host=="localhost" {
+				keyName = "github"
+				db.log("Fetching credentials from secret folder")
+			} else {
+				db.log("Fetching credentials from config")
+			}
+
+			clientId = drop.config[keyName, "clientid"]?.string
+			secretId = drop.config[keyName, "secretid"]?.string
+
+			if clientId == nil || clientId!.isEmpty || secretId == nil || secretId!.isEmpty {
+				db.log("Secret credentials not found for host \(host)")
+				return ("","")
+			}
 		}
-		return (clientId, secret)
-	}
 
-	func weblog(_ text: String) {
-		print("- ", text)
-		_ = db.execute("Insert into weblogs(text) values($1)", params: [Node(text)])
+		return (clientId!, secretId!)
 	}
 
 }

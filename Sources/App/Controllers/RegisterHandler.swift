@@ -23,24 +23,24 @@ class RegisterHandler: WebController {
 		let invalidJson: String = errorJson(FailType.userInfoInvalid.rawValue)
 
 		guard let id = request.parameters["user"]?.string else {
-			weblog("User nick is required")
+			db.log("User nick is required")
 			return invalidJson
 		}
 
 		let url = "http://app-data-mobile.appspot.com/test/fetchuser?nick=\(id)"
 		//let url = "https://api.github.com/users/\(id)"
 
-		weblog("Fetching user data...")
+		db.log("Fetching user data for \(id)")
 
 		do {
 			// headers: ["User-Agent":"swiftforums"]
 			let response = try drop.client.get(url)
 			let json = response.json
 			
-			weblog("Response: \(response)")
-			weblog("Response body: \(response.body)")
-			weblog("Response json: \(response.json)")
-			weblog("Response name: \(json?["name"]?.string)")
+			//db.log("Response: \(response)")
+			//db.log("Response body: \(response.body)")
+			//db.log("Response json: \(response.json)")
+			db.log("Github name: \(json?["name"]?.string)")
 
 			//let json = String(data: response.body, encoding: .utf8)
 
@@ -48,25 +48,25 @@ class RegisterHandler: WebController {
 				  let name = json?["name"]?.string,
 				  let avatar = json?["avatar_url"]?.string
 			else {
-				weblog("User info: Invalid json data")
+				db.log("User info: Invalid json data")
 				return invalidJson
 			}
 
-			weblog("User info: \(nick), \(name), \(avatar)")
+			db.log("User info: \(nick), \(name), \(avatar)")
 
 			let user = User()
 			user.nick = nick
 			user.name = name
 			user.avatar = avatar
 			user.register()
-			weblog("User registered")
+			db.log("User registered")
 
 			let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
-			weblog("Json: \(info)")
+			db.log("Json: \(info)")
 
 			return info
 		} catch {
-			weblog("Error fetching user data: \(error)")
+			db.log("Error fetching user data: \(error)")
 			return invalidJson
 		}
 	}
@@ -86,18 +86,18 @@ class RegisterHandler: WebController {
 		let invalidJson: String = errorJson(FailType.userInfoInvalid.rawValue)
 
 		guard let user = request.parameters["user"]?.string else {
-			weblog("User nick is required")
+			db.log("User nick is required")
 			callback(invalidJson)
 			return
 		}
 
 		guard let url = URL(string: "http://api.github.com/users/\(user)") else {
-			weblog("Invalid user nick")
+			db.log("Invalid user nick")
 			callback(invalidJson)
 			return
 		}
 
-		weblog("Fetching user data...")
+		db.log("Fetching user data...")
 
         var fetch = URLRequest(url: url)
         fetch.httpMethod = "GET"
@@ -105,19 +105,19 @@ class RegisterHandler: WebController {
 
 		let task = URLSession.shared.dataTask(with: fetch) { data, req, err in
 			guard err == nil else {
-				weblog("UserInfo error: ", err!)
+				db.log("UserInfo error: ", err!)
 				callback(invalidJson)
 				return
 			}
 
 			guard let data = data else { 
-				weblog("UserInfo: No data")
+				db.log("UserInfo: No data")
 				callback(invalidJson)
 				return
 			}
 
 			do {
-				//weblog("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
+				//db.log("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
 
 				let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject]
 
@@ -125,26 +125,26 @@ class RegisterHandler: WebController {
 					  let name = json?["name"] as? String,
 					  let avatar = json?["avatar_url"] as? String
 				else {
-					weblog("User info: Invalid data")
+					db.log("User info: Invalid data")
 					callback(invalidJson)
 					return
 				}
 
-				weblog("User info: ", nick, name, avatar)
+				db.log("User info: ", nick, name, avatar)
 
 				let user = User()
 				user.nick = nick
 				user.name = name
 				user.avatar = avatar
 				user.register()
-				weblog("User registered")
+				db.log("User registered")
 
 				let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
-				weblog("Json: ", info)
+				db.log("Json: ", info)
 				callback(info)
 				return
 			} catch {
-				weblog("Error accessing Github: ", error)
+				db.log("Error accessing Github: ", error)
 				callback(invalidJson)
 				return
 			}
@@ -159,18 +159,18 @@ class RegisterHandler: WebController {
 		let invalidJson: String = errorJson(FailType.userInfoInvalid.rawValue)
 
 		guard let user = request.parameters["user"]?.string else {
-			weblog("User nick is required")
+			db.log("User nick is required")
 			callback(invalidJson)
 			return
 		}
 
 		guard let url = URL(string: "http://api.github.com/users/\(user)") else {
-			weblog("Invalid user nick")
+			db.log("Invalid user nick")
 			callback(invalidJson)
 			return
 		}
 
-		weblog("Fetching user data...")
+		db.log("Fetching user data...")
 
         var fetch = URLRequest(url: url)
         fetch.httpMethod = "GET"
@@ -178,19 +178,19 @@ class RegisterHandler: WebController {
 
 		let task = URLSession.shared.dataTask(with: fetch) { data, req, err in
 			guard err == nil else {
-				weblog("UserInfo error: ", err!)
+				db.log("UserInfo error: ", err!)
 				callback(invalidJson)
 				return
 			}
 
 			guard let data = data else { 
-				weblog("UserInfo: No data")
+				db.log("UserInfo: No data")
 				callback(invalidJson)
 				return
 			}
 
 			do {
-				//weblog("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
+				//db.log("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
 
 				let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject]
 
@@ -198,26 +198,26 @@ class RegisterHandler: WebController {
 					  let name = json?["name"] as? String,
 					  let avatar = json?["avatar_url"] as? String
 				else {
-					weblog("User info: Invalid data")
+					db.log("User info: Invalid data")
 					callback(invalidJson)
 					return
 				}
 
-				weblog("User info: ", nick, name, avatar)
+				db.log("User info: ", nick, name, avatar)
 
 				//let user = User()
 				//user.nick = nick
 				//user.name = name
 				//user.avatar = avatar
 				//user.register()
-				//weblog("User registered")
+				//db.log("User registered")
 
 				let info = self.easyJson(["nick": nick, "name": name, "avatar": avatar])
-				weblog("Json: ", info)
+				db.log("Json: ", info)
 				callback(info)
 				return
 			} catch {
-				weblog("Error accessing Github: ", error)
+				db.log("Error accessing Github: ", error)
 				callback(invalidJson)
 				return
 			}
@@ -231,19 +231,19 @@ class RegisterHandler: WebController {
 	// API to get user info from github, returns json
 	func fetchUserOLD0(_ request: Request) -> ResponseRepresentable {
 		guard let user = request.parameters["user"]?.string else {
-			weblog("User nick is required")
+			db.log("User nick is required")
 			return failJson(.userNickRequired)
 		}
 		guard let url = URL(string: "http://api.github.com/users/\(user)") else {
-			weblog("Invalid user nick")
+			db.log("Invalid user nick")
 			return failJson(.userInfoInvalid)
 		}
 
 		do {
-			weblog("Fetching user data...")
+			db.log("Fetching user data...")
 			let data = try Data(contentsOf: url) // Sync fetch
 
-			weblog("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
+			db.log("User Info: \n", String(data: data, encoding: .utf8) ?? "No data")
 
 			let json = try JSONSerialization.jsonObject(with: data, options: .allowFragments) as? [String: AnyObject]
 
@@ -251,18 +251,18 @@ class RegisterHandler: WebController {
 				  let name = json?["name"] as? String,
 				  let avatar = json?["avatar_url"] as? String
 			else {
-				weblog("User info: Invalid data")
+				db.log("User info: Invalid data")
 				return failJson(.userInfoInvalid)
 			}
 
-			weblog("User info: ", nick, name, avatar)
+			db.log("User info: ", nick, name, avatar)
 
 			let user = User()
 			user.nick = nick
 			user.name = name
 			user.avatar = avatar
 			user.register()
-			weblog("User registered")
+			db.log("User registered")
 
 			let info = easyJson(["nick": nick, "name": name, "avatar": avatar])
 
@@ -270,17 +270,17 @@ class RegisterHandler: WebController {
 			response.headers["Content-Type"] = "application/json"
 			response.cookies["nick"] = nick
 
-			weblog("Session info: ", nick, name, avatar)
+			db.log("Session info: ", nick, name, avatar)
 			try request.session().data["id"] = Node(user.userid)
 			try request.session().data["nick"] = Node(user.nick)
 			try request.session().data["name"] = Node(user.name)
 			try request.session().data["avatar"] = Node(user.avatar)
-			weblog("User in session")
+			db.log("User in session")
 
 			return response
 
 		} catch {
-			weblog("Error accessing Github: ", error)
+			db.log("Error accessing Github: ", error)
 			return failJson(.errorAccessingGithub)
 		}
 

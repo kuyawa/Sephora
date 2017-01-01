@@ -39,9 +39,9 @@ class LoginHandler: WebController {
 		try? request.session().data["nick"] = Node(nick) // Assign to session
 
 		// Change accordingly to live, dev, local
-		weblog("Host: \(request.uri.host)")
+		db.log("Host: \(request.uri.host)")
 		let (clientId, secret) = getConfigSecrets(host: request.uri.host)
-		weblog("Secrets: \(clientId), \(secret)")
+		db.log("\(clientId)\(secret)")
 
 		if clientId.isEmpty || secret.isEmpty {
 			print("Secret credentials not found")
@@ -51,8 +51,10 @@ class LoginHandler: WebController {
 		let stateId  = UUID().uuidString
 
 		if let user = User(in: db).get(nick: nick) {
+			db.log("Saving user in session...")
 			user.saveAuthState(stateId)
 		} else { /* Register */
+			db.log("Registering user after login...")
 			let user = User(in: db)
 			user.nick = nick
 			user.state = stateId
@@ -157,7 +159,12 @@ class LoginHandler: WebController {
 		}
 */
 
+		try? request.session().data["userid"]   = Node(user.userid)
+		try? request.session().data["nick"]     = Node(user.nick)
+		try? request.session().data["name"]     = Node(user.name)
+		try? request.session().data["avatar"]   = Node(user.avatar)
 		try? request.session().data["isLogged"] = Node(true)
+
 		let response = Response(redirect: "/")
 		response.cookies["nick"] = user.nick
 

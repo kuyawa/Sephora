@@ -42,7 +42,9 @@ class UserInfo: DataQuery {
 			self.isLogged = true
 		}
 
-		print("Session info: ", self.toNode())
+		db.log("User info data query: \(self.toNode())")
+		db.log("Session info: \(session)")
+		db.log("Cookies info: \(request.cookies)")
 
 	    return self
 	}

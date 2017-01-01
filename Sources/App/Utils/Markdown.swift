@@ -128,7 +128,7 @@ class Markdown {
     func parseLinks(_ md: inout NSMutableString) {
         md.matchAndReplace("\\[(.*?)\\]\\((.*?)\\)", "<a href=\"$2\">$1</a>")
         md.matchAndReplace("\\[http(.*?)\\]", "<a href=\"http$1\">http$1</a>")
-        md.matchAndReplace("(^|\\s)http(.*?)(\\s|\\. |\\.$|,|$)", "$1<a href=\"http$2\">http$2</a>$3 ", options: [.anchorsMatchLines])
+        md.matchAndReplace("(^|\\s)http(.*?)(\\s|\\.\\s|\\.$|,|$)", "$1<a href=\"http$2\">http$2</a>$3 ", options: [.anchorsMatchLines])
     }
     
     func parseUnorderedLists(_ md: inout NSMutableString) {
