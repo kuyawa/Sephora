@@ -21,7 +21,7 @@ class PostHandler: WebController {
 	}
 
 	func submit(_ request: Request) -> ResponseRepresentable {
-		// TODO: get forum name from form post token, validate if user can post in that forum
+		// TODO: get forum name from form post token, validate if user can post to that forum
 		guard let dirname = request.parameters["forum"]?.string else { return fail(.forumNotAvailable) }
 		guard let title   = request.data["title"]?.string else { return fail(.badRequest) }
 		guard let content = request.data["content"]?.string else { return fail(.badRequest) }

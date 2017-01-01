@@ -18,6 +18,7 @@ class UserInfo: DataQuery {
 				if !nick.isEmpty {
 					print("Cookie nick: ", nick)
 					getByNick(nick)
+					self.isLogged = true
 				}
 			}
 			// No cookies either, logged off
@@ -25,14 +26,20 @@ class UserInfo: DataQuery {
 		}
 
 		// Session info
-		if !nick.isEmpty && nick != "anonymous" { 
+		if nick.isEmpty || nick == "anonymous" { 
+			if let nick = request.cookies["nick"] {
+				print("Cookie nick: ", nick)
+				if !nick.isEmpty {
+					getByNick(nick)
+					self.isLogged = true
+				}
+			}
+		} else {
 			self.nick = nick
 			if let userid = session.data["userid"]?.int    { self.userid = userid }
 			if let name   = session.data["name"]?.string   { self.name = name }
 			if let avatar = session.data["avatar"]?.string { self.avatar = avatar }
 			self.isLogged = true
-		} else {
-			self.isLogged = false
 		}
 
 		print("Session info: ", self.toNode())

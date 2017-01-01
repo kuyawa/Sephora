@@ -88,29 +88,17 @@ class WebController {
 		return node
 	}
 
-
 	func getConfigSecrets(host: String) -> (String, String) {
-		var clientLabel = "clientid-live"
-		var secretLabel = "secret-live"
+		let clientLabel = "clientid - \(host)"
+		let secretLabel = "secret - \(host)"
 
-		if drop.environment == .development { 
-			if host == "localhost" || host == "127.0.0.1" {
-				clientLabel = "clientid-local"
-				secretLabel = "secret-local"
-			} else {
-				clientLabel = "clientid-dev"
-				secretLabel = "secret-dev"
-			}
-		}
-
-		print(clientLabel, secretLabel)
 		weblog("Labels: \(clientLabel), \(secretLabel)")
 		weblog("Config: \(drop.config)")
 
 		guard let clientId = drop.config["github", clientLabel]?.string,
 		      let secret   = drop.config["github", secretLabel]?.string
 		else {
-			print("Secret credentials not found")
+			weblog("Secret credentials not found for host \(host)")
 			return ("","")
 		}
 		return (clientId, secret)
