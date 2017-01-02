@@ -21,7 +21,6 @@ class PostHandler: WebController {
 	}
 
 	func submit(_ request: Request) -> ResponseRepresentable {
-		// TODO: get forum name from form post token, validate if user can post to that forum
 		guard let dirname = request.parameters["forum"]?.string else { return fail(.forumNotAvailable) }
 		guard let title   = request.data["title"]?.string else { return fail(.badRequest) }
 		guard let content = request.data["content"]?.string else { return fail(.badRequest) }
@@ -59,5 +58,41 @@ class PostHandler: WebController {
 
 		return AppHandler().redirect("/forum/\(dirname)")
 	}
+
+	// POST /api/post/123 body:title,content
+	func apiModify(_ request: Request) -> ResponseRepresentable {
+		// Validate user is owner
+		guard let postId = request.parameters["post"]?.int
+		else {
+			print("API Save. Post id is required")
+			return "NO"
+		}
+
+
+		guard let title   = request.data["title"]?.string,
+		 	  let content = request.data["content"]?.string
+		else {
+			print("API Save. Post title and content are required")
+			return "NO"
+		}
+
+		print("API Save post info: ", title, content)
+		return "OK"
+	}
+
+	// DELETE /api/post/123
+	func apiDelete(_ request: Request) -> ResponseRepresentable {
+		// Validate user is owner
+		// Don't delete, mark as hidden
+		guard let postId = request.parameters["post"]?.int
+		else {
+			print("API Delete. Post id is required")
+			return "NO"
+		}
+
+		print("API Delete post id: ", postId)
+		return "OK"
+	}
+
 
 }

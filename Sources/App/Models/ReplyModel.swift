@@ -117,6 +117,16 @@ extension Reply {
         _ = db.execute(sql, params: args)
     }
 
+    func hide() {
+        let sql = "Update replies Set hidden = true Where replyid = $1"
+        let args: [Node] = [Node(replyid)]
+        let num = db.execute(sql, params: args)
+        
+        if num == nil {
+            print("Error deleting reply ", replyid)
+        }
+    }
+
 } 
 
 // End

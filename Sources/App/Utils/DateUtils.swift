@@ -2,6 +2,9 @@ import Foundation
 
 extension Date {
 
+	static var epoch      : Date { return Date(timeIntervalSince1970: 0) }
+	static var endOfTimes : Date { return Date(timeIntervalSince1970: 9999999999) }
+
     static func fromString(text: String) -> Date {
     	return Date.fromString(text: text, format: "yyyy-MM-dd HH:mm:ss") // No format, use default
     }

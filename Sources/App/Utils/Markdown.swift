@@ -148,7 +148,7 @@ class Markdown {
     
     func parseCodeBlock(_ md: inout NSMutableString) {
         md.matchAndReplace("```(.*?)```", "<pre>$1</pre>", options: [.dotMatchesLineSeparators])
-        parseBlock(&md, format: "^\\s{4}", blockEnclose: ("<pre>", "</pre>"))
+        //parseBlock(&md, format: "^\\s{4}", blockEnclose: ("<pre>", "</pre>"))
     }
     
     func parseCodeInline(_ md: inout NSMutableString) {

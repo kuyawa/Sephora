@@ -30,7 +30,12 @@ drop.get("forum") { request in Response(redirect: "/forum/general") }
 drop.get("forum/:forum"){ ForumHandler().show($0) }
 drop.post("forum/:forum/submit"){ PostHandler().submit($0) }
 drop.get("forum/:forum/post/:post"){ PostHandler().show($0) }
+drop.post("api/post/:post"){ PostHandler().apiModify($0) }
+drop.delete("api/post/:post"){ PostHandler().apiDelete($0) }
 drop.post("forum/:forum/post/:post/reply"){ ReplyHandler().submit($0) }
+drop.get("forum/:forum/post/:post/reply/:reply"){ ReplyHandler().show($0) }
+drop.post("api/reply/:reply"){ ReplyHandler().apiModify($0) }
+drop.delete("api/reply/:reply"){ ReplyHandler().apiDelete($0) }
 
 // Admin
 drop.get("admin/dbinfo"){ AdminHandler().dbinfo($0) }

@@ -1,12 +1,12 @@
 import Vapor
 import HTTP
 import Foundation
+import Cookies
 
 /*
 
 	On register, user provides github ID and id is saved in db
 	To log in, user gets code from github, code is saved in db using nick from cookies
-
 
 */
 
@@ -63,7 +63,8 @@ class LoginHandler: WebController {
 
 		let loginUrl = "https://github.com/login/oauth/authorize?client_id=\(clientId)&state=\(stateId)"
 		let response = Response(redirect: loginUrl)
-		response.cookies["nick"] = nick
+		//response.cookies["nick"] = nick
+		response.cookies.insert(Cookie(name: "nick", value: nick, expires: Date.endOfTimes))
 
 		return response
 	}

@@ -120,7 +120,7 @@ extension Post {
     }
 
     func getReplies() -> Node? {
-        let sql = "Select * from replies where postid = $1 order by date"
+        let sql = "Select * From replies Where postid = $1 And hidden = false Order by date"
         let args: [Node] = [Node(postid)]
         guard let rows = db.query(sql, params: args) else { return nil }
         
@@ -128,13 +128,13 @@ extension Post {
     }
 
     func countView() {
-        let sql = "Update posts set views = views+1 where postid = $1"
+        let sql = "Update posts Set views = views+1 Where postid = $1"
         let args: [Node] = [Node(postid)]
         _ = db.execute(sql, params: args)
     }
 
     func countReplies() {
-        let sql = "Update posts set replies = replies+1 where postid = $1"
+        let sql = "Update posts Set replies = replies+1 Where postid = $1"
         let args: [Node] = [Node(postid)]
         _ = db.execute(sql, params: args)
     }

@@ -35,14 +35,14 @@
 		</content>
 		<editor id="edit-content">
 			<textarea id="new-content">#(post.content)</textarea>
-			<li><button id="post-save" onclick="onPostSave()">Save</button> <button id="post-cancel" onclick="onPostCancel()">Cancel</button></li>
+			<li><button id="post-save" onclick="savePost(#(post.postid))">Save</button> <button id="post-cancel" onclick="cancelPost()">Cancel</button></li>
 		</editor>
 	</article>
 
 	<replies>
 		<h3>#(post.replies) Replies</h3>
 		#loop(replies, "reply") {
-		<reply>
+		<reply id="reply-#(reply.replyid)">
 			<side>
 				<votes>
 					<voteup><a href="javascript:void()"><img src="/images/voteup.png" class="off" /></a></voteup> 
@@ -66,7 +66,7 @@
 				</text>
 				<editor id="edit-reply-#(reply.replyid)" class="edit-reply">
 					<textarea id="new-reply-#(reply.replyid)" class="new-reply">#(reply.content)</textarea>
-					<li><button id="reply-save" onclick="onReplySave()">Save</button> <button id="reply-cancel" onclick="onReplyCancel()">Cancel</button></li>
+					<li><button id="reply-save" onclick="saveReply(#(reply.replyid))">Save</button> <button id="reply-cancel" onclick="cancelReply()">Cancel</button></li>
 				</editor>
 			</message>
 		</reply>
@@ -87,4 +87,7 @@
 	}
 }
 
-#export("scripts") { <script src="/static/editpost.js"></script> }
+#export("scripts") { 
+	<script src="/static/editpost.js"></script> 
+	<script src="/static/markdown.js"></script> 
+}
