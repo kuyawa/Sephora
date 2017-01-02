@@ -77,7 +77,7 @@ extension NSMutableString {
 
 class Markdown {
     
-    func parse(_ text: String) -> String {
+    func parse(_ text: String) throws -> String {
         var md = NSMutableString(string: text)
         
         cleanHtml(&md)

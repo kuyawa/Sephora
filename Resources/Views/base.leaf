@@ -22,7 +22,7 @@
 <actionbar>
 	<actions>
 	#if($userIsLogged) {
-		<a class="nick" href="/profile">#($userInfo.nick) [0]</a>
+		<a class="nick" href="https://github.com/#($userInfo.nick)">#($userInfo.nick) [0]</a>
 		<a href="/profile">Profile</a>
 		<a href="/logout">Log out</a>
 	} ##else() {

@@ -48,20 +48,40 @@ class ReplyHandler: WebController {
 	// POST /api/reply/456 body:content
 	func apiModify(_ request: Request) -> ResponseRepresentable {
 		// Validate user is owner
+		print(request)
+		
 		guard let replyId = request.parameters["reply"]?.int
 		else {
-			print("API Save. Reply id is required")
+			print("API Modify. Reply id is required")
 			return "NO"
 		}
-
 
 		guard let content = request.data["content"]?.string
 		else {
-			print("API Save. Reply content is required")
+			print("API Modify. Reply content is required")
 			return "NO"
 		}
 
-		print("API Save reply info: ", content)
+		let user = UserInfo(in: db).fromSession(request)
+		if user.userid == 0 { 
+			print("Error modifying reply. Must be logged in")
+			return "NO"
+		}
+
+		guard let reply = Reply().get(id: replyId) else {
+			print("Reply \(replyId) not found")
+			return "NO"
+		}
+
+		if reply.userid != user.userid {
+			print("User can only modify own replies. Owner: \(reply.userid) - User: \(user.userid)")
+			return "NO"
+		}
+
+		reply.content = content
+		reply.save()
+
+		print("API Modified reply \(replyId)")
 		return "OK"
 	}
 
@@ -97,4 +117,34 @@ class ReplyHandler: WebController {
 		return "OK"
 	}
 
+	// POST /api/reply/456/reported
+	func apiReport(_ request: Request) -> ResponseRepresentable {
+		guard let replyId = request.parameters["reply"]?.int
+		else {
+			print("API Report. Reply id is required")
+			return "NO"
+		}
+
+		let user = UserInfo(in: db).fromSession(request)
+		if user.userid == 0 { 
+			print("Error reporting reply. Must be logged in")
+			return "NO"
+		}
+
+		guard let reply = Reply().get(id: replyId) else {
+			print("Reply \(replyId) not found")
+			return "NO"
+		}
+
+		if reply.userid == user.userid {
+			print("User can not report own messages. Owner: \(reply.userid) - User: \(user.userid)")
+			return "NO"
+		}
+
+		// TODO: Add to reports table, add flagged field to replies
+		//reply.report(userid, reason)
+
+		print("API Report reply id: ", replyId)
+		return "OK"
+	}
 }

@@ -23,10 +23,11 @@
 				• #timeago(post.date) 
 				• #(post.views) views 
 				• #(post.replies) replies
-				• <a href="javascript:void()">Report</a> 
 				#equal($userInfo.userid, post.userid) {
 					• <a href="javascript:modifyPost(#(post.postid))">Edit</a> 
 					• <a href="javascript:deletePost(#(post.postid))">Delete</a> 
+				} ##else() {
+					• <a href="javascript:reportPost(#(post.postid))">Report</a> 
 				}
 			</h6>
 		</top>
@@ -55,10 +56,11 @@
 				<info>
 					<user><a href="/user/#(reply.nick)">#(reply.nick)</a></user> 
 					• <time>#timeago(reply.date)</time> 
-					• <a href="javascript:void()">Report</a> 
 					#equal($userInfo.userid, reply.userid) {
 						• <a href="javascript:modifyReply(#(reply.replyid))">Edit</a> 
 						• <a href="javascript:deleteReply(#(reply.replyid))">Delete</a> 
+					} ##else() {
+						• <a href="javascript:reportReply(#(reply.replyid))">Report</a> 
 					}
 				</info>
 				<text id="text-reply-#(reply.replyid)" class="text-reply">

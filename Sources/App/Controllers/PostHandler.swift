@@ -64,19 +64,38 @@ class PostHandler: WebController {
 		// Validate user is owner
 		guard let postId = request.parameters["post"]?.int
 		else {
-			print("API Save. Post id is required")
+			print("API Modify. Post id is required")
 			return "NO"
 		}
-
 
 		guard let title   = request.data["title"]?.string,
 		 	  let content = request.data["content"]?.string
 		else {
-			print("API Save. Post title and content are required")
+			print("API Modify. Post title and content are required")
 			return "NO"
 		}
 
-		print("API Save post info: ", title, content)
+		let user = UserInfo(in: db).fromSession(request)
+		if user.userid == 0 { 
+			print("Error modifying post. Must be logged in")
+			return "NO"
+		}
+
+		guard let post = Post().get(id: postId) else {
+			print("Post \(postId) not found")
+			return "NO"
+		}
+
+		if post.userid != user.userid {
+			print("User can only modify own posts. Owner: \(post.userid) - User: \(user.userid)")
+			return "NO"
+		}
+
+		post.title = title
+		post.content = content
+		post.save()
+
+		print("API Modified post \(postId)")
 		return "OK"
 	}
 
@@ -94,5 +113,35 @@ class PostHandler: WebController {
 		return "OK"
 	}
 
+	// POST /api/post/456/reported
+	func apiReport(_ request: Request) -> ResponseRepresentable {
+		guard let postId = request.parameters["post"]?.int
+		else {
+			print("API Report. Post id is required")
+			return "NO"
+		}
+
+		let user = UserInfo(in: db).fromSession(request)
+		if user.userid == 0 { 
+			print("Error reporting post. Must be logged in")
+			return "NO"
+		}
+
+		guard let post = Post().get(id: postId) else {
+			print("Post \(postId) not found")
+			return "NO"
+		}
+
+		if post.userid == user.userid {
+			print("User can not report own posts. Owner: \(post.userid) - User: \(user.userid)")
+			return "NO"
+		}
+
+		// TODO: Add to reports table, add flagged field to posts
+		//post.report(userid, reason)
+
+		print("API Report post id: ", postId)
+		return "OK"
+	}
 
 }

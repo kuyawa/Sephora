@@ -34,9 +34,15 @@ class LeafMarkdown: BasicTag {
 
 	func run(arguments: [Argument]) throws -> Node? {
     	guard let text = arguments.first?.value?.string else { return nil }
-        let html = Markdown().parse(text)
-        let unescaped = html.bytes
-        return .bytes(unescaped)
+    	do {
+        	let html = try Markdown().parse(text)
+        	let unescaped = html.bytes
+        	return .bytes(unescaped)
+        } catch {
+        	print("Markdown error: ", error)
+        }
+        
+        return "Markdown error"
     }
 }
 

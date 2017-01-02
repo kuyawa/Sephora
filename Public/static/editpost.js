@@ -44,10 +44,10 @@ function savePost(postId) {
 	content = newContent.value;
 	// if empty info alert to avoid server trips
 	data = "title="+title+"&content="+content;
-	webRequest("POST", "/api/post/"+postId, data, onPostSaved);
+	webRequest("POST", "/api/post/"+postId, data, onPostSaved, postId);
 }
 
-function onPostSaved(text, target) {
+function onPostSaved(text, postId) {
 	//alert(text);
 	if(text=="OK"){
 		setPostViewMode();
@@ -71,6 +71,21 @@ function onPostDeleted(text, target) {
 		// TODO: redirect to forum
 	} else {
 		alert("Error deleting post. Try again later");
+	}
+}
+
+function reportPost(postId) {
+	text = prompt("Enter the reason for reporting the post: ");
+	if(!text) { return; }
+	reason = "reason="+text;
+	webRequest("POST", "/api/post/"+postId+"/report", reason, onPostReported);
+}
+
+function onPostReported(text) {
+	if(text=="OK"){
+		alert("Post reported. Thanks for keeping the forum clean.");
+	} else {
+		alert("Error reporting post. Try again later");
 	}
 }
 
@@ -112,15 +127,16 @@ function modifyReply(replyId) {
 }
 
 function saveReply(replyId) {
-	data = "content=" + newContent.value;
-	webRequest("POST", "/api/reply/"+replyId, data, onReplySaved);
+	data = "content=" + newReply.value;
+	//alert(data);
+	webRequest("POST", "/api/reply/"+replyId, data, onReplySaved, replyId);
 }
 
-function onReplySaved(text, target) {
+function onReplySaved(text, replyId) {
 	//alert(text);
 	if(text=="OK"){
-		setReplyViewMode();
 		textReply.innerHTML = markdown.parse(newReply.value);
+		setReplyViewMode();
 	} else {
 		alert("Error saving reply. Try again later");
 	}
@@ -135,13 +151,28 @@ function deleteReply(replyId) {
 	webRequest("DELETE", "/api/reply/"+replyId, null, onReplyDeleted, replyId);
 }
 
-function onReplyDeleted(text, target) {
+function onReplyDeleted(text, replyId) {
 	//alert(text);
 	if(text=="OK"){
-		reply = $("reply-"+target);
+		reply = $("reply-"+replyId);
 		if(reply) { reply.style.display = "none"; }
 	} else {
-		alert("Error deleting post. Try again later");
+		alert("Error deleting message. Try again later");
+	}
+}
+
+function reportReply(replyId) {
+	text = prompt("Enter the reason for reporting the message: ");
+	if(!text) { return; }
+	reason = "reason="+text;
+	webRequest("POST", "/api/reply/"+replyId+"/report", reason, onReplyReported);
+}
+
+function onReplyReported(text) {
+	if(text=="OK"){
+		alert("Message reported. Thanks for keeping the forum clean.");
+	} else {
+		alert("Error reporting message. Try again later");
 	}
 }
 

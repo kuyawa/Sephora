@@ -7,6 +7,7 @@ FIX:
 
 TODO:
 
+- try catch markdown parse errors
 - allow in-place editing/saving
   - web request and callback for saving/deleting
 - use markdown.js for in-place edit 
