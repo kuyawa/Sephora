@@ -16,10 +16,16 @@ class ReplyHandler: WebController {
 		guard let dirname = request.parameters["forum"]?.string else { return fail(.forumNotAvailable) }
 		guard let postid  = request.parameters["post"]?.int else { return fail(.badRequest) }
 		guard let content = request.data["content"]?.string else { return fail(.badRequest) }
-		//print(dirname, postid, content)
+		print("Reply in \(dirname) to \(postid)")
 
-		let userid = 5   		// get from session
-		let nick = "Kuyawa"		// get from session
+		let info = UserInfo(in: db).fromSession(request)
+		if info.userid == 0 { 
+			print("Error posting. Must be logged in to post")
+			return fail(.unauthorizedAccess)
+		}
+
+		let userid = info.userid
+		let nick   = info.nick
 
 		let reply = Reply(in: db)
 		reply.replyid   = 0  // Used for insert

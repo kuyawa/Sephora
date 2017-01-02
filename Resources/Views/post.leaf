@@ -1,7 +1,11 @@
 #extend("base")
 
 #export("content") {
-	<h1 class="forum-name"><a href="/forum/#(forum.dirname)">#(forum.name)</a> <sep><small>•</small></sep> <span class="forum-descrip">#(forum.descrip)</span></h1>
+	<h1 class="forum-name">
+	    <a href="/forum/#(forum.dirname)">#(forum.name)</a> 
+	    <sep><small>•</small></sep> 
+	    <span class="forum-descrip">#(forum.descrip)</span>
+	</h1>
 
 	<article>
 		<icon>
@@ -12,17 +16,27 @@
 			}
 		</icon>
 		<top>
-			<h1>#(post.title)</h1>
+			<h1 id="post-title">#(post.title)</h1>
+			<h1 id="edit-title"><input type="textbox" name="new-title" id="new-title" value="#(post.title)" /></h1>
 			<h6>
 				<user><a href="/user/#(post.nick)">#(post.nick)</a></user> 
-				<sep>•</sep> #timeago(post.date) 
-				<sep>•</sep> #(post.views) views 
-				<sep>•</sep> #(post.replies) replies
+				• #timeago(post.date) 
+				• #(post.views) views 
+				• #(post.replies) replies
+				• <a href="javascript:void()">Report</a> 
+				#equal($userInfo.userid, post.userid) {
+					• <a href="javascript:modifyPost(#(post.postid))">Edit</a> 
+					• <a href="javascript:deletePost(#(post.postid))">Delete</a> 
+				}
 			</h6>
 		</top>
-		<content>
+		<content id="post-content">
 			#markdown(post.content)
 		</content>
+		<editor id="edit-content">
+			<textarea id="new-content">#(post.content)</textarea>
+			<li><button id="post-save" onclick="onPostSave()">Save</button> <button id="post-cancel" onclick="onPostCancel()">Cancel</button></li>
+		</editor>
 	</article>
 
 	<replies>
@@ -38,10 +52,22 @@
 				<answered>	#if(reply.answer) { <img src="/images/answerok.png"/> } </answered>
 			</side>
 			<message>
-				<info><user><a href="/user/#(reply.nick)">#(reply.nick)</a></user> <sep>•</sep> <time>#timeago(reply.date)</time></info>
-				<text>
+				<info>
+					<user><a href="/user/#(reply.nick)">#(reply.nick)</a></user> 
+					• <time>#timeago(reply.date)</time> 
+					• <a href="javascript:void()">Report</a> 
+					#equal($userInfo.userid, reply.userid) {
+						• <a href="javascript:modifyReply(#(reply.replyid))">Edit</a> 
+						• <a href="javascript:deleteReply(#(reply.replyid))">Delete</a> 
+					}
+				</info>
+				<text id="text-reply-#(reply.replyid)" class="text-reply">
 					<p>#markdown(reply.content)</p>
 				</text>
+				<editor id="edit-reply-#(reply.replyid)" class="edit-reply">
+					<textarea id="new-reply-#(reply.replyid)" class="new-reply">#(reply.content)</textarea>
+					<li><button id="reply-save" onclick="onReplySave()">Save</button> <button id="reply-cancel" onclick="onReplyCancel()">Cancel</button></li>
+				</editor>
 			</message>
 		</reply>
 		} ##(post) { <p>Be the first to leave a comment</p> }
@@ -59,6 +85,6 @@
 	} ##else() {
 		<warn><p>Must be <a href="/login">logged in</a> to post on this forum</p></warn>
 	}
-
-
 }
+
+#export("scripts") { <script src="/static/editpost.js"></script> }

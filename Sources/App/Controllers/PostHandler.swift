@@ -25,7 +25,7 @@ class PostHandler: WebController {
 		guard let dirname = request.parameters["forum"]?.string else { return fail(.forumNotAvailable) }
 		guard let title   = request.data["title"]?.string else { return fail(.badRequest) }
 		guard let content = request.data["content"]?.string else { return fail(.badRequest) }
-		print(dirname, title, content)
+		print("Post in \(dirname): \(title)")
 
 		let forumid = Forum(in: db).getId(dir: dirname)
 		guard forumid > 0 else { return fail(.forumNotAvailable) }
@@ -36,9 +36,9 @@ class PostHandler: WebController {
 			return fail(.unauthorizedAccess)
 		}
 
-		let type = 0     		  // get from form 
-		let userid = info.userid  // get from session
-		let nick = info.nick	  // get from session
+		let type   = 0     		  // TODO: get from form 
+		let userid = info.userid
+		let nick   = info.nick
 
 		let post = Post(in: db)
 		post.postid   	= 0  // Used for insert

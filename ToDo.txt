@@ -6,10 +6,11 @@ FIX:
 
 TODO:
 
-- fix login
 - allow in-place edition/saving
+x fix login
 - deploy v1
 
+- use stars instead of votes, no downvoting allowed
 - move admin stuff to external swift app sharing same db (try kitura?)
 - get clientid, secret from ENV not from secrets on heroku for every app, dev/live/prod
 x clear logs from admin/logs, add link to "Clear logs" -> /admin/clearlogs then redirect to admin/logs
