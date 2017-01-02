@@ -1,5 +1,6 @@
 FIX:
 
+- Markdown crashing app if url left alone in one line
 - Forum dirname must be unique, add constrain to db
 - User nick must be unique, add constrain to db
 - Fix timeago in dateUtils for use in templates
@@ -10,6 +11,7 @@ TODO:
 x fix login
 - deploy v1
 
+- don't delete posts/replies, hide them
 - use stars instead of votes, no downvoting allowed
 - move admin stuff to external swift app sharing same db (try kitura?)
 - get clientid, secret from ENV not from secrets on heroku for every app, dev/live/prod
