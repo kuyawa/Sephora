@@ -71,8 +71,8 @@ class LoginHandler: WebController {
 			maxAge   : 60*60*24*365,
     		domain   : "",
     		path     : "/",
-    		secure   : true,
-    		httpOnly : true
+    		secure   : false,
+    		httpOnly : false
     	)
 
 		//response.cookies["nick"] = nick
