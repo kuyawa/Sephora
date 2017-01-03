@@ -109,6 +109,7 @@ class PostHandler: WebController {
 			return "NO"
 		}
 
+		// TODO: Hide post
 		print("API Delete post id: ", postId)
 		return "OK"
 	}
@@ -145,3 +146,5 @@ class PostHandler: WebController {
 	}
 
 }
+
+// End

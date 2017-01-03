@@ -7,13 +7,14 @@ FIX:
 
 TODO:
 
-- try catch markdown parse errors
+- try catch everywhere. App is crashing randomly.
 - allow in-place editing/saving
   - web request and callback for saving/deleting
 - use markdown.js for in-place edit 
 x fix login
 - deploy v1
 
+x try catch markdown parse errors
 - get stats once a day, cron job?
 - change cookie:nick for uuid token to avoid impersonation
 x login cookies never expire, remove if user logs out

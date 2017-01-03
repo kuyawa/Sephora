@@ -49,7 +49,7 @@ class ReplyHandler: WebController {
 	func apiModify(_ request: Request) -> ResponseRepresentable {
 		// Validate user is owner
 		print(request)
-		
+
 		guard let replyId = request.parameters["reply"]?.int
 		else {
 			print("API Modify. Reply id is required")
@@ -148,3 +148,5 @@ class ReplyHandler: WebController {
 		return "OK"
 	}
 }
+
+// End
