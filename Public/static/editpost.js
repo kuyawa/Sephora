@@ -179,6 +179,27 @@ function onReplyReported(text) {
 	}
 }
 
+function pickAnswer(replyId) {
+	try {
+		reply = $("reply-"+replyId);
+		img = reply.getElementsByTagName("answered")[0].getElementsByTagName("img")[0];
+		if (img.className == "answer-ok") { 
+			webRequest("POST", "/api/reply/"+replyId+"/answer", "answer=0", onPostAnswered, img);
+		} else { 
+			webRequest("POST", "/api/reply/"+replyId+"/answer", "answer=1", onPostAnswered, img);
+		}
+	} catch(ex) {
+		alert("Something went wrong. Try later");
+	}
+}
+
+function onPostAnswered(ok, img) {
+	if(ok=="OK:0"){	img.className = "answer-no"; } else
+	if(ok=="OK:1"){	img.className = "answer-ok"; } else {
+		alert("Something went wrong. Try again later");
+	}
+}
+
 // UTILS
 
 function $(id) {

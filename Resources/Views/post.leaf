@@ -16,7 +16,7 @@
 			}
 		</icon>
 		<top>
-			<h1 id="post-title">#(post.title)</h1>
+			<h1 id="post-title"><a href="/forum/#(forum.dirname)/post/#(post.postid)">#(post.title)</a></h1>
 			<h1 id="edit-title"><input type="textbox" name="new-title" id="new-title" value="#(post.title)" /></h1>
 			<h6>
 				<user><a href="/user/#(post.nick)">#(post.nick)</a></user> 
@@ -46,11 +46,11 @@
 		<reply id="reply-#(reply.replyid)">
 			<side>
 				<votes>
-					<voteup><a href="javascript:void()"><img src="/images/starno.png" class="off" /></a></voteup> 
+					<voteup><a href="javascript:void()"><img src="/images/starno.png" class="star-off" /></a></voteup> 
 					<votecount title="#(reply.votesup) / #(reply.votesdn)">#(reply.votes)</votecount> 
 					<!-- <votedn><a href="javascript:void()"><img src="/images/votedn.png" class="off" /></a></votedn> -->
 				</votes>
-				<answered>	#if(reply.answer) { <img src="/images/answerok.png"/> } </answered>
+				<answered> <img src="/images/answerok.png" #if(reply.answer) { class="answer-on" } /> </answered>
 			</side>
 			<message>
 				<info>
@@ -61,6 +61,9 @@
 						• <a href="javascript:deleteReply(#(reply.replyid))">Delete</a> 
 					} ##else() {
 						• <a href="javascript:reportReply(#(reply.replyid))">Report</a> 
+					}
+					#equal($userInfo.userid, post.userid) {
+						• <a href="javascript:pickAnswer(#(reply.replyid))">Select Answer</a> 
 					}
 				</info>
 				<text id="text-reply-#(reply.replyid)" class="text-reply">

@@ -117,7 +117,7 @@ class ReplyHandler: WebController {
 		return "OK"
 	}
 
-	// POST /api/reply/456/reported
+	// POST /api/reply/456/report
 	func apiReport(_ request: Request) -> ResponseRepresentable {
 		guard let replyId = request.parameters["reply"]?.int
 		else {
@@ -146,6 +146,42 @@ class ReplyHandler: WebController {
 
 		print("API Report reply id: ", replyId)
 		return "OK"
+	}
+
+	// POST /api/reply/456/answer
+	func apiAnswer(_ request: Request) -> ResponseRepresentable {
+		guard let replyId = request.parameters["reply"]?.int
+		else {
+			print("API Answer. Reply id is required")
+			return "NO"
+		}
+
+		guard let answer = request.data["answer"]?.int
+		else {
+			print("API Answer. Answer value 0 or 1 is required")
+			return "NO"
+		}
+
+		let user = UserInfo(in: db).fromSession(request)
+		if user.userid == 0 { 
+			print("Error selecting answer. Must be logged in")
+			return "NO"
+		}
+
+		guard let reply = Reply().get(id: replyId) else {
+			print("Reply \(replyId) not found")
+			return "NO"
+		}
+/*
+		if reply.userid == user.userid {
+			print("User can not answer own posts. Owner: \(reply.userid) - User: \(user.userid)")
+			return "NO"
+		}
+*/
+		reply.answer(answer)
+
+		print("API Answer \(answer) for reply id: ", replyId)
+		return "OK:\(answer)"
 	}
 }
 

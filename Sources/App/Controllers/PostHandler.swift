@@ -61,7 +61,7 @@ class PostHandler: WebController {
 		post.save()
 		print("Post created")
 
-		// if ok redirect /forums/:name
+		// if ok redirect /forum/:name
 		// else redirect /post/:postid with action:draft
 
 		return AppHandler().redirect("/forum/\(dirname)")

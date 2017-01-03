@@ -63,8 +63,20 @@ class LoginHandler: WebController {
 
 		let loginUrl = "https://github.com/login/oauth/authorize?client_id=\(clientId)&state=\(stateId)"
 		let response = Response(redirect: loginUrl)
+		
+		let cookieNick = Cookie(
+			name     : "nick", 
+			value    : nick, 
+			expires  : Date.endOfTimes,
+			maxAge   : 60*60*24*365,
+    		domain   : "",
+    		path     : "/",
+    		secure   : true,
+    		httpOnly : true
+    	)
+
 		//response.cookies["nick"] = nick
-		response.cookies.insert(Cookie(name: "nick", value: nick, expires: Date.endOfTimes))
+		response.cookies.insert(cookieNick)
 
 		return response
 	}

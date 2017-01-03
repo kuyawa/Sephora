@@ -1,6 +1,6 @@
 FIX:
 
-- Markdown crashing app if url left alone in one line
+- App crashing after new post. Editing post content in db fixes it. WTF?
 - Forum dirname must be unique, add constrain to db
 - User nick must be unique, add constrain to db
 x Fix timeago in dateUtils for use in templates

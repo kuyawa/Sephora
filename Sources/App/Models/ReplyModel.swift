@@ -127,6 +127,32 @@ extension Reply {
         }
     }
 
+    func answer(_ ok: Int) {
+    	var sql = ""
+    	if ok == 1 {
+        	sql = "Update replies Set answer = true Where replyid = $1"
+    	} else {
+        	sql = "Update replies Set answer = false Where replyid = $1"
+    	}
+
+        let args: [Node] = [Node(replyid)]
+        let num = db.execute(sql, params: args)
+        
+        if num == nil {
+            print("Error selecting answer for reply ", replyid)
+        }
+
+        // Update post
+       	let sql2 = "Update posts Set answered = true Where postid = $1"
+        let args2: [Node] = [Node(postid)]
+        let num2 = db.execute(sql2, params: args2)
+
+        if num2 == nil {
+            print("Error selecting answer for post ", postid)
+        }
+
+    }
+
 } 
 
 // End

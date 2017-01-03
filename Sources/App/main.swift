@@ -39,6 +39,7 @@ drop.post("api/post/:post/report"){ PostHandler().apiReport($0) }
 drop.delete("api/post/:post"){ PostHandler().apiDelete($0) }
 drop.post("api/reply/:reply"){ ReplyHandler().apiModify($0) }
 drop.post("api/reply/:reply/report"){ ReplyHandler().apiReport($0) }
+drop.post("api/reply/:reply/answer"){ ReplyHandler().apiAnswer($0) }
 drop.delete("api/reply/:reply"){ ReplyHandler().apiDelete($0) }
 
 // Admin
