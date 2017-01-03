@@ -66,9 +66,8 @@ function deletePost(postId) {
 }
 
 function onPostDeleted(text, target) {
-	//alert(text);
 	if(text=="OK"){
-		// TODO: redirect to forum
+		window.location.href = "/forums"
 	} else {
 		alert("Error deleting post. Try again later");
 	}

@@ -113,7 +113,7 @@ class ReplyHandler: WebController {
 		// Don't delete, mark as hidden
 		reply.hide()
 
-		print("API Delete reply id: ", replyId)
+		print("API Deleted reply id: ", replyId)
 		return "OK"
 	}
 

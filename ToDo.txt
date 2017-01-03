@@ -3,38 +3,34 @@ FIX:
 - Markdown crashing app if url left alone in one line
 - Forum dirname must be unique, add constrain to db
 - User nick must be unique, add constrain to db
-- Fix timeago in dateUtils for use in templates
+x Fix timeago in dateUtils for use in templates
 
 TODO:
 
+- fix plurals everywhere
+- use stars instead of votes, no downvoting allowed
 - try catch everywhere. App is crashing randomly.
-- allow in-place editing/saving
-  - web request and callback for saving/deleting
-- use markdown.js for in-place edit 
+~ allow in-place editing/saving
+  x web request and callback for saving/deleting
+~ use markdown.js for in-place edit 
 x fix login
 - deploy v1
 
+~ on new thread: question? message? page? wiki (markdown)?
 x try catch markdown parse errors
-- get stats once a day, cron job?
 - change cookie:nick for uuid token to avoid impersonation
 x login cookies never expire, remove if user logs out
 - don't delete posts/replies, hide them
-- use stars instead of votes, no downvoting allowed
 - move admin stuff to external swift app sharing same db (try kitura?)
-- get clientid, secret from ENV not from secrets on heroku for every app, dev/live/prod
-x clear logs from admin/logs, add link to "Clear logs" -> /admin/clearlogs then redirect to admin/logs
-- fix login, get code from github oauth, get user info, save in session + cookies
-- Detect dev/live/production by host not by config
 - Work on login async validation
-x if logged, allow to post in listing, show textarea and submit button
-x Log to db 
+- get stats once a day, cron job?
 
 ? install docker for testing swift on ubuntu just like heroku
 x Use latest Vapor version 1.3.2
 
 - Vote up/dn, color icons, send to server
 - Show permalink in every post and reply for easy sharing
-- post new message
+x post new message
 ? question, answered, message, poll, job, app icons, default is message (chat bubble)
 - add some users to test
 - add some messages to every forum
@@ -45,7 +41,6 @@ x index:
   x list forums on the sidebar
 x on forum: show last messages for that forum
 x on message: show all replies, allow new reply
-~ on new thread: question? message? page? wiki (markdown)?
 
 x Authentication:
   x github oAuth?
@@ -55,6 +50,13 @@ x Authentication:
 
 
 ------------------------------------------------------------
+
+x get clientid, secret from ENV not from secrets on heroku for every app, dev/live/prod
+x clear logs from admin/logs, add link to "Clear logs" -> /admin/clearlogs then redirect to admin/logs
+x fix login, get code from github oauth, get user info, save in session + cookies
+x Detect dev/live/production by host not by config
+x if logged, allow to post in listing, show textarea and submit button
+x Log to db 
 
 x FetchUser not working live, debug step by step in registerhandler!!!
 x Markdown not compiling on heroku ???

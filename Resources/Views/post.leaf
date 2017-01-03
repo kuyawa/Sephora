@@ -46,9 +46,9 @@
 		<reply id="reply-#(reply.replyid)">
 			<side>
 				<votes>
-					<voteup><a href="javascript:void()"><img src="/images/voteup.png" class="off" /></a></voteup> 
+					<voteup><a href="javascript:void()"><img src="/images/starno.png" class="off" /></a></voteup> 
 					<votecount title="#(reply.votesup) / #(reply.votesdn)">#(reply.votes)</votecount> 
-					<votedn><a href="javascript:void()"><img src="/images/votedn.png" class="off" /></a></votedn>
+					<!-- <votedn><a href="javascript:void()"><img src="/images/votedn.png" class="off" /></a></votedn> -->
 				</votes>
 				<answered>	#if(reply.answer) { <img src="/images/answerok.png"/> } </answered>
 			</side>

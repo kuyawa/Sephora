@@ -109,8 +109,26 @@ class PostHandler: WebController {
 			return "NO"
 		}
 
-		// TODO: Hide post
-		print("API Delete post id: ", postId)
+		let user = UserInfo(in: db).fromSession(request)
+		if user.userid == 0 { 
+			print("Error deleting post. Must be logged in")
+			return "NO"
+		}
+
+		guard let post = Post().get(id: postId) else {
+			print("Post \(postId) not found")
+			return "NO"
+		}
+
+		if post.userid != user.userid {
+			print("User can only delete own posts. Owner: \(post.userid) - User: \(user.userid)")
+			return "NO"
+		}
+
+		// Don't delete, mark as hidden
+		post.hide()
+
+		print("API Deleted post id: ", postId)
 		return "OK"
 	}
 

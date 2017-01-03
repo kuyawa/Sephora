@@ -161,8 +161,8 @@ votes { display: block; text-align: center; }
 voteup { display: block; }
 votecount { display: block; color: #AAA; }
 votedn { display: block; }
-voteup img, votedn img { width: 24px; height: 12px; }
-votes img.off { opacity: .3; }
+voteup img, votedn img { width: 24px; height: 24px; }
+votes img.off { /*opacity: .3;*/ }
 
 newreply { display: block; /*width: 500px;*/ margin-top: 0px; padding-top: 10px; }
 newreply h3 { padding: 1px 20px; background: #CCC; color: #FFF; border-radius: 3px; border-top: 1px solid #BBB; }
