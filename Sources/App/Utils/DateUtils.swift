@@ -41,45 +41,30 @@ extension Date {
 	func timeAgo() -> String {
 
 	    let now = Date()
-	    let calendar = Calendar.current
-	    let unitFlags = Set<Calendar.Component>([.second, .minute, .hour, .day, .weekOfYear, .month, .year])
-	    let date1 = calendar.dateComponents(unitFlags, from: self)
-	    let date2 = calendar.dateComponents(unitFlags, from: now)
+	    let secs1 = self.timeIntervalSince1970
+	    let secs2 = now.timeIntervalSince1970
+	    let diff = secs2 - secs1
 
-	    if let years2 = date2.year, let years1 = date1.year {
-	    	if years2-years1 >= 2 {	return "\(years2-years1) years ago" }
-	    	if years2-years1 >= 1 {	return "Last year" }
-	    } 
+	    if diff > 60*60*24*365*2 { return "\(Int(diff / Double(60*60*24*365))) years ago" } 
+	    if diff > 60*60*24*365   { return "Last year" } 
 
-	    if let months2 = date2.month, let months1 = date1.month {
-	    	if months2-months1 >= 2 { return "\(months2-months1) months ago" }
-	    	if months2-months1 >= 1 { return "Last month" }
-	    }
-	    
-	    if let weeks2 = date2.weekOfYear, let weeks1 = date1.weekOfYear {
-	    	if weeks2-weeks1 >= 2 { return "\(weeks2-weeks1) weeks ago" }
-	    	if weeks2-weeks1 >= 1 { return "Last week" }
-	    }
-	    
-	    if let days2 = date2.day, let days1 = date1.day {
-	    	if days2-days1 >= 2 { return "\(days2-days1) days ago" }
-	    	if days2-days1 >= 1 { return "Yesterday" }
-	    }
-	    
-	    if let hours2 = date2.hour, let hours1 = date1.hour {
-	    	if hours2-hours1 >= 2 { return "\(hours2-hours1) hours ago" }
-	    	if hours2-hours1 >= 1 { return "An hour ago" }
-	    }
-	    
-	    if let minutes2 = date2.minute, let minutes1 = date1.minute {
-	    	if minutes2-minutes1 >= 2 { return "\(minutes2-minutes1) minutes ago" }
-	    	if minutes2-minutes1 >= 1 { return "A minute ago" }
-	    }
-	    
-	    if let seconds2 = date2.second, let seconds1 = date1.second {
-	    	if seconds2-seconds1 >= 3 { return "\(seconds2-seconds1) seconds ago" }
-	    }
-	    
+	    if diff > 60*60*24*30*2 { return "\(Int(diff / Double(60*60*24*30))) months ago" } 
+	    if diff > 60*60*24*30   { return "Last month" } 
+
+	    if diff > 60*60*24*7*2 { return "\(Int(diff / Double(60*60*24*7))) weeks ago" } 
+	    if diff > 60*60*24*7   { return "Last week" } 
+
+	    if diff > 60*60*24*2 { return "\(Int(diff / Double(60*60*24))) days ago" } 
+	    if diff > 60*60*24   { return "Yesterday" } 
+
+	    if diff > 60*60*2 { return "\(Int(diff / Double(60*60))) hours ago" } 
+	    if diff > 60*60   { return "An hour ago" } 
+
+	    if diff > 60*2 { return "\(Int(diff / Double(60))) minutes ago" } 
+	    if diff > 60   { return "A minute ago" } 
+
+	    if diff > 5 { return "\(Int(diff)) seconds ago" } 
+
 	    return "Just now"
 	}
 

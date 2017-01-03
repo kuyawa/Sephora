@@ -65,9 +65,13 @@ function deletePost(postId) {
 	//alert("Feature not yet implemented. Post was not deleted.");
 }
 
-function onPostDeleted(text, target) {
+function onPostDeleted(text) {
 	if(text=="OK"){
-		window.location.href = "/forums"
+		//window.location.href = "/forums"
+		postContent.innerHTML = "[This post has been deleted]"
+		try { document.getElementsByTagName("h6")[0].innerHTML = "[deleted]"; } catch(ex) {}
+		try { document.getElementsByTagName("replies")[0].style.display = "none"; } catch(ex) {}
+		try { document.getElementsByTagName("newreply")[0].style.display = "none"; } catch(ex) {}
 	} else {
 		alert("Error deleting post. Try again later");
 	}

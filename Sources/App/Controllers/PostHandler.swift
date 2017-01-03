@@ -21,9 +21,10 @@ class PostHandler: WebController {
 	}
 
 	func submit(_ request: Request) -> ResponseRepresentable {
-		guard let dirname = request.parameters["forum"]?.string else { return fail(.forumNotAvailable) }
-		guard let title   = request.data["title"]?.string else { return fail(.badRequest) }
-		guard let content = request.data["content"]?.string else { return fail(.badRequest) }
+		guard let dirname  = request.parameters["forum"]?.string else { return fail(.forumNotAvailable) }
+		guard let title    = request.data["title"]?.string else { return fail(.badRequest) }
+		guard let content  = request.data["content"]?.string else { return fail(.badRequest) }
+		guard let postType = request.data["type"]?.int else { return fail(.badRequest) }
 		print("Post in \(dirname): \(title)")
 
 		let forumid = Forum(in: db).getId(dir: dirname)
@@ -35,14 +36,13 @@ class PostHandler: WebController {
 			return fail(.unauthorizedAccess)
 		}
 
-		let type   = 0     		  // TODO: get from form 
 		let userid = info.userid
 		let nick   = info.nick
 
 		let post = Post(in: db)
 		post.postid   	= 0  // Used for insert
 		post.forumid   	= forumid
-		post.type   	= type
+		post.type   	= postType
 		post.date   	= Date()
 		post.userid   	= userid
 		post.nick   	= nick

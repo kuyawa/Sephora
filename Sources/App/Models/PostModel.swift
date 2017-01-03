@@ -139,6 +139,13 @@ extension Post {
         _ = db.execute(sql, params: args)
     }
 
+    func hide() {
+    	hidden = true
+        let sql = "Update posts Set hidden = true Where postid = $1"
+        let args: [Node] = [Node(postid)]
+        _ = db.execute(sql, params: args)
+    }
+
 } 
 
 // End

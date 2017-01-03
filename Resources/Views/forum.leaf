@@ -28,7 +28,10 @@
 		<newpost>
 			<form method="post" action="/forum/#(forum.dirname)/submit">
 				<h3>Create a new thread in this forum</h3>
-				<p>Type of thread: <button>Message</button> <button>question</button> <button>poll</button> <button>job offering</button> <button>app showcase</button></p>
+				<p>Type of thread: 
+					<input type="radio" id="type1" name="type" value="1" checked /> Question
+					<input type="radio" id="type0" name="type" value="0" /> Message
+				</p>
 				<li><input type="textbox" id="title" name="title" placeholder="Title..."></li>
 				<li><textarea id="content" name="content" rows="6" cols="60" placeholder="Content..."></textarea></li>
 				<li><p class="small">This forum uses markdown - <a href="javascript:void()">Show help for text formatting</a></p></li>
