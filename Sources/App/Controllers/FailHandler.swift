@@ -3,6 +3,7 @@ import HTTP
 import Foundation
 
 enum FailType: String {
+	case unknownServerError   = "Server Error. Something went wrong and we will try to fix it ASAP"
 	case dataDriverError      = "Data Driver Error. SQL driver not available"
 	case dataCreationError    = "Data Creation Error. SQL driver could not create database"
 	case databaseUnavailable  = "Database unavailable. Check database drivers are installed and running"

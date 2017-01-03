@@ -13,11 +13,18 @@ class PostHandler: WebController {
 
 		post.countView()
 
-		let context = getContext(request)
-		let data: Node = ["forum": try! forum.makeNode(), "post": try! post.makeNode(), "replies": replies]
-		let view = getView("post", with: data, in: context) 
+		do {
+			let context    = getContext(request)
+			let forumInfo  = try forum.makeNode()
+			let postInfo   = try post.makeNode()
+			let data: Node = ["forum": forumInfo, "post": postInfo, "replies": replies]
+			let view = getView("post", with: data, in: context) 
+			return view!
+		} catch {
+			print("Server error: ", error)
+			return fail(.unknownServerError)
+		}
 
-		return view!
 	}
 
 	func submit(_ request: Request) -> ResponseRepresentable {
@@ -26,6 +33,7 @@ class PostHandler: WebController {
 		guard let content  = request.data["content"]?.string else { return fail(.badRequest) }
 		guard let postType = request.data["type"]?.int else { return fail(.badRequest) }
 		print("Post in \(dirname): \(title)")
+		print("Content: ", content)
 
 		let forumid = Forum(in: db).getId(dir: dirname)
 		guard forumid > 0 else { return fail(.forumNotAvailable) }
