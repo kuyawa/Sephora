@@ -39,9 +39,9 @@ class LoginHandler: WebController {
 		try? request.session().data["nick"] = Node(nick) // Assign to session
 
 		// Change accordingly to live, dev, local
-		db.log("Host: \(request.uri.host)")
+		print("Host: \(request.uri.host)")
 		let (clientId, secretId) = getConfigSecrets(host: request.uri.host)
-		//db.log("\(clientId)\(secretId)")
+		//print("\(clientId)\(secretId)")
 
 		if clientId.isEmpty || secretId.isEmpty {
 			print("Secret credentials not found")
@@ -51,10 +51,10 @@ class LoginHandler: WebController {
 		let stateId  = UUID().uuidString
 
 		if let user = User(in: db).get(nick: nick) {
-			db.log("Saving user in session...")
+			print("Saving user in session...")
 			user.saveAuthState(stateId)
 		} else { /* Register */
-			db.log("Registering user after login...")
+			print("Registering user after login...")
 			let user = User(in: db)
 			user.nick = nick
 			user.state = stateId
@@ -96,7 +96,7 @@ class LoginHandler: WebController {
 			return fail(.unauthorizedAccess, content: "Error: Incorrect response received from server") 
 		}
 
-		print("Login Code: ", code, state)
+		//print("Login Code: ", code, state)
 
 		guard let user = User().get(state: state) else {
 			// state from github not found in db

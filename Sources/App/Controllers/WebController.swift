@@ -91,28 +91,28 @@ class WebController {
 
 	func getConfigSecrets(host: String) -> (String, String) {
 
-		//db.log("Config: \(drop.config)")
+		//print("Config: \(drop.config)")
 
 		var clientId = ProcessInfo.processInfo.environment["clientid"]
 		var secretId = ProcessInfo.processInfo.environment["secretid"]
 
-		//db.log("Environment credentials: \(clientId) - \(secretId)")
+		//print("Environment credentials: \(clientId) - \(secretId)")
 
 		if clientId == nil || clientId!.isEmpty || secretId == nil || secretId!.isEmpty {
 			// If not in ENV try Config
 			var keyName = "$NAME"
 			if host=="localhost" {
 				keyName = "github"
-				db.log("Fetching credentials from secret folder")
+				print("Fetching credentials from secret folder")
 			} else {
-				db.log("Fetching credentials from config")
+				print("Fetching credentials from config")
 			}
 
 			clientId = drop.config[keyName, "clientid"]?.string
 			secretId = drop.config[keyName, "secretid"]?.string
 
 			if clientId == nil || clientId!.isEmpty || secretId == nil || secretId!.isEmpty {
-				db.log("Secret credentials not found for host \(host)")
+				print("Secret credentials not found for host \(host)")
 				return ("","")
 			}
 		}

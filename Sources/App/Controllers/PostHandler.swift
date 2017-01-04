@@ -5,31 +5,25 @@ import Foundation
 class PostHandler: WebController {
 
 	func show(_ request: Request) -> ResponseRepresentable {
-db.log("Post.0"); 
-		guard let dirname = request.parameters["forum"]?.string else { db.log("Post.1"); return fail(.forumNotAvailable) }
-		guard let postid  = request.parameters["post"]?.int else { db.log("Post.2"); return fail(.badRequest) }
-		guard let forum   = Forum(in: db).get(dir: dirname) else { db.log("Post.3"); return fail(.forumNotAvailable) }
-		guard let post    = Post(in: db).get(id: postid) else { db.log("Post.4"); return fail(.postNotAvailable) }
-		guard let replies = post.getReplies() else { db.log("Post.5"); return fail(.badRequest) }
-db.log("Post.6"); 
-db.log("Forum: ", forum)
-db.log("Post: ", post)
-db.log("Replies: ", replies)
+		guard let dirname = request.parameters["forum"]?.string else { return fail(.forumNotAvailable) }
+		guard let postid  = request.parameters["post"]?.int else { return fail(.badRequest) }
+		guard let forum   = Forum(in: db).get(dir: dirname) else { return fail(.forumNotAvailable) }
+		guard let post    = Post(in: db).get(id: postid) else { return fail(.postNotAvailable) }
+		guard let replies = post.getReplies() else { return fail(.badRequest) }
+
 		post.countView()
-db.log("Post.7"); 
+
 		do {
 			let context    = getContext(request)
 			let forumInfo  = try forum.makeNode()
 			let postInfo   = try post.makeNode()
 			let data: Node = ["forum": forumInfo, "post": postInfo, "replies": replies]
-			db.log("Data: ", data);
 			let view = getView("post", with: data, in: context) 
 			return view!
 		} catch {
-			db.log("Post.8"); 		
-			db.log("Server error: ", error)
+			print("Server error: ", error)
 		}
-db.log("Post.9"); 		
+
 		return fail(.unknownServerError)
 	}
 
@@ -38,15 +32,13 @@ db.log("Post.9");
 		guard let title    = request.data["title"]?.string else { return fail(.badRequest) }
 		guard let content  = request.data["content"]?.string else { return fail(.badRequest) }
 		guard let postType = request.data["type"]?.int else { return fail(.badRequest) }
-		db.log("Post in \(dirname): \(title)")
-		db.log("Content: ", content)
 
 		let forumid = Forum(in: db).getId(dir: dirname)
 		guard forumid > 0 else { return fail(.forumNotAvailable) }
 
 		let info = UserInfo(in: db).fromSession(request)
 		if info.userid == 0 { 
-			db.log("Error posting. Must be logged in to post")
+			print("Error posting. Must be logged in to post")
 			return fail(.unauthorizedAccess)
 		}
 
@@ -65,7 +57,6 @@ db.log("Post.9");
 		// Everything else is default
 
 		post.save()
-		db.log("Post created")
 
 		// if ok redirect /forum/:name
 		// else redirect /post/:postid with action:draft
@@ -78,30 +69,30 @@ db.log("Post.9");
 		// Validate user is owner
 		guard let postId = request.parameters["post"]?.int
 		else {
-			db.log("API Modify. Post id is required")
+			print("API Modify. Post id is required")
 			return "NO"
 		}
 
 		guard let title   = request.data["title"]?.string,
 		 	  let content = request.data["content"]?.string
 		else {
-			db.log("API Modify. Post title and content are required")
+			print("API Modify. Post title and content are required")
 			return "NO"
 		}
 
 		let user = UserInfo(in: db).fromSession(request)
 		if user.userid == 0 { 
-			db.log("Error modifying post. Must be logged in")
+			print("Error modifying post. Must be logged in")
 			return "NO"
 		}
 
 		guard let post = Post().get(id: postId) else {
-			db.log("Post \(postId) not found")
+			print("Post \(postId) not found")
 			return "NO"
 		}
 
 		if post.userid != user.userid {
-			db.log("User can only modify own posts. Owner: \(post.userid) - User: \(user.userid)")
+			print("User can only modify own posts. Owner: \(post.userid) - User: \(user.userid)")
 			return "NO"
 		}
 
@@ -109,7 +100,6 @@ db.log("Post.9");
 		post.content = content
 		post.save()
 
-		db.log("API Modified post \(postId)")
 		return "OK"
 	}
 
@@ -119,30 +109,29 @@ db.log("Post.9");
 		// Don't delete, mark as hidden
 		guard let postId = request.parameters["post"]?.int
 		else {
-			db.log("API Delete. Post id is required")
+			print("API Delete. Post id is required")
 			return "NO"
 		}
 
 		let user = UserInfo(in: db).fromSession(request)
 		if user.userid == 0 { 
-			db.log("Error deleting post. Must be logged in")
+			print("Error deleting post. Must be logged in")
 			return "NO"
 		}
 
 		guard let post = Post().get(id: postId) else {
-			db.log("Post \(postId) not found")
+			print("Post \(postId) not found")
 			return "NO"
 		}
 
 		if post.userid != user.userid {
-			db.log("User can only delete own posts. Owner: \(post.userid) - User: \(user.userid)")
+			print("User can only delete own posts. Owner: \(post.userid) - User: \(user.userid)")
 			return "NO"
 		}
 
 		// Don't delete, mark as hidden
 		post.hide()
 
-		db.log("API Deleted post id: ", postId)
 		return "OK"
 	}
 
@@ -150,30 +139,29 @@ db.log("Post.9");
 	func apiReport(_ request: Request) -> ResponseRepresentable {
 		guard let postId = request.parameters["post"]?.int
 		else {
-			db.log("API Report. Post id is required")
+			print("API Report. Post id is required")
 			return "NO"
 		}
 
 		let user = UserInfo(in: db).fromSession(request)
 		if user.userid == 0 { 
-			db.log("Error reporting post. Must be logged in")
+			print("Error reporting post. Must be logged in")
 			return "NO"
 		}
 
 		guard let post = Post().get(id: postId) else {
-			db.log("Post \(postId) not found")
+			print("Post \(postId) not found")
 			return "NO"
 		}
 
 		if post.userid == user.userid {
-			db.log("User can not report own posts. Owner: \(post.userid) - User: \(user.userid)")
+			print("User can not report own posts. Owner: \(post.userid) - User: \(user.userid)")
 			return "NO"
 		}
 
 		// TODO: Add to reports table, add flagged field to posts
 		//post.report(userid, reason)
 
-		db.log("API Report post id: ", postId)
 		return "OK"
 	}
 

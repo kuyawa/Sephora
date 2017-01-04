@@ -42,9 +42,9 @@ class UserInfo: DataQuery {
 			self.isLogged = true
 		}
 
-		db.log("User info data query: \(self.toNode())")
-		//db.log("Session info: \(session)")
-		//db.log("Cookies info: \(request.cookies)")
+		print("User info: \(self.toNode())")
+		//print("Session info: \(session)")
+		//print("Cookies info: \(request.cookies)")
 
 	    return self
 	}
@@ -70,6 +70,7 @@ class UserInfo: DataQuery {
 	}
 
 	func getByNick(_ nick: String) {
+		print("Fetching user info from DB")
 		let sql = "Select userid, nick, name, avatar From users Where nick=$1 Limit 1"
 		let params = [Node(nick)]
 		let rows = db.query(sql, params: params)
