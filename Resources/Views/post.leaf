@@ -62,8 +62,10 @@
 					} ##else() {
 						• <a href="javascript:reportReply(#(reply.replyid))">Report</a> 
 					}
-					#equal($userInfo.userid, post.userid) {
-						• <a href="javascript:pickAnswer(#(reply.replyid))">Select Answer</a> 
+					#equal(post.type, "1") {
+						#equal($userInfo.userid, post.userid) {
+							• <a href="javascript:pickAnswer(#(reply.replyid))">Select Answer</a> 
+						}
 					}
 				</info>
 				<text id="text-reply-#(reply.replyid)" class="text-reply">

@@ -10,8 +10,10 @@ x Fix timeago in dateUtils for use in templates
 
 TODO:
 
+- 
 - Change PROCFILE back to production!!!
-- if post is question, enable selecting answer by OP
+- if cookie.nick get from db, save in session
+x if post is question, enable selecting answer by OP
 ~ try catch everywhere. App is crashing randomly.
 ~ use markdown.js for in-place edit 
   - synchronize enhancements lke youtube videos with markdown.swift 
