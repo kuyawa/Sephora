@@ -29,6 +29,13 @@ class DataStore {
 		_ = execute("Insert into weblogs(text) values($1)", params: [Node(text)])
 	}
 
+	func log(_ args: Any...) {
+		//print("- ", args)
+		let text = args.map{"\($0)"}.joined()
+		print("- ", text)
+		_ = execute("Insert into weblogs(text) values($1)", params: [Node(text)])
+	}
+
 	func execute(_ sql: String) -> Node? {
 		do {
 			let rows = try db.raw(sql)
