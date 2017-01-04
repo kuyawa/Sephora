@@ -50,7 +50,7 @@
 					<votecount title="#(reply.votesup) / #(reply.votesdn)">#(reply.votes)</votecount> 
 					<!-- <votedn><a href="javascript:void()"><img src="/images/votedn.png" class="off" /></a></votedn> -->
 				</votes>
-				<answered> <img src="/images/answerok.png" #if(reply.answer) { class="answer-on" } /> </answered>
+				<answered> <img src="/images/answerok.png" #if(reply.answer) { class="answer-ok" } /> </answered>
 			</side>
 			<message>
 				<info>
