@@ -32,6 +32,8 @@ class DataStore {
 	func log(_ args: Any...) {
 		//print("- ", args)
 		let text = args.map{"\($0)"}.joined()
+		//let text = args.reduce(""){ini, val in "\(ini) \(val)"}
+		//let text = args.reduce(""){"\($0) \($1)"}
 		print("- ", text)
 		_ = execute("Insert into weblogs(text) values($1)", params: [Node(text)])
 	}
