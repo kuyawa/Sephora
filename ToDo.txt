@@ -1,16 +1,19 @@
 FIX:
 
 - App crashing after new post. Editing post content in db fixes it. WTF?
+  - Try converting content to utf-8 or utf-16 before saving to db
+  - Try stepping into try post.fromNode
 - Forum dirname must be unique, add constrain to db
 - User nick must be unique, add constrain to db
 x Fix timeago in dateUtils for use in templates
 
 TODO:
 
-- work on error pages: https://devcenter.heroku.com/articles/error-pages
 - Change PROCFILE back to production!!!
+- if post is question, enable selecting answer by OP
 ~ try catch everywhere. App is crashing randomly.
 ~ use markdown.js for in-place edit 
+  - synchronize enhancements lke youtube videos with markdown.swift 
 x fix login
 - deploy v1
 
@@ -38,6 +41,7 @@ x post new message
 
 ------------------------------------------------------------
 
+x work on error pages: https://devcenter.heroku.com/articles/error-pages
 x allow in-place editing/saving
   x web request and callback for saving/deleting
 x show help for markdown formatting in new post/reply

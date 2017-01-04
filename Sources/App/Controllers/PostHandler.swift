@@ -45,6 +45,14 @@ class PostHandler: WebController {
 		let userid = info.userid
 		let nick   = info.nick
 
+		let bytes1 = [UInt8](content.utf8)
+		//print(bytes1)
+		print(bytes1.map{"\($0) "}.joined())
+		let text = content.replacingOccurrences(of: "\0", with: "{0}")  // null chars causing errors?
+		let bytes2 = [UInt8](text.utf8)
+		//print(bytes2)
+		print(bytes2.map{"\($0) "}.joined())
+
 		let post = Post(in: db)
 		post.postid   	= 0  // Used for insert
 		post.forumid   	= forumid
@@ -53,7 +61,7 @@ class PostHandler: WebController {
 		post.userid   	= userid
 		post.nick   	= nick
 		post.title   	= title
-		post.content   	= content.trim()+" "  // Weird error?
+		post.content   	= String(describing: text.utf8)  // Weird error?
 		// Everything else is default
 
 		post.save()
@@ -164,6 +172,39 @@ class PostHandler: WebController {
 
 		return "OK"
 	}
+
+
+
+	func debug(_ request: Request) -> ResponseRepresentable {
+		print("0")
+		guard let postid  = request.parameters["post"]?.int else { return fail(.badRequest) }
+		print("1")
+		guard let post    = Post(in: db).get(id: postid) else { return fail(.postNotAvailable) }
+
+		print("2")
+		do {
+			print("3")
+			print("Post: ", post)
+			var text = "Post: \(post) \n"
+			print("4")
+			let bytes = [UInt8](post.content.utf8)
+			print("5")
+			let bytex = bytes.map{"\($0) "}.joined()
+			print("6")
+			print("Bytes: ", bytex)
+			text = text + "\nBytes: \(bytex)"
+			print("7")
+			//ERROR let postInfo = try post.makeNode()
+			return "\(text)"
+		} catch {
+			print("8")
+			print("Server error: ", error)
+		}
+		print("9")
+
+		return fail(.unknownServerError)
+	}
+
 
 }
 

@@ -50,6 +50,8 @@ drop.get("admin/clearlogs"){ AdminHandler().clearLogs($0) }
 drop.get("test"){ TestHandler().show($0) }
 drop.get("404") { request in throw Abort.notFound }
 
+// Debug
+drop.get("debug/post/:post"){ PostHandler().debug($0) }
 
 drop.run()
 
