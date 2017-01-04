@@ -7,6 +7,7 @@ x Fix timeago in dateUtils for use in templates
 
 TODO:
 
+- Change PROCFILE back to production!!!
 ~ try catch everywhere. App is crashing randomly.
 ~ use markdown.js for in-place edit 
 x fix login

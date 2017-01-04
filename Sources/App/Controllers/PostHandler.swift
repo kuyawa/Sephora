@@ -5,26 +5,32 @@ import Foundation
 class PostHandler: WebController {
 
 	func show(_ request: Request) -> ResponseRepresentable {
-		guard let dirname = request.parameters["forum"]?.string else { return fail(.forumNotAvailable) }
-		guard let postid  = request.parameters["post"]?.int else { return fail(.badRequest) }
-		guard let forum   = Forum(in: db).get(dir: dirname) else { return fail(.forumNotAvailable) }
-		guard let post    = Post(in: db).get(id: postid) else { return fail(.postNotAvailable) }
-		guard let replies = post.getReplies() else { return fail(.badRequest) }
-
+print("Post.0"); 
+		guard let dirname = request.parameters["forum"]?.string else { print("Post.1"); return fail(.forumNotAvailable) }
+		guard let postid  = request.parameters["post"]?.int else { print("Post.2"); return fail(.badRequest) }
+		guard let forum   = Forum(in: db).get(dir: dirname) else { print("Post.3"); return fail(.forumNotAvailable) }
+		guard let post    = Post(in: db).get(id: postid) else { print("Post.4"); return fail(.postNotAvailable) }
+		guard let replies = post.getReplies() else { print("Post.5"); return fail(.badRequest) }
+print("Post.6"); 
+print("Forum: ", forum)
+print("Post: ", post)
+print("Replies: ", replies)
 		post.countView()
-
+print("Post.7"); 
 		do {
 			let context    = getContext(request)
 			let forumInfo  = try forum.makeNode()
 			let postInfo   = try post.makeNode()
 			let data: Node = ["forum": forumInfo, "post": postInfo, "replies": replies]
+			print("Data: ", data);
 			let view = getView("post", with: data, in: context) 
 			return view!
 		} catch {
+			print("Post.8"); 		
 			print("Server error: ", error)
-			return fail(.unknownServerError)
 		}
-
+print("Post.9"); 		
+		return fail(.unknownServerError)
 	}
 
 	func submit(_ request: Request) -> ResponseRepresentable {
@@ -55,7 +61,7 @@ class PostHandler: WebController {
 		post.userid   	= userid
 		post.nick   	= nick
 		post.title   	= title
-		post.content   	= content
+		post.content   	= content.trim()+" "  // Weird error?
 		// Everything else is default
 
 		post.save()
