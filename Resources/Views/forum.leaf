@@ -1,7 +1,11 @@
 #extend("base")
 
 #export("content") {
-		<h1 class="forum-name"><a href="/forum/#(forum.dirname)">#(forum.name)</a> <sep><small>•</small></sep> <span class="forum-descrip">#(forum.descrip)</span></h1>
+		<h1 class="forum-name">
+			<a href="/forum/#(forum.dirname)">#(forum.name)</a> 
+			<sep><small>•</small></sep> 
+			<span class="forum-descrip">#(forum.descrip)</span>
+		</h1>
 
 		#loop(posts, "post") {
 		<latest>
@@ -17,8 +21,8 @@
 				<info>
 					<user><a href="/user/#(post.nick)">#(post.nick)</a></user> 
 					<sep>•</sep> <time>#timeago(post.date)</time>
-					<sep>•</sep> <span>#(post.views) views</span> 
-					<sep>•</sep> <span>#(post.replies) replies</span>
+					<sep>•</sep> <span>#plural(post.views, "view")</span> 
+					<sep>•</sep> <span>#plural(post.replies, "reply", "replies")</span>
 				</info>
 			</item>
 		</latest>
@@ -34,11 +38,17 @@
 				</p>
 				<li><input type="textbox" id="title" name="title" placeholder="Title..."></li>
 				<li><textarea id="content" name="content" rows="6" cols="60" placeholder="Content..."></textarea></li>
-				<li><p class="small">This forum uses markdown - <a href="javascript:void()">Show help for text formatting</a></p></li>
+				<li><p class="small">This forum uses markdown - <a href="javascript:showHelp()">Show help for text formatting</a></p></li>
 				<li><input type="submit" value="Send"></li>
 			</form>
+			#embed("markdownhelp")
 		</newpost>
 		} ##else() {
 			<warn><p>Must be <a href="/login">logged in</a> to post on this forum</p></warn>
 		}
 }
+
+#export("scripts") { 
+	<script src="/static/forum.js"></script> 
+}
+

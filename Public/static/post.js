@@ -200,6 +200,12 @@ function onPostAnswered(ok, img) {
 	}
 }
 
+function showHelp() {
+	help = document.getElementsByTagName("help")[0];
+	help.style.display = (help.style.display == "block" ? "none" : "block");
+	return false;
+}
+
 // UTILS
 
 function $(id) {

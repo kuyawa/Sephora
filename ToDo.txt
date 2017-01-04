@@ -7,11 +7,7 @@ x Fix timeago in dateUtils for use in templates
 
 TODO:
 
-- fix plurals everywhere
-- use stars instead of votes, no downvoting allowed
-- try catch everywhere. App is crashing randomly.
-~ allow in-place editing/saving
-  x web request and callback for saving/deleting
+~ try catch everywhere. App is crashing randomly.
 ~ use markdown.js for in-place edit 
 x fix login
 - deploy v1
@@ -36,6 +32,22 @@ x post new message
 - add some messages to every forum
 ? hot topic (red question|message|poll icon > 10 messages)
 
+
+
+------------------------------------------------------------
+
+x allow in-place editing/saving
+  x web request and callback for saving/deleting
+x show help for markdown formatting in new post/reply
+x fix plurals everywhere
+x use stars instead of votes, no downvoting allowed
+x get clientid, secret from ENV not from secrets on heroku for every app, dev/live/prod
+x clear logs from admin/logs, add link to "Clear logs" -> /admin/clearlogs then redirect to admin/logs
+x fix login, get code from github oauth, get user info, save in session + cookies
+x Detect dev/live/production by host not by config
+x if logged, allow to post in listing, show textarea and submit button
+x Log to db 
+
 x index:
   x list latest 50 messages from all forums
   x list forums on the sidebar
@@ -47,16 +59,6 @@ x Authentication:
   x save nick, token in cookies, hidden field in forms
   ? reddit oAuth?
   ? userid + pass + gmail
-
-
-------------------------------------------------------------
-
-x get clientid, secret from ENV not from secrets on heroku for every app, dev/live/prod
-x clear logs from admin/logs, add link to "Clear logs" -> /admin/clearlogs then redirect to admin/logs
-x fix login, get code from github oauth, get user info, save in session + cookies
-x Detect dev/live/production by host not by config
-x if logged, allow to post in listing, show textarea and submit button
-x Log to db 
 
 x FetchUser not working live, debug step by step in registerhandler!!!
 x Markdown not compiling on heroku ???

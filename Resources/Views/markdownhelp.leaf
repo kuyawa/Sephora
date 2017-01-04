@@ -1,0 +1,20 @@
+		<help>
+			<h2>Markdown formatting</h2>
+			<table>
+				<tr><th width="50%">Type this</th><th width="50%">To get this</th></tr>
+				<tr><td>this is **bold** text</td><td>this is <b>bold</b> text</td></tr>
+				<tr><td>this is *italic* text</td><td>this is <i>italic</i> text</td></tr>
+				<tr><td>this is ~~deleted~~ text</td><td>this is <s>deleted</s> text</td></tr>
+				<tr><td>a cute kitty<br>![kitty](http://i.imgur.com/Qhe9UmS.jpg)</td><td>a cute kitty<br><img alt="kitty" src="http://i.imgur.com/Qhe9UmS.jpg" width="32" height="32"></td></tr>
+				<tr><td>a sized kitty<br>![64x64](http://i.imgur.com/Qhe9UmS.jpg)</td><td>a sized kitty<br><img src="http://i.imgur.com/Qhe9UmS.jpg" width="64" height="64"></td></tr>
+				<tr><td>a link to [Swift](http://swift.org)</td><td>a link to <a href="http://swift.org">Swift</a></td></tr>
+				<tr><td>a link without name [http://swift.org]</td><td>a link without name <a href="http://swift.org">http://swift.org</a></td></tr>
+				<tr><td>a plain link http://swift.org<br>or image link http://i.imgur.com/Qhe9UmS.jpg</td><td>a plain link <a href="http://swift.org">http://swift.org</a><br>or image link <a href="http://i.imgur.com/Qhe9UmS.jpg">http://i.imgur.com/Qhe9UmS.jpg</a></td></tr>
+				<tr><td>an unordered list<br>* Shakespeare<br>* Leonardo<br>* Michelangelo</td><td>an unordered list<br><ul><li>Shakespeare</li><li>Leonardo</li><li>Michelangelo</li></ul></td></tr>
+				<tr><td>an ordered list<br>1. Shakespeare<br>2. Leonardo<br>3. Michelangelo</td><td>an ordered list<br><ol><li>Shakespeare</li><li>Leonardo</li><li>Michelangelo</li></ol></td></tr>
+				<tr><td>a quote <br>&gt; Roses are red...</td><td>a quote<br><blockquote>Roses are red...</blockquote></tr>
+				<tr><td>inline code `let swift = "awesome"`</td><td>inline code <code>let swift = "awesome"</code></td></tr>
+				<tr><td>code block (fenced by 3 backticks):<br>```<br>let swift = "awesome"<br>print("It's awesome!")<br>```</td><td>code block:<br><pre>let swift = "awesome"<br>print("It's awesome!")</pre></td></tr>
+				<tr><td>a youtube video (use only the ID)<br>[youtube f7dD75rPZH4]</td><td>a youtube video<br><img src="http://i.imgur.com/Y460x35.jpg" width="124" height="69"></td></tr>
+			</table>
+		</help>

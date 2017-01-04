@@ -21,8 +21,8 @@
 			<h6>
 				<user><a href="/user/#(post.nick)">#(post.nick)</a></user> 
 				• #timeago(post.date) 
-				• #(post.views) views 
-				• #(post.replies) replies
+				• #plural(post.views, "view")
+				• #plural(post.replies, "reply", "replies")
 				#equal($userInfo.userid, post.userid) {
 					• <a href="javascript:modifyPost(#(post.postid))">Edit</a> 
 					• <a href="javascript:deletePost(#(post.postid))">Delete</a> 
@@ -41,7 +41,7 @@
 	</article>
 
 	<replies>
-		<h3>#(post.replies) Replies</h3>
+		<h3>#plural(post.replies, "Reply", "Replies")</h3>
 		#loop(replies, "reply") {
 		<reply id="reply-#(reply.replyid)">
 			<side>
@@ -83,9 +83,10 @@
 		<form method="post" action="/forum/#(forum.dirname)/post/#(post.postid)/reply">
 			<h3>Reply to this thread:</h3>
 			<li><textarea id="content" name="content" rows="6" cols="60" placeholder="Content..."></textarea></li>
-			<li><p class="small">This forum uses markdown - <a href="javascript:void()">Show help for text formatting</a></p></li>
+			<li><p class="small">This forum uses markdown - <a href="javascript:showHelp()">Show help for text formatting</a></p></li>
 			<li><input type="submit" value="Send"></li>
 		</form>
+		#embed("markdownhelp")
 	</newreply>
 	} ##else() {
 		<warn><p>Must be <a href="/login">logged in</a> to post on this forum</p></warn>
@@ -93,6 +94,6 @@
 }
 
 #export("scripts") { 
-	<script src="/static/editpost.js"></script> 
+	<script src="/static/post.js"></script> 
 	<script src="/static/markdown.js"></script> 
 }

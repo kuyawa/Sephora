@@ -27,4 +27,4 @@
 
 }
 
-#export("scripts") { <script src="/static/fetchuserinfo.js"></script> }
+#export("scripts") { <script src="/static/userinfo.js"></script> }

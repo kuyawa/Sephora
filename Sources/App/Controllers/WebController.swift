@@ -12,20 +12,21 @@ class WebController {
 		var info = Node(["$test": "test"])
 
 		// Add all data and context to main node
-		if data != nil { 
-			for (key,val) in data!.nodeObject! {
-				info[key] = val 
-			}
-		}
-
-		if context != nil { 
-			for (key,val) in context!.nodeObject! {
-				info[key] = val 
-			}
-		}
-
 		do { 
+			if data != nil { 
+				for (key,val) in data!.nodeObject! {
+					info[key] = val 
+				}
+			}
+
+			if context != nil { 
+				for (key,val) in context!.nodeObject! {
+					info[key] = val 
+				}
+			}
+
 			if let leaf = drop.view as? LeafRenderer {
+ 				leaf.stem.register(LeafPlural())
  				leaf.stem.register(LeafTimeAgo())
  				leaf.stem.register(LeafTimeOnly())
  				leaf.stem.register(LeafMarkdown())
@@ -37,7 +38,7 @@ class WebController {
 			// TODO: return errorView with error info
 		}
 
-		return nil
+		return fail(.errorParsingTemplate)
 	}
 
 

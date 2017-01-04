@@ -93,6 +93,7 @@ class Markdown {
         parseCodeBlock(&md)
         parseCodeInline(&md)
         parseHorizontalRule(&md)
+        parseYoutubeVideos(&md)
         parseParagraphs(&md)
         
         return String(describing: md)
@@ -157,6 +158,10 @@ class Markdown {
     
     func parseHorizontalRule(_ md: inout NSMutableString) {
         md.matchAndReplace("---", "<hr>")
+    }
+    
+    func parseYoutubeVideos(_ md: inout NSMutableString) {
+        md.matchAndReplace("\\[youtube (.*?)\\]", "<p><a href=\"http://www.youtube.com/watch?v=$1\" target=\"_blank\"><img src=\"http://img.youtube.com/vi/$1/0.jpg\" alt=\"Youtube video\" width=\"240\" height=\"180\" /></a></p>")
     }
     
     func parseParagraphs(_ md: inout NSMutableString) {

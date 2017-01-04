@@ -3,7 +3,7 @@ import HTTP
 import Foundation
 
 enum FailType: String {
-	case unknownServerError   = "Server Error. Something went wrong and we will try to fix it ASAP"
+	case unknownServerError   = "Server Error. Something went wrong and we will try to fix it ASAP!"
 	case dataDriverError      = "Data Driver Error. SQL driver not available"
 	case dataCreationError    = "Data Creation Error. SQL driver could not create database"
 	case databaseUnavailable  = "Database unavailable. Check database drivers are installed and running"
@@ -19,6 +19,7 @@ enum FailType: String {
 	case userNickInvalid      = "Register failed. User nick is invalid" 
 	case userInfoInvalid      = "Register failed. User info is invalid" 
 	case errorAccessingGithub = "Error accessing Github servers"
+	case errorParsingTemplate = "Error rendering template. We will fix this issue ASAP!"
 	case invalidJsonError     = "{\"error\":\"Invalid json\"}"       
 }
 
