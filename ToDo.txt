@@ -1,5 +1,6 @@
 FIX:
 
+- TRY A DIFFERENT POSTGRESQL DRIVER!
 - App crashing after new post. Editing post content in db fixes it. WTF?
   - Try converting content to utf-8 or utf-16 before saving to db
   - Try stepping into try post.fromNode

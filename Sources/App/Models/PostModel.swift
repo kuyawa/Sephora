@@ -45,7 +45,7 @@ class Post: DataModel {
             "userid"  : userid,
             "nick"    : nick,
             "title"   : title,
-            "content" : "content",
+            "content" : content,
             "views"   : views,
             "replies" : replies,
             "answered": answered,
