@@ -11,13 +11,14 @@ class UserInfo: DataQuery {
 	var isLogged = false
 
 	func fromSession(_ request: Request) -> UserInfo {
-		print("Checking session...")
+		//print("Checking session...")
 		guard let session = try? request.session(), let nick = session.data["nick"]?.string else {
 			print("No session. Checking cookies...")
 			if let nick = request.cookies["nick"] {
 				if !nick.isEmpty {
 					print("Cookie nick: ", nick)
 					getByNick(nick)
+					setUserSession(request)
 					self.isLogged = true
 				}
 			}
@@ -31,6 +32,7 @@ class UserInfo: DataQuery {
 				print("Cookie nick: ", nick)
 				if !nick.isEmpty {
 					getByNick(nick)
+					setUserSession(request)
 					self.isLogged = true
 				}
 			}
@@ -42,7 +44,7 @@ class UserInfo: DataQuery {
 			self.isLogged = true
 		}
 
-		print("User info: \(self.toNode())")
+		//print("User info: \(self.toNode())")
 		//print("Session info: \(session)")
 		//print("Cookies info: \(request.cookies)")
 
@@ -78,6 +80,15 @@ class UserInfo: DataQuery {
 			let row = rows![0]
 			try? fromNode(row!)
 		}
+	}
+
+	func setUserSession(_ request: Request) {
+		print("Setting user session")
+		try? request.session().data["userid"]   = Node(userid)
+		try? request.session().data["nick"]     = Node(nick)
+		try? request.session().data["name"]     = Node(name)
+		try? request.session().data["avatar"]   = Node(avatar)
+		try? request.session().data["isLogged"] = Node(true)
 	}
 
 }

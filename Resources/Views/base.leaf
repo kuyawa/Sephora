@@ -9,17 +9,8 @@
 
 <body>
 
-<header>
-	<company>
-		<a href="/">
-			<img class="logo" src="/images/swiftlogo.png" width="80" height="80">
-			<h1>Sephora - Forums in Swift</h1>
-			<h3>Join Swift enthusiasts all around the world</h3>
-		</a>
-	</company>
-</header>
-
 <actionbar>
+  <wrap>
 	<actions>
 	#if($userIsLogged) {
 		<a class="nick" href="https://github.com/#($userInfo.nick)">#($userInfo.nick) [0]</a>
@@ -30,9 +21,23 @@
 		<a href="/login">Log In</a>
 	}
 	</actions>
+  </wrap>
 </actionbar>
 
+<header>
+  <wrap>
+	<company>
+		<a href="/">
+			<img class="logo" src="/images/swiftlogo.png" width="80" height="80">
+			<h1>Sephora - Forums in Swift</h1>
+			<h3>Join Swift enthusiasts all around the world</h3>
+		</a>
+	</company>
+  </wrap>
+</header>
+
 <main>
+  <wrap>
 	<aside>
 		<h1><a href="/">Forums</a></h1>
 		<ul class="forums">
@@ -50,12 +55,15 @@
 	<section>
 		#import("content")
 	</section>
+  </wrap>
 </main>
 
 <footer>
+  <wrap>
 	<line>Forums by Sephora ~ Powered by Swift</line>
 	<line><small><a href="https://heroku.com">Hosted on Heroku</a> ~ <a href="https://github.com/kuyawa/Sephora">Developed on Github</a></small></line>
 	<last>&copy; Armonia Software</last>
+  </wrap>
 </footer>
 
 #import("scripts")
