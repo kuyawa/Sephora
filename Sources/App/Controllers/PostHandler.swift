@@ -5,11 +5,11 @@ import Foundation
 class PostHandler: WebController {
 
 	func show(_ request: Request) -> ResponseRepresentable {
-		guard let dirname = request.parameters["forum"]?.string else { return fail(.forumNotAvailable) }
-		guard let postid  = request.parameters["post"]?.int else { return fail(.badRequest) }
-		guard let forum   = Forum(in: db).get(dir: dirname) else { return fail(.forumNotAvailable) }
-		guard let post    = Post(in: db).get(id: postid) else { return fail(.postNotAvailable) }
-		guard let replies = post.getReplies() else { return fail(.badRequest) }
+		guard let dirname = request.parameters["forum"]?.string else { return "fail(0.forumNotAvailable)" }
+		guard let postid  = request.parameters["post"]?.int else { return "fail(1.badRequest)" }
+		guard let forum   = Forum(in: db).get(dir: dirname) else { return "fail(2.forumNotAvailable)" }
+		guard let post    = Post(in: db).get(id: postid) else { return "fail(3.postNotAvailable)" }
+		guard let replies = post.getReplies() else { return "fail(4.badRequest)" }
 
 		post.countView()
 
@@ -24,7 +24,7 @@ class PostHandler: WebController {
 			print("Server error: ", error)
 		}
 
-		return fail(.unknownServerError)
+		return "fail(9.unknownServerError)"
 	}
 
 	func submit(_ request: Request) -> ResponseRepresentable {
@@ -45,14 +45,6 @@ class PostHandler: WebController {
 		let userid = info.userid
 		let nick   = info.nick
 
-		let bytes1 = [UInt8](content.utf8)
-		//print(bytes1)
-		print(bytes1.map{"\($0) "}.joined())
-		let text = content.replacingOccurrences(of: "\0", with: "{0}")  // null chars causing errors?
-		let bytes2 = [UInt8](text.utf8)
-		//print(bytes2)
-		print(bytes2.map{"\($0) "}.joined())
-
 		let post = Post(in: db)
 		post.postid   	= 0  // Used for insert
 		post.forumid   	= forumid
@@ -61,7 +53,7 @@ class PostHandler: WebController {
 		post.userid   	= userid
 		post.nick   	= nick
 		post.title   	= title
-		post.content   	= String(describing: text.utf8)  // Weird error?
+		post.content   	= content
 		// Everything else is default
 
 		post.save()
@@ -177,9 +169,9 @@ class PostHandler: WebController {
 
 	func debug(_ request: Request) -> ResponseRepresentable {
 		print("0")
-		guard let postid  = request.parameters["post"]?.int else { return fail(.badRequest) }
+		guard let postid  = request.parameters["post"]?.int else { return "fail(.badRequest)" }
 		print("1")
-		guard let post    = Post(in: db).get(id: postid) else { return fail(.postNotAvailable) }
+		guard let post    = Post(in: db).get(id: postid) else { return "fail(.postNotAvailable)" }
 
 		print("2")
 		do {
@@ -202,7 +194,7 @@ class PostHandler: WebController {
 		}
 		print("9")
 
-		return fail(.unknownServerError)
+		return "fail(.unknownServerError)"
 	}
 
 

@@ -38,7 +38,8 @@ class WebController {
 			// TODO: return errorView with error info
 		}
 
-		return fail(.errorParsingTemplate)
+		return nil
+		//return fail(.errorParsingTemplate)
 	}
 
 

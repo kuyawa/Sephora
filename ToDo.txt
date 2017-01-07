@@ -10,11 +10,13 @@ x Fix timeago in dateUtils for use in templates
 
 TODO:
 
-- 
-- Change PROCFILE back to production!!!
-- if cookie.nick get from db, save in session
-x if post is question, enable selecting answer by OP
+- pagination for posts and replies
+- make apple-touch-icon.png
+- responsive design for mobile
 ~ try catch everywhere. App is crashing randomly.
+- Change PROCFILE back to production!!!
+x if cookie.nick get from db, save in session
+x if post is question, enable selecting answer by OP
 ~ use markdown.js for in-place edit 
   - synchronize enhancements lke youtube videos with markdown.swift 
 x fix login
