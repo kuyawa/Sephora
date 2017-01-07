@@ -54,15 +54,17 @@ extension String {
     }
     
     func prepend(_ text: String) -> String {
+    	if text.isEmpty { return self }
         return text + self
     }
     
     func append(_ text: String) -> String {
+    	if text.isEmpty { return self }
         return self + text
     }
  
     func enclose(_ fence: (String, String)?) -> String {
-        return (fence?.0 ?? "") + self + (fence?.1 ?? "")
+        return (fence?.0 ?? " ") + self + (fence?.1 ?? " ")
     }
 }
 

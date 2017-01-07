@@ -34,12 +34,11 @@ class WebController {
 				return view
 			}
 		} catch { 
-			print(error) 
-			// TODO: return errorView with error info
+			//print("Template error: ", error) 
+			db.log("Template error: \(error)") 
 		}
 
-		return nil
-		//return fail(.errorParsingTemplate)
+		return fail(.errorParsingTemplate)
 	}
 
 

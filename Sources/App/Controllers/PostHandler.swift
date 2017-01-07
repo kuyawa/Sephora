@@ -5,25 +5,24 @@ import Foundation
 class PostHandler: WebController {
 
 	func show(_ request: Request) -> ResponseRepresentable {
-		guard let dirname = request.parameters["forum"]?.string else { return Response(redirect: "/") }
-		guard let postid  = request.parameters["post"]?.int else { return Response(redirect: "/") }
-		guard let forum   = Forum(in: db).get(dir: dirname) else { return Response(redirect: "/") }
-		guard let post    = Post(in: db).get(id: postid) else { return Response(redirect: "/") }
-		guard let replies = post.getReplies() else { return Response(redirect: "/") }
+		guard let dirname = request.parameters["forum"]?.string else { return fail(.badRequest) }
+		guard let postid  = request.parameters["post"]?.int else { return fail(.badRequest) }
+		guard let forum   = Forum(in: db).get(dir: dirname) else { return fail(.badRequest) }
+		guard let post    = Post(in: db).get(id: postid) else { return fail(.badRequest) }
+		guard let replies = post.getReplies() else { return fail(.badRequest) }
 
 		post.countView()
 
-		//do {
+		do {
 			let context    = getContext(request)
-			let data: Node = ["forum": try! forum.makeNode(), "post": try! post.makeNode(), "replies": replies]
-			let view = getView("post", with: data, in: context) 
-			return view!
-		//} catch {
-		//	print("Server error: ", error)
-		//	db.log("Server error: \(error)")
-		//}
+			let data: Node = ["forum": try forum.makeNode(), "post": try post.makeNode(), "replies": replies]
+			if let view = getView("post", with: data, in: context) { return view }
+		} catch {
+			print("Server error: ", error)
+			db.log("Server error: \(error)")
+		}
 
-		//throw Abort.notFound
+		return fail(.errorParsingTemplate)
 	}
 
 	func submit(_ request: Request) -> ResponseRepresentable {

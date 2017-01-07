@@ -19,7 +19,7 @@ enum FailType: String {
 	case userNickInvalid      = "Register failed. User nick is invalid" 
 	case userInfoInvalid      = "Register failed. User info is invalid" 
 	case errorAccessingGithub = "Error accessing Github servers"
-	case errorParsingTemplate = "Error rendering template. We will fix this issue ASAP!"
+	case errorParsingTemplate = "Error rendering template. Our minions will fix this issue ASAP!"
 	case invalidJsonError     = "{\"error\":\"Invalid json\"}"       
 }
 
