@@ -5,26 +5,25 @@ import Foundation
 class PostHandler: WebController {
 
 	func show(_ request: Request) -> ResponseRepresentable {
-		guard let dirname = request.parameters["forum"]?.string else { return "fail(0.forumNotAvailable)" }
-		guard let postid  = request.parameters["post"]?.int else { return "fail(1.badRequest)" }
-		guard let forum   = Forum(in: db).get(dir: dirname) else { return "fail(2.forumNotAvailable)" }
-		guard let post    = Post(in: db).get(id: postid) else { return "fail(3.postNotAvailable)" }
-		guard let replies = post.getReplies() else { return "fail(4.badRequest)" }
+		guard let dirname = request.parameters["forum"]?.string else { return Response(redirect: "/") }
+		guard let postid  = request.parameters["post"]?.int else { return Response(redirect: "/") }
+		guard let forum   = Forum(in: db).get(dir: dirname) else { return Response(redirect: "/") }
+		guard let post    = Post(in: db).get(id: postid) else { return Response(redirect: "/") }
+		guard let replies = post.getReplies() else { return Response(redirect: "/") }
 
 		post.countView()
 
-		do {
+		//do {
 			let context    = getContext(request)
-			let forumInfo  = try forum.makeNode()
-			let postInfo   = try post.makeNode()
-			let data: Node = ["forum": forumInfo, "post": postInfo, "replies": replies]
+			let data: Node = ["forum": try! forum.makeNode(), "post": try! post.makeNode(), "replies": replies]
 			let view = getView("post", with: data, in: context) 
 			return view!
-		} catch {
-			print("Server error: ", error)
-		}
+		//} catch {
+		//	print("Server error: ", error)
+		//	db.log("Server error: \(error)")
+		//}
 
-		return "fail(9.unknownServerError)"
+		//throw Abort.notFound
 	}
 
 	func submit(_ request: Request) -> ResponseRepresentable {
