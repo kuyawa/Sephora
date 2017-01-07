@@ -34,7 +34,7 @@ actions .nick { font-variant: small-caps; text-transform: capitalize; }
 header { height: 80px; padding: 20px; }
 /*header { background: linear-gradient(#F55214, #F89248); }*/
 header { /*background: linear-gradient(#D42, #F84);*/ border-top: 1px solid #FFF; border-bottom: 1px dotted #D42; }
-header .logo { float: left; margin-left: 20px; margin-right: 10px; }
+header .logo { float: left; margin-left: 20px; margin-right: 10px; border: 2px solid #d42; border-radius: 40px; }
 header h1, header h3 { margin:0; padding: 0px; color: #D42; padding-left: 120px; }
 header h1{ padding-top: 10px; opacity: .95; }
 header h3 { opacity: .8; }

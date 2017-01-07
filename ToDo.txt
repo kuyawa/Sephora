@@ -7,6 +7,7 @@ FIX:
 
 TODO:
 
+- fix error page, apply new theme
 - pagination for posts and replies
 - make apple-touch-icon.png
 - responsive design for mobile
