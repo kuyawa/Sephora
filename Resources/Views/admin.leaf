@@ -3,26 +3,18 @@
 <head>
     <meta charset="utf-8">
 	<title>Sephora - Forums in Swift</title>
+	<link rel="apple-touch-icon" href="/images/swiftlogo.png">
     <link rel="stylesheet" type="text/css" href="/styles/forum.css">
     <link rel="stylesheet" type="text/css" href="/styles/admin.css">
 </head>
 
 <body>
 
-<header>
-	<company>
-		<a href="/">
-			<img class="logo" src="/images/swiftlogo.png" width="80" height="80">
-			<h1>Sephora - Forums in Swift</h1>
-			<h3>Join Swift enthusiasts all around the world</h3>
-		</a>
-	</company>
-</header>
-
 <actionbar>
+  <wrap>
 	<actions>
 	#if($userIsLogged) {
-		<a class="nick" href="/profile">#($userInfo.nick) [0]</a>
+		<a class="nick" href="https://github.com/#($userInfo.nick)">#($userInfo.nick) [0]</a>
 		<a href="/profile">Profile</a>
 		<a href="/logout">Log out</a>
 	} ##else() {
@@ -30,18 +22,35 @@
 		<a href="/login">Log In</a>
 	}
 	</actions>
+  </wrap>
 </actionbar>
 
+<header>
+  <wrap>
+	<company>
+		<a href="/">
+			<img class="logo" src="/images/swiftlogo.png" width="80" height="80">
+			<h1>Sephora - Forums in Swift</h1>
+			<h3>Join Swift enthusiasts all around the world</h3>
+		</a>
+	</company>
+  </wrap>
+</header>
+
 <main>
+  <wrap>
 	<section>
 		#import("content")
 	</section>
+  </wrap>
 </main>
 
 <footer>
+  <wrap>
 	<line>Forums by Sephora ~ Powered by Swift</line>
 	<line><small><a href="https://heroku.com">Hosted on Heroku</a> ~ <a href="https://github.com/kuyawa/Sephora">Developed on Github</a></small></line>
 	<last>&copy; Armonia Software</last>
+  </wrap>
 </footer>
 
 #import("scripts")

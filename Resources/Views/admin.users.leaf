@@ -1,5 +1,4 @@
-#extend("base")
-#export("styles") { <link rel="stylesheet" type="text/css" href="/styles/admin.css"> }
+#extend("admin")
 
 #export("content") {
 	<h1>Users:</h1>

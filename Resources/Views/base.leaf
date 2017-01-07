@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
 	<title>Sephora - Forums in Swift</title>
+	<link rel="apple-touch-icon" href="/images/swiftlogo.png">
     <link rel="stylesheet" type="text/css" href="/styles/forum.css">
     #import("styles")
 </head>
