@@ -186,7 +186,8 @@ class PostHandler: WebController {
 			print("Bytes: ", bytex)
 			text = text + "\nBytes: \(bytex)"
 			print("7")
-			//ERROR let postInfo = try post.makeNode()
+			let postInfo = try post.makeNode() // Error here
+			print("Post: \(postInfo)")
 			return "\(text)"
 		} catch {
 			print("8")
