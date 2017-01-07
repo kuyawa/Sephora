@@ -1,23 +1,17 @@
 FIX:
 
 - App crashing after new post. Editing post content in db fixes it. WTF?
-  Markdown is the culprit. Fix and Test!
+  Multiline Markdown is the culprit. Fix and Test!
 - Forum dirname must be unique, add constrain to db
 - User nick must be unique, add constrain to db
 
 TODO:
 
-- fix error page, apply new theme
-- pagination for posts and replies
 - make apple-touch-icon.png
-- responsive design for mobile
-~ try catch everywhere. App is crashing randomly.
-- Change PROCFILE back to production!!!
-x if cookie.nick get from db, save in session
-x if post is question, enable selecting answer by OP
 ~ use markdown.js for in-place edit 
   - synchronize enhancements lke youtube videos with markdown.swift 
-x fix login
+~ try catch everywhere. App is crashing randomly.
+- responsive design for mobile
 - deploy v1
 
 ~ on new thread: question? message? page? wiki (markdown)?
@@ -44,6 +38,12 @@ x post new message
 
 ------------------------------------------------------------
 
+x pagination for posts and replies
+x Change PROCFILE back to production!!!
+x if cookie.nick get from db, save in session
+x if post is question, enable selecting answer by OP
+x fix login
+x fix error page, apply new theme
 x work on error pages: https://devcenter.heroku.com/articles/error-pages
 x Fix timeago in dateUtils for use in templates
 x allow in-place editing/saving

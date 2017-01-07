@@ -102,6 +102,12 @@ input[type="submit"] { width: 60px; /* height:30px; padding: 14px 30px; */}
 warn { display: block; margin-top: 30px; font-size: 80%; border-top: 1px solid #CCC; }
 warn a { color: #333; border-bottom: 1px dashed #888; }
 
+nav { display: block; margin-top: 20px; }
+nav a { display: inline-block; width: 16px; margin: 0; padding: 2px 4px; text-align: center; border: 1px solid #CCC; border-radius: 2px; }
+nav a:hover { background-color: #ddd; border: 1px solid #D42; }
+.page-off { color: #CCC; border: 1px solid #CCC; }
+.page-on  { background-color: #FFF; border: 1px solid #D42; }
+
 /* VIEW POST */
 article { display: block; margin: 0; padding: 10px 0 20px 0; }
 article icon { float: left; margin: 4px 14px 0 0; }

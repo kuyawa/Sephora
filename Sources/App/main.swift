@@ -13,6 +13,7 @@ if drop.environment == .development { print("Sephora is running in dev mode") }
 // Index
 drop.get(){ IndexHandler().index($0)}
 drop.get("index"){ IndexHandler().index($0)}
+drop.get("page/:n"){ IndexHandler().index($0)}
 
 // Users
 drop.get("register"){ RegisterHandler().form($0) }
@@ -28,6 +29,7 @@ drop.get("logout"){ LoginHandler().logout($0) }
 // Forums
 drop.get("forum") { request in Response(redirect: "/forum/general") }
 drop.get("forum/:forum"){ ForumHandler().show($0) }
+drop.get("forum/:forum/page/:n"){ ForumHandler().show($0) }
 drop.post("forum/:forum/submit"){ PostHandler().submit($0) }
 drop.get("forum/:forum/post/:post"){ PostHandler().show($0) }
 drop.post("forum/:forum/post/:post/reply"){ ReplyHandler().submit($0) }
