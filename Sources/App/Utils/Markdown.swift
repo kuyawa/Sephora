@@ -88,10 +88,10 @@ class Markdown {
         
         cleanHtml(&md)
         parseHeaders(&md)
-/*
         parseBold(&md)
         parseItalic(&md)
         parseDeleted(&md)
+/*
         parseImages(&md)
         parseLinks(&md)
         parseUnorderedLists(&md)
@@ -115,7 +115,7 @@ class Markdown {
         md.matchAndReplace("^##(.*)?", "<h2>$1</h2>", options: [.anchorsMatchLines])
         md.matchAndReplace("^#(.*)?", "<h1>$1</h1>", options: [.anchorsMatchLines])
     }
-/*    
+
     func parseBold(_ md: inout NSMutableString) {
         md.matchAndReplace("\\*\\*(.*?)\\*\\*", "<b>$1</b>")
     }
@@ -128,6 +128,7 @@ class Markdown {
         md.matchAndReplace("~~(.*?)~~", "<s>$1</s>")
     }
     
+/*    
     func parseImages(_ md: inout NSMutableString) {
         md.matchAndReplace("!\\[(\\d+)x(\\d+)\\]\\((.*?)\\)", "<img src=\"$3\" width=\"$1\" height=\"$2\" />")
         md.matchAndReplace("!\\[(.*?)\\]\\((.*?)\\)", "<img alt=\"$1\" src=\"$2\" />")
