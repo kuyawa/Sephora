@@ -97,13 +97,13 @@ class Markdown {
         parseUnorderedLists(&md)
         parseOrderedLists(&md)
         parseBlockquotes(&md)
-*/        
         parseCodeBlock(&md)
         parseCodeInline(&md)
         parseHorizontalRule(&md)
         parseYoutubeVideos(&md)
         parseParagraphs(&md)
-        
+*/        
+
         return String(describing: md)
     }
     
@@ -130,11 +130,13 @@ class Markdown {
     }
     
     func parseImages(_ md: inout NSMutableString) {
+    	print("Parsing images...")
         md.matchAndReplace("!\\[(\\d+)x(\\d+)\\]\\((.*?)\\)", "<img src=\"$3\" width=\"$1\" height=\"$2\" />")
         md.matchAndReplace("!\\[(.*?)\\]\\((.*?)\\)", "<img alt=\"$1\" src=\"$2\" />")
     }
     
     func parseLinks(_ md: inout NSMutableString) {
+    	print("Parsing links...")
         md.matchAndReplace("\\[(.*?)\\]\\((.*?)\\)", "<a href=\"$2\">$1</a>")
         md.matchAndReplace("\\[http(.*?)\\]", "<a href=\"http$1\">http$1</a>")
         md.matchAndReplace("(^|\\s)http(.*?)(\\s|\\.\\s|\\.$|,|$)", "$1<a href=\"http$2\">http$2</a>$3 ", options: [.anchorsMatchLines])
@@ -155,7 +157,7 @@ class Markdown {
         parseBlock(&md, format: "^>", blockEnclose: ("<blockquote>", "</blockquote>"))
         parseBlock(&md, format: "^:", blockEnclose: ("<blockquote>", "</blockquote>"))
     }
-*/    
+    
     func parseCodeBlock(_ md: inout NSMutableString) {
         md.matchAndReplace("```(.*?)```", "<pre>$1</pre>", options: [.dotMatchesLineSeparators])
         //parseBlock(&md, format: "^\\s{4}", blockEnclose: ("<pre>", "</pre>"))
@@ -176,7 +178,7 @@ class Markdown {
     func parseParagraphs(_ md: inout NSMutableString) {
         md.matchAndReplace("\n\n([^\n]+)\n\n", "\n\n<p>$1</p>\n\n", options: [.dotMatchesLineSeparators])
     }
-/*    
+    
     func parseBlock(_ md: inout NSMutableString, format: String, blockEnclose: (String, String), lineEnclose: (String, String)? = nil) {
         let lines = md.components(separatedBy: .newlines)
         var result = [String]()
