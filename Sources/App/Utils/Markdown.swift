@@ -70,9 +70,12 @@ extension String {
 
 extension NSMutableString {
     func matchAndReplace(_ rex: String, _ rep: String, options: NSRegularExpression.Options? = []) {
-        let regex = try? NSRegularExpression(pattern: rex, options: options!)
-        let range = NSRange(location: 0, length: self.length)
-        _ = regex?.replaceMatches(in: self, options: [], range: range, withTemplate: rep)
+        if let regex = try? NSRegularExpression(pattern: rex, options: options!) {
+	        let range = NSRange(location: 0, length: self.length)
+	        _ = regex.replaceMatches(in: self, options: [], range: range, withTemplate: rep)
+	    } else {
+	    	print("Regex not valid")
+	    }
     }
 }
 
@@ -80,10 +83,12 @@ extension NSMutableString {
 class Markdown {
     
     func parse(_ text: String) throws -> String {
+    	print("Markdown enter...")
         var md = NSMutableString(string: text)
         
         cleanHtml(&md)
         parseHeaders(&md)
+/*
         parseBold(&md)
         parseItalic(&md)
         parseDeleted(&md)
@@ -97,7 +102,7 @@ class Markdown {
         parseHorizontalRule(&md)
         parseYoutubeVideos(&md)
         parseParagraphs(&md)
-        
+*/        
         return String(describing: md)
     }
     
@@ -110,7 +115,7 @@ class Markdown {
         md.matchAndReplace("^##(.*)?", "<h2>$1</h2>", options: [.anchorsMatchLines])
         md.matchAndReplace("^#(.*)?", "<h1>$1</h1>", options: [.anchorsMatchLines])
     }
-    
+/*    
     func parseBold(_ md: inout NSMutableString) {
         md.matchAndReplace("\\*\\*(.*?)\\*\\*", "<b>$1</b>")
     }
@@ -195,7 +200,7 @@ class Markdown {
         
         md = NSMutableString(string: result.joined(separator: "\n"))
     }
-    
+*/    
 }
 
 
