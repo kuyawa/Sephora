@@ -26,24 +26,14 @@ extension TextCheckingResult {
 
 
 extension String {
-    /* Already defined in StringUtils
-    func match(_ pattern: String) -> Bool {
-        guard self.characters.count > 0 else { return false }
-        if let first = self.range(of: pattern, options: .regularExpression) {
-            let match = self.substring(with: first)
-            return !match.isEmpty
-        }
-        
-        return false
-    }
-    */
-
-    /* Already defined in StringUtils
-    func trim() -> String {
+    func trimmed() -> String {
         return self.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-    */
     
+	func removeCR() -> String {
+		return self.components(separatedBy: "\r\n").joined(separator: "\n")
+	}
+
     func remove(_ pattern: String) -> String {
         guard self.characters.count > 0 else { return self }
         if let first = self.range(of: pattern, options: .regularExpression) {
@@ -66,17 +56,29 @@ extension String {
     func enclose(_ fence: (String, String)?) -> String {
         return (fence?.0 ?? " ") + self + (fence?.1 ?? " ")
     }
-}
 
-extension NSMutableString {
-    func matchAndReplace(_ rex: String, _ rep: String, options: NSRegularExpression.Options? = []) {
+    func matches(_ pattern: String) -> Bool {
+        guard self.characters.count > 0 else { return false }
+        if let first = self.range(of: pattern, options: .regularExpression) {
+            let match = self.substring(with: first)
+            return !match.isEmpty
+        }
+        
+        return false
+    }
+
+    func matchAndReplace(_ rex: String, _ rep: String, options: NSRegularExpression.Options? = []) -> String {
         if let regex = try? NSRegularExpression(pattern: rex, options: options!) {
-	        let range = NSRange(location: 0, length: self.length)
-	        _ = regex.replaceMatches(in: self, options: [], range: range, withTemplate: rep)
+	        let range = NSRange(location: 0, length: self.characters.count)
+	        let mut = NSMutableString(string: self)
+	        _ = regex.replaceMatches(in: mut, options: [], range: range, withTemplate: rep)
+        	return String(describing: mut)
 	    } else {
 	    	print("Regex not valid")
 	    }
+    	return self
     }
+
 }
 
 
@@ -84,102 +86,121 @@ class Markdown {
     
     func parse(_ text: String) throws -> String {
     	print("Markdown enter...")
-        var md = NSMutableString(string: text)
-        
-        cleanHtml(&md)
-        parseHeaders(&md)
-        parseBold(&md)
-        parseItalic(&md)
-        parseDeleted(&md)
-        parseImages(&md)
-        parseLinks(&md)
-/*
-        parseUnorderedLists(&md)
-        parseOrderedLists(&md)
-        parseBlockquotes(&md)
-        parseCodeBlock(&md)
-        parseCodeInline(&md)
-        parseHorizontalRule(&md)
-        parseYoutubeVideos(&md)
-        parseParagraphs(&md)
-*/        
+    	var md = text.removeCR()  // CR crashing linux
 
-        return String(describing: md)
+        md = cleanHtml(md)
+        md = parseHeaders(md)
+        md = parseBold(md)
+        md = parseItalic(md)
+        md = parseDeleted(md)
+        md = parseImages(md)
+        md = parseLinks(md)
+        md = parseCodeBlock(md)
+        md = parseCodeInline(md)
+        md = parseHorizontalRule(md)
+        md = parseUnorderedLists(md)
+        md = parseOrderedLists(md)
+        md = parseBlockquotes(md)
+        md = parseYoutubeVideos(md)
+        md = parseParagraphs(md)
+
+    	print("Markdown exit...")
+        return md
     }
     
-    func cleanHtml(_ md: inout NSMutableString) {
-        md.matchAndReplace("<.*?>", "")
+    func cleanHtml(_ md: String) -> String {
+    	print("Clean html...")
+        return md.matchAndReplace("<.*?>", "")
     }
     
-    func parseHeaders(_ md: inout NSMutableString) {
-        md.matchAndReplace("^###(.*)?", "<h3>$1</h3>", options: [.anchorsMatchLines])
-        md.matchAndReplace("^##(.*)?", "<h2>$1</h2>", options: [.anchorsMatchLines])
-        md.matchAndReplace("^#(.*)?", "<h1>$1</h1>", options: [.anchorsMatchLines])
+    func parseHeaders(_ md: String) -> String {
+    	print("Parsing headers...")
+    	var mx = md
+        mx = mx.matchAndReplace("^###(.*)?", "<h3>$1</h3>", options: [.anchorsMatchLines])
+        mx = mx.matchAndReplace("^##(.*)?", "<h2>$1</h2>", options: [.anchorsMatchLines])
+        mx = mx.matchAndReplace("^#(.*)?", "<h1>$1</h1>", options: [.anchorsMatchLines])
+        return mx
     }
 
-    func parseBold(_ md: inout NSMutableString) {
-        md.matchAndReplace("\\*\\*(.*?)\\*\\*", "<b>$1</b>")
+    func parseBold(_ md: String) -> String {
+    	print("Parsing bold...")
+        return md.matchAndReplace("\\*\\*(.*?)\\*\\*", "<b>$1</b>")
     }
     
-    func parseItalic(_ md: inout NSMutableString) {
-        md.matchAndReplace("\\*(.*?)\\*", "<i>$1</i>")
+    func parseItalic(_ md: String) -> String {
+    	print("Parsing italic...")
+        return md.matchAndReplace("\\*(.*?)\\*", "<i>$1</i>")
     }
     
-    func parseDeleted(_ md: inout NSMutableString) {
-        md.matchAndReplace("~~(.*?)~~", "<s>$1</s>")
+    func parseDeleted(_ md: String) -> String {
+    	print("Parsing deleted...")
+        return md.matchAndReplace("~~(.*?)~~", "<s>$1</s>")
     }
     
-    func parseImages(_ md: inout NSMutableString) {
+    func parseImages(_ md: String) -> String {
     	print("Parsing images...")
-        md.matchAndReplace("!\\[(\\d+)x(\\d+)\\]\\((.*?)\\)", "<img src=\"$3\" width=\"$1\" height=\"$2\" />")
-        md.matchAndReplace("!\\[(.*?)\\]\\((.*?)\\)", "<img alt=\"$1\" src=\"$2\" />")
+    	var mx = md
+        mx = mx.matchAndReplace("!\\[(\\d+)x(\\d+)\\]\\((.*?)\\)", "<img src=\"$3\" width=\"$1\" height=\"$2\" />")
+        mx = mx.matchAndReplace("!\\[(.*?)\\]\\((.*?)\\)", "<img alt=\"$1\" src=\"$2\" />")
+        return mx
     }
     
-    func parseLinks(_ md: inout NSMutableString) {
+    func parseLinks(_ md: String) -> String {
     	print("Parsing links...")
-        md.matchAndReplace("\\[(.*?)\\]\\((.*?)\\)", "<a href=\"$2\">$1</a>")
-        md.matchAndReplace("\\[http(.*?)\\]", "<a href=\"http$1\">http$1</a>")
-        md.matchAndReplace("(^|\\s)http(.*?)(\\s|\\.\\s|\\.$|,|$)", "$1<a href=\"http$2\">http$2</a>$3 ", options: [.anchorsMatchLines])
+    	var mx = md
+        mx = mx.matchAndReplace("\\[(.*?)\\]\\((.*?)\\)", "<a href=\"$2\">$1</a>")
+        mx = mx.matchAndReplace("\\[http(.*?)\\]", "<a href=\"http$1\">http$1</a>")
+        mx = mx.matchAndReplace("(^|\\s)http(.*?)(\\s|\\.\\s|\\.$|,|$)", "$1<a href=\"http$2\">http$2</a>$3 ", options: [.anchorsMatchLines])
+        return mx
     }
     
-/*    
-    func parseUnorderedLists(_ md: inout NSMutableString) {
-        //md.matchAndReplace("^\\*(.*)?", "<li>$1</li>", options: [.anchorsMatchLines])
-        parseBlock(&md, format: "^\\*", blockEnclose: ("<ul>", "</ul>"), lineEnclose: ("<li>", "</li>"))
-    }
-    
-    func parseOrderedLists(_ md: inout NSMutableString) {
-        parseBlock(&md, format: "^\\d+[\\.|-]", blockEnclose: ("<ol>", "</ol>"), lineEnclose: ("<li>", "</li>"))
-    }
-    
-    func parseBlockquotes(_ md: inout NSMutableString) {
-        //md.matchAndReplace("^>(.*)?", "<blockquote>$1</blockquote>", options: [.anchorsMatchLines])
-        parseBlock(&md, format: "^>", blockEnclose: ("<blockquote>", "</blockquote>"))
-        parseBlock(&md, format: "^:", blockEnclose: ("<blockquote>", "</blockquote>"))
-    }
-    
-    func parseCodeBlock(_ md: inout NSMutableString) {
-        md.matchAndReplace("```(.*?)```", "<pre>$1</pre>", options: [.dotMatchesLineSeparators])
+    func parseCodeBlock(_ md: String) -> String {
+    	print("Parsing code block...")
+        return md.matchAndReplace("```(.*?)```", "<pre>$1</pre>", options: [.dotMatchesLineSeparators])
         //parseBlock(&md, format: "^\\s{4}", blockEnclose: ("<pre>", "</pre>"))
     }
     
-    func parseCodeInline(_ md: inout NSMutableString) {
-        md.matchAndReplace("`(.*?)`", "<code>$1</code>")
+    func parseCodeInline(_ md: String) -> String {
+    	print("Parsing code inline...")
+        return md.matchAndReplace("`(.*?)`", "<code>$1</code>")
     }
     
-    func parseHorizontalRule(_ md: inout NSMutableString) {
-        md.matchAndReplace("---", "<hr>")
+    func parseHorizontalRule(_ md: String) -> String {
+    	print("Parsing line...")
+        return md.matchAndReplace("---", "<hr>")
     }
     
-    func parseYoutubeVideos(_ md: inout NSMutableString) {
-        md.matchAndReplace("\\[youtube (.*?)\\]", "<p><a href=\"http://www.youtube.com/watch?v=$1\" target=\"_blank\"><img src=\"http://img.youtube.com/vi/$1/0.jpg\" alt=\"Youtube video\" width=\"240\" height=\"180\" /></a></p>")
+    func parseUnorderedLists(_ md: String) -> String {
+    	print("Parsing ulists...")
+        //md.matchAndReplace("^\\*(.*)?", "<li>$1</li>", options: [.anchorsMatchLines])
+        return parseBlock(md, format: "^\\*", blockEnclose: ("<ul>", "</ul>"), lineEnclose: ("<li>", "</li>"))
     }
     
-    func parseParagraphs(_ md: inout NSMutableString) {
-        md.matchAndReplace("\n\n([^\n]+)\n\n", "\n\n<p>$1</p>\n\n", options: [.dotMatchesLineSeparators])
+    func parseOrderedLists(_ md: String) -> String {
+    	print("Parsing olists...")
+        return parseBlock(md, format: "^\\d+[\\.|-]", blockEnclose: ("<ol>", "</ol>"), lineEnclose: ("<li>", "</li>"))
     }
     
-    func parseBlock(_ md: inout NSMutableString, format: String, blockEnclose: (String, String), lineEnclose: (String, String)? = nil) {
+    func parseBlockquotes(_ md: String) -> String {
+    	print("Parsing blockquotes...")
+        //md.matchAndReplace("^>(.*)?", "<blockquote>$1</blockquote>", options: [.anchorsMatchLines])
+    	var mx = md
+        mx = parseBlock(mx, format: "^>", blockEnclose: ("<blockquote>", "</blockquote>"))
+        mx = parseBlock(mx, format: "^:", blockEnclose: ("<blockquote>", "</blockquote>"))
+        return mx
+    }
+    
+    func parseYoutubeVideos(_ md: String) -> String {
+    	print("Parsing youtube...")
+        return md.matchAndReplace("\\[youtube (.*?)\\]", "<p><a href=\"http://www.youtube.com/watch?v=$1\" target=\"_blank\"><img src=\"http://img.youtube.com/vi/$1/0.jpg\" alt=\"Youtube video\" width=\"240\" height=\"180\" /></a></p>")
+    }
+
+    func parseParagraphs(_ md: String) -> String {
+    	print("Parsing paragraphs...")
+        return md.matchAndReplace("\n\n([^\n]+)\n\n", "\n\n<p>$1</p>\n\n", options: [.dotMatchesLineSeparators])
+    }
+
+    func parseBlock(_ md: String, format: String, blockEnclose: (String, String), lineEnclose: (String, String)? = nil) -> String {
         let lines = md.components(separatedBy: .newlines)
         var result = [String]()
         var isBlock = false
@@ -187,11 +208,11 @@ class Markdown {
         
         for line in lines {
             var text = line
-            if text.match(format) {
+            if text.matches(format) {
                 isBlock = true
                 if isFirst { result.append(blockEnclose.0); isFirst = false }
                 text = text.remove(format)
-                text = text.trim().enclose(lineEnclose)
+                text = text.trimmed().enclose(lineEnclose)
             } else if isBlock {
                 isBlock = false
                 isFirst = true
@@ -202,9 +223,11 @@ class Markdown {
 
         if isBlock { result.append(blockEnclose.1) } // close open blocks
         
-        md = NSMutableString(string: result.joined(separator: "\n"))
+        let mx = result.joined(separator: "\n")
+
+        return mx
     }
-*/    
+
 }
 
 
