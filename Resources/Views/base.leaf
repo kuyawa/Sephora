@@ -63,7 +63,7 @@
   <wrap>
   	<legal>
 		<h3>Forums by Sephora</h3>
-		<line><small><a href="https://swift.org">Powered by Swift</a> ~ <a href="https://vapor.io">Built on Vapor</a></small></line>
+		<line><small><a href="https://swift.org">Powered by Swift</a> ~ <a href="https://vapor.codes">Built on Vapor</a></small></line>
 		<line><small><a href="https://heroku.com">Hosted on Heroku</a> ~ <a href="https://github.com/kuyawa/Sephora">Developed on Github</a></small></line>
 		<last>&copy; Armonia Software</last>
 	</legal>
