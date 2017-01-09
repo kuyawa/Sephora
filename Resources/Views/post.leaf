@@ -64,7 +64,7 @@
 					}
 					#equal(post.type, "1") {
 						#equal($userInfo.userid, post.userid) {
-							• <a href="javascript:pickAnswer(#(reply.replyid))">Select Answer</a> 
+							• <a href="javascript:pickAnswer(#(reply.replyid))">Accept</a> 
 						}
 					}
 				</info>

@@ -1,12 +1,15 @@
 FIX:
 
-- App crashing after new post. Editing post content in db fixes it. WTF?
-  Multiline Markdown is the culprit. Fix and Test!
+x App crashing after new post. Editing post content in db fixes it. WTF?
+x Multiline Markdown is the culprit. Fix and Test!
+- clean content off CRs before storing in the DB!!! 
+  we don't want that damn bug to fuck us up again
 - Forum dirname must be unique, add constrain to db
 - User nick must be unique, add constrain to db
 
 TODO:
 
+- cleanup markdown.swift from all prints
 ~ use markdown.js for in-place edit 
   - synchronize enhancements like youtube videos with markdown.swift 
 - responsive design for mobile

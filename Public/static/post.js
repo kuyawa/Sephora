@@ -1,5 +1,5 @@
-// editpost.js
-
+// post.js
+// uses external library markdown.js
 
 //---- POST
 
@@ -49,10 +49,11 @@ function savePost(postId) {
 
 function onPostSaved(text, postId) {
 	//alert(text);
+	console.log(text);
 	if(text=="OK"){
 		setPostViewMode();
 		postTitle.innerHTML   = newTitle.value;
-		postContent.innerHTML = markdown.parse(newContent.value);
+		postContent.innerHTML = Markdown(newContent.value);
 	} else {
 		alert("Error saving post. Try again later");
 	}
@@ -138,7 +139,7 @@ function saveReply(replyId) {
 function onReplySaved(text, replyId) {
 	//alert(text);
 	if(text=="OK"){
-		textReply.innerHTML = markdown.parse(newReply.value);
+		textReply.innerHTML = Markdown(newReply.value);
 		setReplyViewMode();
 	} else {
 		alert("Error saving reply. Try again later");

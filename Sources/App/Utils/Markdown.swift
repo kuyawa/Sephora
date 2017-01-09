@@ -12,6 +12,8 @@ import Foundation
   Uses a Typealias for NSRegularExpression
   Uses an extension to TextCheckingResult
 
+- Beware \r\n crashes in linux
+
 */
 
 #if os(Linux)
@@ -85,7 +87,6 @@ extension String {
 class Markdown {
     
     func parse(_ text: String) throws -> String {
-    	print("Markdown enter...")
     	var md = text.removeCR()  // CR crashing linux
 
         md = cleanHtml(md)
@@ -104,17 +105,14 @@ class Markdown {
         md = parseYoutubeVideos(md)
         md = parseParagraphs(md)
 
-    	print("Markdown exit...")
         return md
     }
     
     func cleanHtml(_ md: String) -> String {
-    	print("Clean html...")
         return md.matchAndReplace("<.*?>", "")
     }
     
     func parseHeaders(_ md: String) -> String {
-    	print("Parsing headers...")
     	var mx = md
         mx = mx.matchAndReplace("^###(.*)?", "<h3>$1</h3>", options: [.anchorsMatchLines])
         mx = mx.matchAndReplace("^##(.*)?", "<h2>$1</h2>", options: [.anchorsMatchLines])
@@ -123,22 +121,18 @@ class Markdown {
     }
 
     func parseBold(_ md: String) -> String {
-    	print("Parsing bold...")
         return md.matchAndReplace("\\*\\*(.*?)\\*\\*", "<b>$1</b>")
     }
     
     func parseItalic(_ md: String) -> String {
-    	print("Parsing italic...")
         return md.matchAndReplace("\\*(.*?)\\*", "<i>$1</i>")
     }
     
     func parseDeleted(_ md: String) -> String {
-    	print("Parsing deleted...")
         return md.matchAndReplace("~~(.*?)~~", "<s>$1</s>")
     }
     
     func parseImages(_ md: String) -> String {
-    	print("Parsing images...")
     	var mx = md
         mx = mx.matchAndReplace("!\\[(\\d+)x(\\d+)\\]\\((.*?)\\)", "<img src=\"$3\" width=\"$1\" height=\"$2\" />")
         mx = mx.matchAndReplace("!\\[(.*?)\\]\\((.*?)\\)", "<img alt=\"$1\" src=\"$2\" />")
@@ -146,7 +140,6 @@ class Markdown {
     }
     
     func parseLinks(_ md: String) -> String {
-    	print("Parsing links...")
     	var mx = md
         mx = mx.matchAndReplace("\\[(.*?)\\]\\((.*?)\\)", "<a href=\"$2\">$1</a>")
         mx = mx.matchAndReplace("\\[http(.*?)\\]", "<a href=\"http$1\">http$1</a>")
@@ -155,35 +148,27 @@ class Markdown {
     }
     
     func parseCodeBlock(_ md: String) -> String {
-    	print("Parsing code block...")
         return md.matchAndReplace("```(.*?)```", "<pre>$1</pre>", options: [.dotMatchesLineSeparators])
         //parseBlock(&md, format: "^\\s{4}", blockEnclose: ("<pre>", "</pre>"))
     }
     
     func parseCodeInline(_ md: String) -> String {
-    	print("Parsing code inline...")
         return md.matchAndReplace("`(.*?)`", "<code>$1</code>")
     }
     
     func parseHorizontalRule(_ md: String) -> String {
-    	print("Parsing line...")
         return md.matchAndReplace("---", "<hr>")
     }
     
     func parseUnorderedLists(_ md: String) -> String {
-    	print("Parsing ulists...")
-        //md.matchAndReplace("^\\*(.*)?", "<li>$1</li>", options: [.anchorsMatchLines])
         return parseBlock(md, format: "^\\*", blockEnclose: ("<ul>", "</ul>"), lineEnclose: ("<li>", "</li>"))
     }
     
     func parseOrderedLists(_ md: String) -> String {
-    	print("Parsing olists...")
         return parseBlock(md, format: "^\\d+[\\.|-]", blockEnclose: ("<ol>", "</ol>"), lineEnclose: ("<li>", "</li>"))
     }
     
     func parseBlockquotes(_ md: String) -> String {
-    	print("Parsing blockquotes...")
-        //md.matchAndReplace("^>(.*)?", "<blockquote>$1</blockquote>", options: [.anchorsMatchLines])
     	var mx = md
         mx = parseBlock(mx, format: "^>", blockEnclose: ("<blockquote>", "</blockquote>"))
         mx = parseBlock(mx, format: "^:", blockEnclose: ("<blockquote>", "</blockquote>"))
@@ -191,12 +176,10 @@ class Markdown {
     }
     
     func parseYoutubeVideos(_ md: String) -> String {
-    	print("Parsing youtube...")
         return md.matchAndReplace("\\[youtube (.*?)\\]", "<p><a href=\"http://www.youtube.com/watch?v=$1\" target=\"_blank\"><img src=\"http://img.youtube.com/vi/$1/0.jpg\" alt=\"Youtube video\" width=\"240\" height=\"180\" /></a></p>")
     }
 
     func parseParagraphs(_ md: String) -> String {
-    	print("Parsing paragraphs...")
         return md.matchAndReplace("\n\n([^\n]+)\n\n", "\n\n<p>$1</p>\n\n", options: [.dotMatchesLineSeparators])
     }
 
