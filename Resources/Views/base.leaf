@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-	<title>Sephora - Forums in Swift</title>
+	<title>Swift Forums</title>
 	<link rel="apple-touch-icon" href="/images/swiftlogo.png">
     <link rel="stylesheet" type="text/css" href="/styles/forum.css">
     #import("styles")
@@ -30,7 +30,7 @@
 	<company>
 		<a href="/">
 			<img class="logo" src="/images/swiftlogo.png" width="80" height="80">
-			<h1>Sephora - Forums in Swift</h1>
+			<h1>Swift Forums</h1>
 			<h3>Join Swift enthusiasts all around the world</h3>
 		</a>
 	</company>
