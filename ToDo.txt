@@ -6,7 +6,9 @@ FIX:
 TODO:
 
 - login cookies should never expire, remove if user logs out
+- show latest posts by last reply
 - responsive design for mobile
+- Star post/reply
 - deploy v1
 
 - change cookie:nick for uuid token to avoid impersonation
@@ -19,7 +21,6 @@ TODO:
 ? install docker for testing swift on ubuntu just like heroku
 
 ~ on new thread: question? message? page? wiki (markdown)?
-- Vote up/dn, color icons, send to server
 - add some users to test
 - add some messages to every forum
 ? question, answered, message, poll, job, app icons, default is message (chat bubble)
