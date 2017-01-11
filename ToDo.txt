@@ -5,12 +5,12 @@ FIX:
 
 TODO:
 
-- login cookies should never expire, remove if user logs out
-- show latest posts by last reply
-- responsive design for mobile
-- Star post/reply
+- login cookies should never expire, remove only if user logs out
+~ responsive design for mobile
+- fix minor issues in markdown
 - deploy v1
 
+- Star post/reply
 - change cookie:nick for uuid token to avoid impersonation
 - move admin stuff to external swift app sharing same db (try kitura?)
 - Work on login async validation
@@ -30,6 +30,7 @@ TODO:
 
 ------------------------------------------------------------
 
+x show latest posts by last reply
 x Show permalink in every post and reply for easy sharing
 x clean content off CRs before storing in the DB!!! 
 x we don't want that damn bug to fuck us up again

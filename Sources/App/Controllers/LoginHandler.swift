@@ -67,16 +67,17 @@ class LoginHandler: WebController {
 		let cookieNick = Cookie(
 			name     : "nick", 
 			value    : nick, 
-			expires  : Date.endOfTimes,
+			expires  : Date.nextYear,
 			maxAge   : 60*60*24*365,
     		domain   : "",
-    		path     : "/",
+    		path     : "",
     		secure   : false,
     		httpOnly : false
     	)
 
 		//response.cookies["nick"] = nick
 		response.cookies.insert(cookieNick)
+		print("Cookies: ", cookieNick.serialize())
 
 		return response
 	}

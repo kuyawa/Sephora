@@ -3,6 +3,7 @@ import Foundation
 extension Date {
 
 	static var epoch      : Date { return Date(timeIntervalSince1970: 0) }
+	static var nextYear   : Date { return Date().addingTimeInterval(60*60*24*365) }
 	static var endOfTimes : Date { return Date(timeIntervalSince1970: 9999999999) }
 
     static func fromString(text: String) -> Date {
@@ -10,15 +11,14 @@ extension Date {
     }
     
     static func fromString(text: String, format: String) -> Date {
-        let epoch = Date(timeIntervalSince1970: 0)
-        if text.isEmpty { return epoch }
+        if text.isEmpty { return self.epoch }
 
         var time = text
         if text.characters.count > 19 { time = text.subtext(to: 19) }
 
         let formatter = DateFormatter()
         formatter.dateFormat = format
-        guard let date = formatter.date(from: time) else { return epoch }
+        guard let date = formatter.date(from: time) else { return self.epoch }
 
         return date
     }
