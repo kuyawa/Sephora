@@ -51,6 +51,9 @@ class Reply: DataModel {
 
 extension Reply {
     func save() {
+        // Remove CRs from content, crashing linux
+        content = content.removeCR()
+
         if replyid < 1 { // New post, id not generated yet
             insert()
         } else {

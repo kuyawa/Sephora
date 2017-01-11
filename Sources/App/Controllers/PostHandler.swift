@@ -25,6 +25,14 @@ class PostHandler: WebController {
 		return fail(.errorParsingTemplate)
 	}
 
+	func redirect(_ request: Request) -> ResponseRepresentable {
+		guard let dirname = request.parameters["forum"]?.string else { return fail(.badRequest) }
+		guard let postid  = request.parameters["post"]?.int else { return fail(.badRequest) }
+		guard let replyid = request.parameters["reply"]?.int else { return fail(.badRequest) }
+
+		return AppHandler().redirect("/forum/\(dirname)/post/\(postid)#\(replyid)")
+	}
+
 	func submit(_ request: Request) -> ResponseRepresentable {
 		guard let dirname  = request.parameters["forum"]?.string else { return fail(.forumNotAvailable) }
 		guard let title    = request.data["title"]?.string else { return fail(.badRequest) }

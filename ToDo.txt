@@ -5,23 +5,21 @@ FIX:
 
 TODO:
 
-- clean content off CRs before storing in the DB!!! 
-  we don't want that damn bug to fuck us up again
 - login cookies should never expire, remove if user logs out
-- change forum title to "Swift Forums"
 - responsive design for mobile
 - deploy v1
 
 - change cookie:nick for uuid token to avoid impersonation
-~ on new thread: question? message? page? wiki (markdown)?
 - move admin stuff to external swift app sharing same db (try kitura?)
 - Work on login async validation
+
 - get stats once a day, cron job?
+- add stats table, count every single change in users, posts, replies, questions, answers
 
 ? install docker for testing swift on ubuntu just like heroku
 
+~ on new thread: question? message? page? wiki (markdown)?
 - Vote up/dn, color icons, send to server
-- Show permalink in every post and reply for easy sharing
 - add some users to test
 - add some messages to every forum
 ? question, answered, message, poll, job, app icons, default is message (chat bubble)
@@ -31,6 +29,10 @@ TODO:
 
 ------------------------------------------------------------
 
+x Show permalink in every post and reply for easy sharing
+x clean content off CRs before storing in the DB!!! 
+x we don't want that damn bug to fuck us up again
+x change forum title to "Swift Forums"
 x use markdown.js for in-place edit 
 x synchronize enhancements like youtube videos with markdown.swift and js
 x cleanup markdown.swift from all prints

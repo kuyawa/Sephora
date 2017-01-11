@@ -43,7 +43,8 @@
 	<replies>
 		<h3>#plural(post.replies, "Reply", "Replies")</h3>
 		#loop(replies, "reply") {
-		<reply id="reply-#(reply.replyid)">
+		<reply id="#(reply.replyid)">
+			<a name="reply-#(reply.replyid)"></a>
 			<side>
 				<votes>
 					<voteup><a href="javascript:void()"><img src="/images/starno.png" class="star-off" /></a></voteup> 
@@ -55,7 +56,7 @@
 			<message>
 				<info>
 					<user><a href="/user/#(reply.nick)">#(reply.nick)</a></user> 
-					• <time>#timeago(reply.date)</time> 
+					• <time><a href="javascript:showLink(#(reply.replyid))">#timeago(reply.date)</a></time> 
 					#equal($userInfo.userid, reply.userid) {
 						• <a href="javascript:modifyReply(#(reply.replyid))">Edit</a> 
 						• <a href="javascript:deleteReply(#(reply.replyid))">Delete</a> 
@@ -82,7 +83,7 @@
 
 	#if($userIsLogged) {
 	<newreply>
-		<form method="post" action="/forum/#(forum.dirname)/post/#(post.postid)/reply">
+		<form method="post" action="/forum/#(forum.dirname)/post/#(post.postid)/submit">
 			<h3>Reply to this thread:</h3>
 			<li><textarea id="content" name="content" rows="6" cols="60" placeholder="Content..."></textarea></li>
 			<li><p class="small">This forum uses markdown - <a href="javascript:showHelp()">Show help for text formatting</a></p></li>

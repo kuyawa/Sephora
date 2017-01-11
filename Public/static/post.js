@@ -31,6 +31,7 @@ function modifyPost(postId) {
 	setPostEditMode();
 	oldPostTitle   = newTitle.value;
 	oldPostContent = newContent.value;
+	return false
 }
 
 function cancelPost() {
@@ -63,7 +64,7 @@ function deletePost(postId) {
 	ok = confirm("This post will be deleted and it won't be recoverable.\nPress OK to delete...");
 	if(!ok) { return; }
 	webRequest("DELETE", "/api/post/"+postId, null, onPostDeleted);
-	//alert("Feature not yet implemented. Post was not deleted.");
+	return false;
 }
 
 function onPostDeleted(text) {
@@ -83,6 +84,7 @@ function reportPost(postId) {
 	if(!text) { return; }
 	reason = "reason="+text;
 	webRequest("POST", "/api/post/"+postId+"/report", reason, onPostReported);
+	return false;
 }
 
 function onPostReported(text) {
@@ -128,6 +130,7 @@ function modifyReply(replyId) {
 	newReply  = $("new-reply-"+replyId);
 	setReplyEditMode();
 	oldReply = newReply.value;
+	return false;
 }
 
 function saveReply(replyId) {
@@ -153,6 +156,7 @@ function deleteReply(replyId) {
 	editReply = $("edit-reply-"+replyId);
 	newReply  = $("new-reply-"+replyId);
 	webRequest("DELETE", "/api/reply/"+replyId, null, onReplyDeleted, replyId);
+	return false;
 }
 
 function onReplyDeleted(text, replyId) {
@@ -170,6 +174,7 @@ function reportReply(replyId) {
 	if(!text) { return; }
 	reason = "reason="+text;
 	webRequest("POST", "/api/reply/"+replyId+"/report", reason, onReplyReported);
+	return false;
 }
 
 function onReplyReported(text) {
@@ -192,6 +197,7 @@ function pickAnswer(replyId) {
 	} catch(ex) {
 		alert("Something went wrong. Try later");
 	}
+	return false;
 }
 
 function onPostAnswered(ok, img) {
@@ -206,6 +212,17 @@ function showHelp() {
 	help.style.display = (help.style.display == "block" ? "none" : "block");
 	return false;
 }
+
+function showLink(replyId) {
+	var link = location.href;
+	if(location.href.indexOf("#") > 0){
+		link = location.href.substring(0, location.href.indexOf("#"));
+	}
+	prompt("Here is the permalink:", link + "#" + replyId);
+	return false;
+}
+
+
 
 // UTILS
 
@@ -222,5 +239,6 @@ function webRequest(mode, url, data, callback, target) {
 	http.onreadystatechange = function(){ if(http.readyState==4){ callback(http.responseText,target); }};
 	http.send(data);
 }
+
 
 // End

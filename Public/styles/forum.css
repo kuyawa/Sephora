@@ -219,4 +219,47 @@ footer line a, footer line a:visited { color: #333; }
 footer line a:hover, footer line a:visited:hover { color: #B42; }
 footer last { display: block; margin: 0; padding: 0; font-size: 75%; color: #D42; }
 
+
+
+
+/* ---- RESPONSIVE FOR MOBILE -------------------------------------------------------- */
+
+/*@media screen and (max-width: 720px) and (max-device-width: 720px) {*/
+/*@media screen and (max-width: 720px) and (max-device-width: 720px) and (orientation:portrait) {*/
+@media screen and (min-width: 310px) and (min-device-width: 310px) and (orientation:portrait) {
+
+body { min-width: 100%; width: auto; padding: 0; }
+
+wrap { min-width: 100%; width: 100%; max-width: 100%; padding: 10px; }
+
+actionbar { text-align: center; }
+actions { margin: 0; padding: 0; }
+
+header { padding: 20px 0; }
+header .logo { float: left; margin-left: 0; margin-right: 10px; border-radius: 20px; width: 40px; height: 40px; }
+header h1, header h3 { margin: 0; padding: 0; }
+header h3 { font-size: 80%; }
+
+.forum-name { text-align: center; }
+.forum-name sep { display: none; }
+.forum-descrip { display:block; text-align: center; }
+
+section { padding: 0; }
+
+aside { display: block; float: none; border: none; padding: 0; border-bottom: 1px dotted #F60; width: auto; }
+aside .forums { border: none; margin: 0; padding: 0; }
+aside .stats { border: none; margin: 0; padding: 0; }
+
+latest item info { margin: 0; padding: 0; }
+latest item info sep:nth-of-type(2) { display: block; visibility: hidden; }
+/*latest item info time { display: inline-block; margin: -10px 0 0 50px; }*/
+latest icon { display: none; }
+
+nav { font-size: 80%; }
+
+footer { padding: 0; }
+footer legal { padding: 0; text-align: center; }
+
+}
+
 /* END */

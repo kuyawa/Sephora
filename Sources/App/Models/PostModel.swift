@@ -60,7 +60,9 @@ class Post: DataModel {
 
 extension Post {
     func save() {
-        print("Saving post: ", postid)
+        // Remove CRs from content, crashing linux
+        content = content.removeCR()
+
         if postid < 1 { // New post, id not generated yet
             insert()
         } else {
