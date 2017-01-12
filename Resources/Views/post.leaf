@@ -43,7 +43,7 @@
 	<replies>
 		<h3>#plural(post.replies, "Reply", "Replies")</h3>
 		#loop(replies, "reply") {
-		<reply id="#(reply.replyid)">
+		<reply id="reply-#(reply.replyid)">
 			<a name="reply-#(reply.replyid)"></a>
 			<side>
 				<votes>

@@ -218,7 +218,7 @@ function showLink(replyId) {
 	if(location.href.indexOf("#") > 0){
 		link = location.href.substring(0, location.href.indexOf("#"));
 	}
-	prompt("Here is the permalink:", link + "#" + replyId);
+	prompt("Here is the permalink:", link + "#reply-" + replyId);
 	return false;
 }
 
