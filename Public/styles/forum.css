@@ -23,16 +23,15 @@ a:hover { color: #B42; }
 li { list-style-type: none; }
 
 
-actionbar { display: block; overflow: auto; text-align: right; /*padding-right: 80px;*/ background-color: #D42; background: linear-gradient(to left, #D42, #F84); border-top: 1px solid #D42; border-bottom: 1px solid #D42; }
-actionbar wrap { border: none; }
-actions { margin: 0; padding-right: 80px; font-size: .9em; }
+actionbar { display: block; overflow: auto; text-align: right; background-color: #D42; background: linear-gradient(to left, #D42, #F84); border-top: 1px solid #D42; border-bottom: 1px solid #D42; }
+actions { margin: 0; padding-right: 80px; font-size: .8em; }
+actions sep { color: #CCC; font-size: .7em; }
 actions a { padding: 4px 10px; color: #FFF; border-left: 1px solid transparent; border-right: 1px solid transparent; font-variant: small-caps; }
 actions a:hover { color: #FFF; background: rgba(64,64,64,.1); border-left: 1px solid #E64; border-right: 1px solid #E64; }
 actions .nick { font-variant: small-caps; text-transform: capitalize; }
 
 header { /*height: 80px;*/ padding: 20px; }
-/*header { background: linear-gradient(#F55214, #F89248); }*/
-header { /*background: linear-gradient(#D42, #F84);*/ border-top: 1px solid #FFF; border-bottom: 1px dotted #D42; }
+header { border-top: 1px solid #FFF; border-bottom: 1px dotted #D42; }
 header .logo { float: left; margin-top: 15px; margin-left: 30px; margin-right: 10px; border: 2px solid #d42; border-radius: 30px; }
 header h1, header h3 { margin:0; padding: 0px; color: #D42; padding-left: 120px; }
 header h1{ padding-top: 10px; opacity: .95; }
@@ -176,11 +175,12 @@ message editor { display: block; margin: 20px 0; }
 
 votes { display: block; text-align: center; }
 voteup { display: block; }
-votecount { display: block; color: #AAA; }
+votecount { display: block; color: #AAA; font-size: .8em; }
 votedn { display: block; }
 voteup img, votedn img { width: 24px; height: 24px; }
-votes img.star-off { opacity: .5; }
 votes img.star-off:hover { opacity: 1; }
+votes img.star-off { opacity: .5; background-image: url("/images/starno.png"); background-size: 24px 24px; }
+votes img.star-on  { opacity:  1; background-image: url("/images/starok.png"); background-size: 24px 24px; }
 
 answered img { display: none; width: 24px; height: 24px; margin-top: 10px; }
 answered img.answer-no { display: none; }

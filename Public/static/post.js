@@ -186,6 +186,7 @@ function onReplyReported(text) {
 }
 
 function pickAnswer(replyId) {
+	if(!replyId){ return false; }
 	try {
 		reply = $("reply-"+replyId);
 		img = reply.getElementsByTagName("answered")[0].getElementsByTagName("img")[0];
@@ -222,6 +223,29 @@ function showLink(replyId) {
 	return false;
 }
 
+function star(replyId) {
+	if(!replyId){ return false; }
+	try {
+		img = $("star-"+replyId);
+		if (img.className == "star-off") { 
+			webRequest("POST", "/api/reply/"+replyId+"/star", "state=1", onStarred, replyId);
+		} else { 
+			webRequest("POST", "/api/reply/"+replyId+"/star", "state=0", onStarred, replyId);
+		}
+	} catch(ex) {
+		alert("Something went wrong. Try later");
+	}
+	return false;
+}
+
+function onStarred(ok, replyId) {
+	img = $("star-"+replyId);
+	cnt = $("count-"+replyId);
+	if(ok=="OK:0"){	img.className = "star-off"; cnt.innerHTML = parseInt(cnt.innerHTML)-1; } else
+	if(ok=="OK:1"){	img.className = "star-on";  cnt.innerHTML = parseInt(cnt.innerHTML)+1; } else {
+		alert("Something went wrong. Try again later");
+	}
+}
 
 
 // UTILS

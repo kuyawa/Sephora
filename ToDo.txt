@@ -5,6 +5,8 @@ FIX:
 
 TODO:
 
+x Reverse question/message order
+x Remove profile form actionbar
 - Star post/reply, star counter
 ~ responsive design for mobile
 ~ fix minor issues in markdown

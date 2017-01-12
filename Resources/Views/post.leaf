@@ -47,8 +47,8 @@
 			<a name="reply-#(reply.replyid)"></a>
 			<side>
 				<votes>
-					<voteup><a href="javascript:void()"><img src="/images/starno.png" class="star-off" /></a></voteup> 
-					<votecount title="#(reply.votesup) / #(reply.votesdn)">#(reply.votes)</votecount> 
+					<voteup><a href="javascript:star(#(reply.replyid))"><img src="/images/starno.png" class="star-off" id="star-#(reply.replyid)"/></a></voteup> 
+					<votecount id="count-#(reply.replyid)">#(reply.votes)</votecount> 
 					<!-- <votedn><a href="javascript:void()"><img src="/images/votedn.png" class="off" /></a></votedn> -->
 				</votes>
 				<answered> <img src="/images/answerok.png" #if(reply.answer) { class="answer-ok" } /> </answered>

@@ -153,7 +153,22 @@ extension Reply {
         if num2 == nil {
             print("Error selecting answer for post ", postid)
         }
+    }
 
+    func star(_ ok: Int) {
+    	var sql = ""
+    	if ok == 1 {
+        	sql = "Update replies Set votes = votes + 1, votesup = votesup + 1 Where replyid = $1"
+    	} else {
+        	sql = "Update replies Set votes = votes - 1, votesup = votesup - 1 Where replyid = $1"
+    	}
+
+        let args: [Node] = [Node(replyid)]
+        let num = db.execute(sql, params: args)
+        
+        if num == nil {
+            print("Error starring reply ", replyid)
+        }
     }
 
 } 

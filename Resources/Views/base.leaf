@@ -15,10 +15,11 @@
 	<actions>
 	#if($userIsLogged) {
 		<a class="nick" href="https://github.com/#($userInfo.nick)">#($userInfo.nick) [0]</a>
-		<a href="/profile">Profile</a>
+		<sep>•</sep>
 		<a href="/logout">Log out</a>
 	} ##else() {
 		<a href="/register">Register</a>
+		<sep>•</sep>
 		<a href="/login">Log In</a>
 	}
 	</actions>

@@ -50,14 +50,12 @@ class ReplyHandler: WebController {
 		// Validate user is owner
 		print(request)
 
-		guard let replyId = request.parameters["reply"]?.int
-		else {
+		guard let replyId = request.parameters["reply"]?.int else {
 			print("API Modify. Reply id is required")
 			return "NO"
 		}
 
-		guard let content = request.data["content"]?.string
-		else {
+		guard let content = request.data["content"]?.string else {
 			print("API Modify. Reply content is required")
 			return "NO"
 		}
@@ -88,8 +86,7 @@ class ReplyHandler: WebController {
 	// DELETE /api/reply/456
 	func apiDelete(_ request: Request) -> ResponseRepresentable {
 		// Validate user is owner
-		guard let replyId = request.parameters["reply"]?.int
-		else {
+		guard let replyId = request.parameters["reply"]?.int else {
 			print("API Delete. Reply id is required")
 			return "NO"
 		}
@@ -119,8 +116,7 @@ class ReplyHandler: WebController {
 
 	// POST /api/reply/456/report
 	func apiReport(_ request: Request) -> ResponseRepresentable {
-		guard let replyId = request.parameters["reply"]?.int
-		else {
+		guard let replyId = request.parameters["reply"]?.int else {
 			print("API Report. Reply id is required")
 			return "NO"
 		}
@@ -150,14 +146,12 @@ class ReplyHandler: WebController {
 
 	// POST /api/reply/456/answer
 	func apiAnswer(_ request: Request) -> ResponseRepresentable {
-		guard let replyId = request.parameters["reply"]?.int
-		else {
+		guard let replyId = request.parameters["reply"]?.int else {
 			print("API Answer. Reply id is required")
 			return "NO"
 		}
 
-		guard let answer = request.data["answer"]?.int
-		else {
+		guard let answer = request.data["answer"]?.int else {
 			print("API Answer. Answer value 0 or 1 is required")
 			return "NO"
 		}
@@ -169,7 +163,7 @@ class ReplyHandler: WebController {
 		}
 
 		guard let reply = Reply().get(id: replyId) else {
-			print("Reply \(replyId) not found")
+			print("API Answer. Reply \(replyId) not found")
 			return "NO"
 		}
 /*
@@ -182,6 +176,40 @@ class ReplyHandler: WebController {
 
 		print("API Answer \(answer) for reply id: ", replyId)
 		return "OK:\(answer)"
+	}
+
+	// POST /api/reply/456/star
+	func apiStar(_ request: Request) -> ResponseRepresentable {
+		guard let replyId = request.parameters["reply"]?.int else {
+			print("API Star. Reply id is required")
+			return "NO:1"
+		}
+
+		guard let state = request.data["state"]?.int else {
+			print("API Star. State value 0 or 1 is required")
+			return "NO:2"
+		}
+
+		let user = UserInfo(in: db).fromSession(request)
+		if user.userid == 0 { 
+			print("Error starring message. Must be logged in")
+			return "NO:3"
+		}
+
+		guard let reply = Reply().get(id: replyId) else {
+			print("API Star. Reply \(replyId) not found")
+			return "NO:4"
+		}
+/*
+		if reply.userid == user.userid {
+			print("User can not star own messages. Owner: \(reply.userid) - User: \(user.userid)")
+			return "NO:5"
+		}
+*/
+		reply.star(state)
+
+		print("API Star \(state) for reply id: ", replyId)
+		return "OK:\(state)"
 	}
 }
 
