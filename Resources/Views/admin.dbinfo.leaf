@@ -1,4 +1,4 @@
-#extend("base")
+#extend("admin")
 
 #export("content") {
 	<h1>PostgreSQL version:</h1>

@@ -5,14 +5,15 @@ FIX:
 
 TODO:
 
+- Star post/reply, star counter
 ~ responsive design for mobile
 ~ fix minor issues in markdown
 - deploy v1
 
-- Star post/reply
+- user profile: github, avatar, messages, replies, questions, answers
 - change cookie:nick for uuid token to avoid impersonation
-- move admin stuff to external swift app sharing same db (try kitura?)
 - Work on login async validation
+- move admin stuff to external swift app sharing same db (try kitura?)
 
 - get stats once a day, cron job?
 - add stats table, count every single change in users, posts, replies, questions, answers

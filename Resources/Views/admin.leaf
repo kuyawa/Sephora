@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-	<title>Sephora - Forums in Swift</title>
+	<title>Swift Forums</title>
 	<link rel="apple-touch-icon" href="/images/swiftlogo.png">
     <link rel="stylesheet" type="text/css" href="/styles/forum.css">
     <link rel="stylesheet" type="text/css" href="/styles/admin.css">
@@ -29,9 +29,9 @@
   <wrap>
 	<company>
 		<a href="/">
-			<img class="logo" src="/images/swiftlogo.png" width="80" height="80">
-			<h1>Sephora - Forums in Swift</h1>
-			<h3>Join Swift enthusiasts all around the world</h3>
+			<img class="logo" src="/images/swiftlogo.png" width="60" height="60">
+			<h1>Swift Forums</h1>
+			<h3>Join Swift enthusiasts around the world</h3>
 		</a>
 	</company>
   </wrap>
@@ -47,9 +47,12 @@
 
 <footer>
   <wrap>
-	<line>Forums by Sephora ~ Powered by Swift</line>
-	<line><small><a href="https://heroku.com">Hosted on Heroku</a> ~ <a href="https://github.com/kuyawa/Sephora">Developed on Github</a></small></line>
-	<last>&copy; Armonia Software</last>
+  	<legal>
+		<h3>Forums by Sephora</h3>
+		<line><small><a href="https://swift.org">Powered by Swift</a> ~ <a href="https://vapor.codes">Built on Vapor</a></small></line>
+		<line><small><a href="https://heroku.com">Hosted on Heroku</a> ~ <a href="https://github.com/kuyawa/Sephora">Developed on Github</a></small></line>
+		<last>&copy; Armonia Software</last>
+	</legal>
   </wrap>
 </footer>
 
