@@ -77,7 +77,7 @@ class LoginHandler: WebController {
 
 		//response.cookies["nick"] = nick
 		response.cookies.insert(cookieNick)
-		print("Cookies: ", cookieNick.serialize())
+		//print("Cookies: ", cookieNick.serialize())
 
 		return response
 	}

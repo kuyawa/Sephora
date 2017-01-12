@@ -27,17 +27,7 @@
 
 		#equal(paginate, "true") {
 		<nav>
-			<a href="/page/1" #equal(page, "1") { class="page-off" } >&laquo;</a>
-			<a href="/page/1" #equal(page, "1") { class="page-on" } >1</a>
-			<a href="/page/2" #equal(page, "2") { class="page-on" } >2</a>
-			<a href="/page/3" #equal(page, "3") { class="page-on" } >3</a>
-			<a href="/page/4" #equal(page, "4") { class="page-on" } >4</a>
-			<a href="/page/5" #equal(page, "5") { class="page-on" } >5</a>
-			<a href="/page/6" #equal(page, "6") { class="page-on" } >6</a>
-			<a href="/page/7" #equal(page, "7") { class="page-on" } >7</a>
-			<a href="/page/8" #equal(page, "8") { class="page-on" } >8</a>
-			<a href="/page/9" #equal(page, "9") { class="page-on" } >9</a>
-			<a href="/page/9" #equal(page, "9") { class="page-off" } >&raquo;</a>
+			<a href="/page/1" #equal(page, "1") { class="page-off" } >&laquo;</a><a href="/page/1" #equal(page, "1") { class="page-on" } >1</a><a href="/page/2" #equal(page, "2") { class="page-on" } >2</a><a href="/page/3" #equal(page, "3") { class="page-on" } >3</a><a href="/page/4" #equal(page, "4") { class="page-on" } >4</a><a href="/page/5" #equal(page, "5") { class="page-on" } >5</a><a href="/page/6" #equal(page, "6") { class="page-on" } >6</a><a href="/page/7" #equal(page, "7") { class="page-on" } >7</a><a href="/page/8" #equal(page, "8") { class="page-on" } >8</a><a href="/page/9" #equal(page, "9") { class="page-on" } >9</a><a href="/page/9" #equal(page, "9") { class="page-off" } >&raquo;</a>
 		</nav>
 		}
 }

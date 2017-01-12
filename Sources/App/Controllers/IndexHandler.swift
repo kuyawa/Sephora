@@ -40,15 +40,14 @@ class IndexHandler: WebController {
 
 		let context = getContext(request)
 		let view = getView("index", with: data, in: context)
+
 		if let response = view?.makeResponse() {
 			response.cookies.insert(cookieNick)
-			print("Cookies: ", cookieNick.serialize())
+			//print("Cookies: ", cookieNick.serialize())
 			return response
-		} else {
-			return fail(.errorParsingTemplate)
 		}
 
-		//return view!
+		return fail(.errorParsingTemplate)
 	}
 
 }

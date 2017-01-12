@@ -5,9 +5,8 @@ FIX:
 
 TODO:
 
-- login cookies should never expire, remove only if user logs out
 ~ responsive design for mobile
-- fix minor issues in markdown
+~ fix minor issues in markdown
 - deploy v1
 
 - Star post/reply
@@ -29,6 +28,7 @@ TODO:
 
 ------------------------------------------------------------
 
+x login cookies should never expire, remove only if user logs out
 x show latest posts by last reply
 x Show permalink in every post and reply for easy sharing
 x clean content off CRs before storing in the DB!!! 
