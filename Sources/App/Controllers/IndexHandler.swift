@@ -1,6 +1,7 @@
 import Vapor
 import HTTP
-import PostgreSQL
+import Cookies
+import Foundation
 
 class IndexHandler: WebController {
 
@@ -15,6 +16,21 @@ class IndexHandler: WebController {
 
 		let paginate = (posts.array!.count >= max || page > 1)
 
+		var cookieNick = Cookie(name: "nick", value: "") 
+
+		if let nick = request.cookies["nick"], !nick.isEmpty {
+			cookieNick = Cookie(
+				name     : "nick", 
+				value    : nick, 
+				expires  : Date.nextYear,
+				maxAge   : 60*60*24*365,
+	    		domain   : "",
+	    		path     : "",
+	    		secure   : false,
+	    		httpOnly : false
+	    	)
+		}
+
 		let data: Node = [
 			"forum": ["name": "Latest Messages", "descrip": "From all forums"],
 			"posts": posts,
@@ -24,8 +40,15 @@ class IndexHandler: WebController {
 
 		let context = getContext(request)
 		let view = getView("index", with: data, in: context)
+		if let response = view?.makeResponse() {
+			response.cookies.insert(cookieNick)
+			print("Cookies: ", cookieNick.serialize())
+			return response
+		} else {
+			return fail(.errorParsingTemplate)
+		}
 
-		return view!
+		//return view!
 	}
 
 }

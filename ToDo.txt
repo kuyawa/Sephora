@@ -27,7 +27,6 @@ TODO:
 ? hot topic (red question|message|poll icon > 10 messages)
 
 
-
 ------------------------------------------------------------
 
 x show latest posts by last reply
@@ -104,7 +103,7 @@ x use DataNode with defaults in base template
 x add all forums to db
 x App breaking if db not available. Fail gracefuly
 x Test Heroku postgres
-~ Design database
+x Design database
 ? Create database on /admin/install
 ? database.runJob(sql)
 x Remove /admin/install. Heroku does not allow String(contentsOfFile:...)
@@ -124,14 +123,4 @@ Stages:
 
 ------------------------------------------------------------
 
-Nodes suck donkey balls
-
-node.string
-node.int
-node.array
-node.object
-
-// loop rows from db
-for item in rows.array! {
-	let val = item.object!["name"]!.string! // WTF???
-}
+END.

@@ -92,7 +92,7 @@
 		#embed("markdownhelp")
 	</newreply>
 	} ##else() {
-		<warn><p>Must be <a href="/login">logged in</a> to post on this forum</p></warn>
+		<warn><p>Must be <a href="/login">logged in</a> to post in this forum</p></warn>
 	}
 }
 
