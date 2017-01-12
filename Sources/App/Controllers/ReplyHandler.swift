@@ -192,7 +192,7 @@ class ReplyHandler: WebController {
 
 		let user = UserInfo(in: db).fromSession(request)
 		if user.userid == 0 { 
-			print("Error starring message. Must be logged in")
+			print("API Star. Error starring message, must be logged in")
 			return "NO:3"
 		}
 
@@ -206,10 +206,20 @@ class ReplyHandler: WebController {
 			return "NO:5"
 		}
 */
-		reply.star(state)
+		reply.star(state)  		// update reply
+		reply.karma(state) 		// update user
+		//user.updateKarma(state) // update session
+		var num = 1
+		if state == 0 { num = -1 }
+		if !user.nick.isEmpty && user.nick != "anonymous" { 
+			try? request.session().data["karma"] = Node(user.karma+num) 
+		}
 
-		print("API Star \(state) for reply id: ", replyId)
-		return "OK:\(state)"
+
+		// TODO: send response, with session info and body 'OK'
+		let response = Response(status: .ok, body: "OK:\(state)")
+
+		return response
 	}
 }
 

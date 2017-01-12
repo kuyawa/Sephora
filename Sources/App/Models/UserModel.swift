@@ -13,6 +13,7 @@ class User: DataModel {
     var isnoob   : Bool   = true
     var ismod    : Bool   = false
     var banned   : Bool   = false
+    var karma    : Int    = 0
 	//  oAuth
     var state    : String = ""
     var code     : String = ""
@@ -32,6 +33,7 @@ class User: DataModel {
         isnoob   = try node.extract("isnoob")
         ismod    = try node.extract("ismod")
         banned   = try node.extract("banned")
+        karma    = try node.extract("karma")
         // oAuth
         state    = try node.extract("state")
         code     = try node.extract("code")
@@ -53,6 +55,7 @@ class User: DataModel {
             "isnoob"    : isnoob,
             "ismod"     : ismod,
             "banned"    : banned,
+            "karma"     : karma,
             "state"		: state,
 			"code"		: code,
 			"token"		: token,
@@ -185,7 +188,6 @@ extension User {
     }
 
     func saveAuthToken(_ id: String) {
-    	if self.nick.isEmpty { return }
     	let sql  = "Update users Set token=$1 Where nick=$2"
     	let args = [Node(id), Node(self.nick)]
         _ = db.execute(sql, params: args)

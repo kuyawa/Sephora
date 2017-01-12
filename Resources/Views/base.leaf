@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
 	<title>Swift Forums</title>
+	<link rel="icon" href="/favicon.ico">
 	<link rel="apple-touch-icon" href="/images/swiftlogo.png">
     <link rel="stylesheet" type="text/css" href="/styles/forum.css">
     #import("styles")
@@ -14,7 +15,7 @@
   <wrap>
 	<actions>
 	#if($userIsLogged) {
-		<a class="nick" href="https://github.com/#($userInfo.nick)">#($userInfo.nick) [0]</a>
+		<a class="nick" href="https://github.com/#($userInfo.nick)">#($userInfo.nick) <karma>[#($userInfo.karma)]</karma></a>
 		<sep>•</sep>
 		<a href="/logout">Log out</a>
 	} ##else() {
@@ -64,8 +65,8 @@
   <wrap>
   	<legal>
 		<h3>Forums by Sephora</h3>
-		<line><small><a href="https://swift.org">Powered by Swift</a> ~ <a href="https://vapor.codes">Built on Vapor</a></small></line>
-		<line><small><a href="https://heroku.com">Hosted on Heroku</a> ~ <a href="https://github.com/kuyawa/Sephora">Developed on Github</a></small></line>
+		<line><a href="https://swift.org">Powered by Swift</a> ~ <a href="https://vapor.codes">Built on Vapor</a></line>
+		<line><a href="https://heroku.com">Hosted on Heroku</a> ~ <a href="https://github.com/kuyawa/Sephora">Developed on Github</a></line>
 		<last>&copy; Armonia Software</last>
 	</legal>
   </wrap>

@@ -155,9 +155,11 @@ extension Reply {
         }
     }
 
-    func star(_ ok: Int) {
+    func star(_ state: Int) {
+		print("API Star \(state) for reply id: ", replyid)
+
     	var sql = ""
-    	if ok == 1 {
+    	if state == 1 {
         	sql = "Update replies Set votes = votes + 1, votesup = votesup + 1 Where replyid = $1"
     	} else {
         	sql = "Update replies Set votes = votes - 1, votesup = votesup - 1 Where replyid = $1"
@@ -169,6 +171,18 @@ extension Reply {
         if num == nil {
             print("Error starring reply ", replyid)
         }
+    }
+
+    // karma up/down on comment star
+    func karma(_ state: Int) {
+		print("API Karma \(state) for reply id: ", replyid)
+    	if self.nick.isEmpty { return }
+    	
+    	var sql  = "Update users Set karma = karma + 1 Where nick = $1"
+    	if state == 0 { sql  = "Update users Set karma = karma - 1 Where nick = $1" }
+
+    	let args = [Node(self.nick)]
+        _ = db.execute(sql, params: args)
     }
 
 } 

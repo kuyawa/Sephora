@@ -8,6 +8,7 @@ class UserInfo: DataQuery {
 	var nick   : String = "anonymous"
 	var name   : String = "John Doe"
 	var avatar : String = "/images/unknown.png"
+	var karma  : Int    = 0
 	var isLogged = false
 
 	func fromSession(_ request: Request) -> UserInfo {
@@ -39,8 +40,9 @@ class UserInfo: DataQuery {
 		} else {
 			self.nick = nick
 			if let userid = session.data["userid"]?.int    { self.userid = userid }
-			if let name   = session.data["name"]?.string   { self.name = name }
+			if let name   = session.data["name"]?.string   { self.name   = name   }
 			if let avatar = session.data["avatar"]?.string { self.avatar = avatar }
+			if let karma  = session.data["karma"]?.int     { self.karma  = karma  }
 			self.isLogged = true
 		}
 
@@ -57,6 +59,7 @@ class UserInfo: DataQuery {
 			"nick"    : Node.string(nick),
 			"name"    : Node.string(name),
 			"avatar"  : Node.string(avatar),
+			"karma"   : Node(karma),
 			"isLogged": Node.bool(isLogged)
 		])
 
@@ -68,12 +71,13 @@ class UserInfo: DataQuery {
         nick     = try node.extract("nick")
         name     = try node.extract("name")
         avatar   = try node.extract("avatar")
+        karma    = try node.extract("karma")
         isLogged = true
 	}
 
 	func getByNick(_ nick: String) {
 		print("Fetching user info from DB")
-		let sql = "Select userid, nick, name, avatar From users Where nick=$1 Limit 1"
+		let sql = "Select userid, nick, name, avatar, karma From users Where nick=$1 Limit 1"
 		let params = [Node(nick)]
 		let rows = db.query(sql, params: params)
 		if rows != nil {
@@ -88,9 +92,17 @@ class UserInfo: DataQuery {
 		try? request.session().data["nick"]     = Node(nick)
 		try? request.session().data["name"]     = Node(name)
 		try? request.session().data["avatar"]   = Node(avatar)
+		try? request.session().data["karma"]    = Node(karma)
 		try? request.session().data["isLogged"] = Node(true)
 	}
-
+/*
+	func updateKarma(_ state: Int) {
+		var num = 1
+		if state == 0 { num = -1 }
+		if nick.isEmpty || nick == "anonymous" { return }
+		try? request.session().data["karma"] = Node(karma+num)
+	}
+*/
 }
 
 // End
