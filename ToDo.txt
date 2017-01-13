@@ -6,19 +6,23 @@ FIX:
 TODO:
 
 - Show starred posts by user
+- open external links in new tabs
 ~ responsive design for mobile
 ~ fix minor issues in markdown
 - deploy v1
 
+- move admin stuff to external swift app sharing same db (try kitura?)
 - user profile: github, avatar, messages, replies, questions, answers
 - change cookie:nick for uuid token to avoid impersonation
 - Work on login async validation
-- move admin stuff to external swift app sharing same db (try kitura?)
 
 - get stats once a day, cron job?
 - add stats table, count every single change in users, posts, replies, questions, answers
 
 ? install docker for testing swift on ubuntu just like heroku
+
+? Allow anonymous posts from registered users?
+  [x] post anonymous - save as userid:0 nick:Anonymous
 
 ~ on new thread: question? message? page? wiki (markdown)?
 - add some users to test

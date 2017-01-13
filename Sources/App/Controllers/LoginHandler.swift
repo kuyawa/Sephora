@@ -297,10 +297,11 @@ class LoginHandler: WebController {
 		print("Logged out")
 
 		if let session = try? request.session() {
-			session.data["userid"] = Node(0)
-			session.data["nick"] = Node("")
-			session.data["name"] = Node("")
-			session.data["avatar"] = Node("")
+			session.data["userid"]   = Node(0)
+			session.data["nick"]     = Node("")
+			session.data["name"]     = Node("")
+			session.data["avatar"]   = Node("")
+			session.data["karma"]    = Node(0)
 			session.data["isLogged"] = Node(false)
 		}
 

@@ -242,7 +242,12 @@ function onStarred(ok, replyId) {
 	img = $("star-"+replyId);
 	cnt = $("count-"+replyId);
 	if(ok=="OK:0"){	img.className = "star-off"; cnt.innerHTML = parseInt(cnt.innerHTML)-1; } else
-	if(ok=="OK:1"){	img.className = "star-on";  cnt.innerHTML = parseInt(cnt.innerHTML)+1; } else {
+	if(ok=="OK:1"){	img.className = "star-on";  cnt.innerHTML = parseInt(cnt.innerHTML)+1; } else
+	if(ok=="NO:1"){	alert("Reply id is required. Something went wrong."); } else 
+	if(ok=="NO:2"){	alert("Star value is required. Something went wrong."); } else 
+	if(ok=="NO:3"){	alert("Must be logged in to star messages."); } else 
+	if(ok=="NO:4"){	alert("Message not found. Something went wrong."); } else 
+	if(ok=="NO:5"){	alert("You can not star your own messages."); } else {
 		alert("Something went wrong. Try again later");
 	}
 }
