@@ -24,6 +24,9 @@ li { list-style-type: none; }
 
 
 actionbar { display: block; overflow: auto; text-align: right; background-color: #D42; background: linear-gradient(to left, #D42, #F84); border-top: 1px solid #D42; border-bottom: 1px solid #D42; }
+feedback { float: left; margin-left: 112px; text-align: left; }
+feedback a {padding: 4px 10px; color: #FFF; font-size: 0.8em; border-left: 1px solid transparent; border-right: 1px solid transparent; font-variant: small-caps; }
+feedback a:hover { color: #FFF; background: rgba(64,64,64,.1); border-left: 1px solid #E64; border-right: 1px solid #E64; }
 actions { margin: 0; padding-right: 80px; font-size: .8em; }
 actions sep { color: #CCC; font-size: .7em; }
 actions a { padding: 4px 10px; color: #FFF; border-left: 1px solid transparent; border-right: 1px solid transparent; font-variant: small-caps; }
@@ -83,7 +86,7 @@ latest { display: block; font-size: .8em; padding: 10px 0; }
 latest icon { float: left; margin: 4px 14px 0 0; }
 latest icon img { margin: 0px; padding: 0; border: none; width: 32px; height: 32px; }
 
-item { display:block; color: #555; }
+item { display:block; margin-left: 50px; color: #555; }
 item post { display:block; font-size: 1.5em; }
 item info { display:block; font-size: .8em; }
 item forum { font-weight: 600; }

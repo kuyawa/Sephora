@@ -5,7 +5,10 @@ FIX:
 
 TODO:
 
+- ADD VOTES TABLE TO PRODUCTION DB!!!
+- use views in postgres to simplify queries
 - Show starred posts by user
+  post.leaf template #if(reply.star){ class="star-on" }
 - open external links in new tabs
 ~ responsive design for mobile
 ~ fix minor issues in markdown

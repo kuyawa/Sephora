@@ -122,6 +122,14 @@ extension Post {
     }
 
     func getReplies() -> Node? {
+    	// This sql gets replies including if user voted for it o highlight star
+    	/*
+    	let sqlx =  "Select r.postid, r.replyid, r.userid, r.nick, r.content, r.date, r.votes, r.answer, v.state as star " + 
+    				"From replies r " +
+					"Left outer join votes v On r.replyid = v.replyid and v.userid = $1 " + 
+					"Where r.postid = $2 And hidden = false " + 
+					"Order by r.replyid "
+		*/
         let sql = "Select * From replies Where postid = $1 And hidden = false Order by date"
         let args: [Node] = [Node(postid)]
         guard let rows = db.query(sql, params: args) else { return nil }

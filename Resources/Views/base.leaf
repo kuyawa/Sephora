@@ -13,6 +13,7 @@
 
 <actionbar>
   <wrap>
+  	<feedback><a href="/feedback">Feedback</a></feedback>
 	<actions>
 	#if($userIsLogged) {
 		<a class="nick" href="https://github.com/#($userInfo.nick)">#($userInfo.nick) <karma>[#($userInfo.karma)]</karma></a>

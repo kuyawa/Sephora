@@ -14,6 +14,7 @@ if drop.environment == .development { print("Sephora is running in dev mode") }
 drop.get(){ IndexHandler().index($0) }
 drop.get("index"){ IndexHandler().index($0) }
 drop.get("page/:n"){ IndexHandler().index($0) }
+drop.get("feedback"){ request in Response(redirect: "/forum/meta/post/61") }
 
 // Users
 drop.get("register"){ RegisterHandler().form($0) }
